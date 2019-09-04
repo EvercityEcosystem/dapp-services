@@ -124,8 +124,7 @@ export default {
     }
   },
   created() {
-    document.title =
-      "Пилотная выдача зеленых сертификатов в Сколково | Сервисы IPCI";
+    document.title = this.$t("issuing.title") + " | " + this.$t("title");
     this.emitter = this.$robonomics.web3.eth
       .contract(ABI_EMITER)
       .at(config.ROBONOMICS.emitter);

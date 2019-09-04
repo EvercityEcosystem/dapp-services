@@ -144,7 +144,7 @@ export default {
     }
   },
   created() {
-    document.title = "Smart building offsetting | Сервисы IPCI";
+    document.title = this.$t("offsetting.title") + " | " + this.$t("title");
     this.$robonomics.factory.call
       .nonceOf(this.$robonomics.account.address)
       .then(r => {

@@ -83,6 +83,9 @@ export default {
       ]
     };
   },
+  created() {
+    document.title = this.$t("title");
+  },
   mounted() {
     this.loadTokens();
   },

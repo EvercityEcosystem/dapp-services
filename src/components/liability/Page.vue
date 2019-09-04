@@ -72,6 +72,8 @@ export default {
     };
   },
   created() {
+    document.title = this.$t("liability.title") + " | " + this.$t("title");
+
     this.emitter = this.$robonomics.web3.eth
       .contract(ABI_EMITER)
       .at(config.ROBONOMICS.emitter);

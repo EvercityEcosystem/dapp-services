@@ -1,10 +1,14 @@
 export default {
   en: {
+    title: 'Services of IPCI program',
     menu: {
       services: 'services'
     },
     services: {
       title: 'Services of IPCI program'
+    },
+    liability: {
+      title: 'Environmental assets tokenization'
     },
     issuing: {
       title: 'Environmental assets tokenization',
@@ -63,14 +67,18 @@ export default {
     }
   },
   ru: {
+    title: 'Сервисы программы IPCI',
     menu: {
       services: 'сервисы'
     },
     services: {
       title: 'Сервисы программы IPCI'
     },
+    liability: {
+      title: 'Пилотная выдача зеленых сертификатов'
+    },
     issuing: {
-      title: 'Пилотная выдача зеленых сертификатов в Сколково',
+      title: 'Пилотная выдача зеленых сертификатов',
       form: {
         group1: 'Владелец сертификата',
         email: 'Контактный e-mail',
