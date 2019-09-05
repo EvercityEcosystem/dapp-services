@@ -39,14 +39,23 @@ export default {
     emitter: '0x4b255d6E57409232F7C29759D5699dabE66f8Cd5',
     model: {
       issuing: 'QmfK3LyEPLoYJCKXate1PceGLBNBaodwqcV9XirwHZFbsc',
-      offsetting: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF'
+      offsetting: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
+      mauritius: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
+      khimprom: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
+      swissKrono: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF'
     },
     token: {
-      offsetting: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE'
+      offsetting: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
+      mauritius: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
+      khimprom: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
+      swissKrono: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE'
     },
     validator: {
       issuing: '0x0000000000000000000000000000000000000000',
-      offsetting: '0x0000000000000000000000000000000000000000'
+      offsetting: '0x0000000000000000000000000000000000000000',
+      mauritius: '0x0000000000000000000000000000000000000000',
+      khimprom: '0x0000000000000000000000000000000000000000',
+      swissKrono: '0x0000000000000000000000000000000000000000'
     }
   }
 };

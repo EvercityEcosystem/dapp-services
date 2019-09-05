@@ -2,6 +2,9 @@ import PageIssuing from '@/components/issuing/Page';
 import PageLiability from '@/components/liability/Page';
 import PageServices from '@/components/services/Page';
 import PageOffsetting from '@/components/offsetting/Page';
+import PageMauritius from '@/components/mauritius/Page';
+import PageKhimprom from '@/components/khimprom/Page';
+import PageSwissKrono from '@/components/swissKrono/Page';
 import Router from 'vue-router';
 import Vue from 'vue';
 
@@ -19,6 +22,21 @@ export default new Router({
       path: '/offsetting',
       name: 'offsetting',
       component: PageOffsetting
+    },
+    {
+      path: '/mauritius',
+      name: 'mauritius',
+      component: PageMauritius
+    },
+    {
+      path: '/khimprom',
+      name: 'khimprom',
+      component: PageKhimprom
+    },
+    {
+      path: '/swiss-krono',
+      name: 'swissKrono',
+      component: PageSwissKrono
     },
     {
       path: '/issuing',

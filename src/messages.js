@@ -5,7 +5,9 @@ export default {
       services: 'services'
     },
     services: {
-      title: 'Services of IPCI program'
+      title: 'Services of IPCI program',
+      provider: 'Provider',
+      token: 'Payment token'
     },
     liability: {
       title: 'Environmental assets tokenization'
@@ -64,6 +66,24 @@ export default {
         location: 'Location',
         energy: 'Energy consumption (in kWh/h)'
       }
+    },
+    mauritius: {
+      title: 'Supporting First Solar Energy Project in Mauritius',
+      form: {
+        energy: 'Volume kg CO2'
+      }
+    },
+    khimprom: {
+      title: 'Waste Coke Oven Gas Utilization, Kemerovo, Russia',
+      form: {
+        energy: 'Volume kg CO2'
+      }
+    },
+    swissKrono: {
+      title: 'Wood waste to heat energy, Sharya, Russia',
+      form: {
+        energy: 'Volume kg CO2'
+      }
     }
   },
   ru: {
@@ -72,7 +92,9 @@ export default {
       services: 'сервисы'
     },
     services: {
-      title: 'Сервисы программы IPCI'
+      title: 'Сервисы программы IPCI',
+      provider: 'Провайдер',
+      token: 'Платежный токен'
     },
     liability: {
       title: 'Пилотная выдача зеленых сертификатов'
@@ -131,6 +153,25 @@ export default {
       form: {
         location: 'Location',
         energy: 'Energy consumption (in kWh/h)'
+      }
+    },
+    mauritius: {
+      title:
+        'Погашение углеродного следа с помощью солнечной энергии на острове Маврикий',
+      form: {
+        energy: 'Объем kg CO2'
+      }
+    },
+    khimprom: {
+      title: 'Утилизация отработанного коксового газа, Кемерово, Россия',
+      form: {
+        energy: 'Объем kg CO2'
+      }
+    },
+    swissKrono: {
+      title: 'Древесные отходы для тепловой энергии, Шарья, Россия',
+      form: {
+        energy: 'Объем kg CO2'
       }
     }
   }

@@ -18,11 +18,11 @@
           <div class="t-hyphen">{{service[$i18n.locale].desc}}</div>
           <div class="item-bottom">
             <div class="item-bottom--line">
-              <span>Provider:</span>
+              <span>{{ $t('services.provider') }}:</span>
               <span class="item-bottom--info">{{service.by.label}}</span>
             </div>
             <div v-if="service.token && service.token.name" class="item-bottom--line">
-              <span>Payment token:</span>
+              <span>{{ $t('services.token') }}:</span>
               <span class="item-bottom--info">{{service.token.name}}</span>
             </div>
           </div>
@@ -76,6 +76,67 @@ export default {
           by: {
             link: "#",
             label: "DAO IPCI IoT connection"
+          },
+          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          disabled: false
+        },
+        {
+          en: {
+            name: "Supporting First Solar Energy Project in Mauritius",
+            desc:
+              "15.2 MW solar photovoltaic power plant located in Mauritius, a country part of the Small Island Developing States (SIDS). It is the island first ever solar power plant."
+          },
+          ru: {
+            name:
+              "Погашение углеродного следа с помощью солнечной энергии на острове Маврикий",
+            desc:
+              "Солнечная фотоэлектрическая электростанция мощностью 15,2 МВт расположена на Маврикии, в стране, являющейся частью малых островных развивающихся государств (МОРАГ). Это первая в мире солнечная электростанция на острове."
+          },
+          link: "mauritius",
+          img: "assets/i/services/ipci-project-bambous-01.jpg",
+          by: {
+            link: "#",
+            label: "Russian Carbon Fund, Aera Group"
+          },
+          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          disabled: false
+        },
+        {
+          en: {
+            name: "Waste Coke Oven Gas Utilization, Kemerovo, Russia",
+            desc:
+              "Khimprom LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing Waste Coke Oven Gas Utilization Project to substitute natural gas heat generation in the amount of 201,085 tCO2. Assurance has been performed by KPMG (Russia)"
+          },
+          ru: {
+            name: "Утилизация отработанного коксового газа, Кемерово, Россия",
+            desc:
+              "ООО «Химпром» завершило процедуру независимого заверения в соответствии с требованиями DAO IPCI в отношении сокращения выбросов ПГ, достигнутого в 2013–2016 годах, путем реализации проекта утилизации отработанного коксового газа с целью замещения выработки тепла природным газом в объеме 201 085 т CO2. Подтверждение выполнено KPMG (Россия)"
+          },
+          link: "khimprom",
+          img: "assets/i/services/ipci-project-himprom-02.jpg",
+          by: {
+            link: "#",
+            label: "DAO IPCI, Russian Carbon Fund"
+          },
+          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          disabled: false
+        },
+        {
+          en: {
+            name: "Wood waste to heat energy, Sharya, Russia",
+            desc:
+              "SWISS KRONO LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing “Wood waste to heat energy” from 1 January 2013 to 30 June 2017 in amount of 1,419,861 tons of CO2-equivalent. Assurance has been performed by KPMG (Russia)"
+          },
+          ru: {
+            name: "Древесные отходы для тепловой энергии, Шарья, Россия",
+            desc:
+              "Компания SWISS KRONO LLC завершила процедуру независимой гарантии в соответствии с требованиями DAO IPCI в отношении сокращения выбросов парниковых газов, достигнутого в 2013–2016 годах, выполнив «Древесные отходы для выработки тепловой энергии» с 1 января 2013 года по 30 июня 2017 года в объеме 1 419 861 тонн в эквиваленте CO2. Был выполнен KPMG (Россия)"
+          },
+          link: "swissKrono",
+          img: "assets/i/services/ipci-project-swisskrono-03.jpg",
+          by: {
+            link: "#",
+            label: "Russian Carbon Fund, Aera Group"
           },
           token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
           disabled: false
