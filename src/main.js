@@ -7,6 +7,7 @@ import LinkExplorer from './components/common/LinkExplorer';
 import { Plugin } from 'vue-fragment';
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import VueWait from 'vue-wait';
 import Vuex from 'vuex';
 import config from './config';
 import messages from './messages';
@@ -17,6 +18,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuex);
 Vue.use(VueI18n);
 Vue.use(Plugin);
+Vue.use(VueWait);
 Vue.component('LinkExplorer', LinkExplorer);
 Vue.filter('fromWei', filters.fromWei);
 Vue.filter('urlExplorer', filters.urlExplorer);
@@ -48,5 +50,6 @@ new Vue({
   router,
   store,
   i18n,
+  wait: new VueWait(),
   render: h => h(App)
 }).$mount('#app');

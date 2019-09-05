@@ -5,6 +5,7 @@ import PageOffsetting from '@/components/offsetting/Page';
 import PageMauritius from '@/components/mauritius/Page';
 import PageKhimprom from '@/components/khimprom/Page';
 import PageSwissKrono from '@/components/swissKrono/Page';
+import PageValidator from '@/components/validator/Page';
 import Router from 'vue-router';
 import Vue from 'vue';
 
@@ -48,6 +49,11 @@ export default new Router({
       name: 'liability',
       component: PageLiability,
       props: true
+    },
+    {
+      path: '/validator',
+      name: 'validator',
+      component: PageValidator
     },
     { path: '*', redirect: '/' }
   ]

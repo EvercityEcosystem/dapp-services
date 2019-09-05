@@ -84,6 +84,43 @@ export default {
       form: {
         energy: 'Volume kg CO2'
       }
+    },
+    validator: {
+      title: 'Passport',
+      awaiting: 'Awaiting',
+      status: 'Status',
+      awaiting_confirmation: 'Awaiting confirmation',
+      rejected: 'Rejected',
+      confirmed: 'Confirmed',
+      confirm: 'Confirm',
+      reject: 'Reject',
+      passport: {
+        liability: 'Unique certificate number',
+        group1: 'Certificate owner',
+        email: 'E-mail',
+        promisee: 'Information about the owner',
+        group2: 'Collected data',
+        log: 'Log data from IoT sensor',
+        mvt:
+          'Volume of electric energy for which the certificate is issued, MWt*h',
+        period: 'Period during which electricity was generated',
+        group3: 'Energy source information',
+        name: 'Name of energy source',
+        location: 'Location (including coordinates)',
+        dateObject: 'Date of commissioning',
+        type: 'Type of renewable energy',
+        info: 'What explicitly describes the facility',
+        power: 'Rated power of energy source',
+        koef: 'Coefficients of pollution associated with generator',
+        id: 'Unique identifier',
+        gos:
+          'In relation to the generating facility state support was provided',
+        group4: 'Result Information',
+        token: 'Register of green certificates has been created at',
+        tx: 'Green Certificate Issued Transaction',
+        promisor: 'The official who performed the transaction in the registry',
+        date: 'Certificate Issue Date'
+      }
     }
   },
   ru: {
@@ -172,6 +209,43 @@ export default {
       title: 'Древесные отходы для тепловой энергии, Шарья, Россия',
       form: {
         energy: 'Объем kg CO2'
+      }
+    },
+    validator: {
+      title: 'Паспорт',
+      awaiting: 'Ожидание',
+      status: 'Статус',
+      awaiting_confirmation: 'Ожидает подтверждения',
+      rejected: 'Отклонено',
+      confirmed: 'Подтвержденно',
+      confirm: 'Подтвердить',
+      reject: 'Отклонить',
+      passport: {
+        liability: 'Уникальный номер сертификата',
+        group1: 'Владелец сертификата',
+        email: 'Контактный e-mail',
+        promisee: 'Информация о владельце выпускаемого сертификата',
+        group2: 'Собранная информация',
+        log: 'Лог от IoT счётчика',
+        mvt: 'Объем электрической энергии, на который выдан сертификат, МВт*ч',
+        period: 'Период, в течение которого была произведена электроэнергия',
+        group3: 'Сведения об источнике энергии',
+        name: 'Наименование генерирующего объекта',
+        location: 'Место нахождения (в том числе географические координаты)',
+        dateObject: 'Дата ввода генерирующего объекта в эксплуатацию',
+        type: 'Вид возобновляемого источника энергии',
+        info: 'Сведения, однозначно определяющие генерирующий объект',
+        power: 'Установленная мощность генерирующего объекта',
+        koef:
+          'Коэффициенты (удельные объёмы) вредных выбросов, связываемых с генерацией',
+        id: 'Идентификатор генерирующего объекта',
+        gos:
+          'В отношении генерирующего объекта за период времени, в течение которого была осуществлена выработка электроэнергии, осуществлялась государственная поддержка',
+        group4: 'Сведения о результате',
+        token: 'Создан реестр зеленых сертификатов по адресу',
+        tx: 'Выполнена транзакция на выдачу зеленого сертификата',
+        promisor: 'Должностное лицо осуществившее операцию в реестре',
+        date: 'Дата выдачи сертификата'
       }
     }
   }
