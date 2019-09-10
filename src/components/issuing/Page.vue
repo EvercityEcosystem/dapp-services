@@ -153,7 +153,7 @@ export default {
               model: config.ROBONOMICS.model.issuing,
               objective,
               token: this.$robonomics.xrt.address,
-              cost: config.ROBONOMICS.price,
+              cost: 0,
               lighthouse: this.$robonomics.lighthouse.address,
               validator: config.ROBONOMICS.validator.issuing,
               validatorFee: 0,
@@ -161,7 +161,7 @@ export default {
               nonce: this.nonce
             };
 
-            this.$store.dispatch("sender/send", demand).then(id => {
+            this.$store.dispatch("sender/send", { demand }).then(id => {
               this.id = id;
             });
           });
