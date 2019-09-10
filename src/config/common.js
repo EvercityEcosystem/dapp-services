@@ -40,9 +40,9 @@ export default {
     model: {
       issuing: 'QmfK3LyEPLoYJCKXate1PceGLBNBaodwqcV9XirwHZFbsc',
       offsetting: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
-      mauritius: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
-      khimprom: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
-      swissKrono: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF'
+      mauritius: 'QmQBLYH8T5vmaDQedrV6meKFHniX7jUdAu1GFufBDVJ7YN',
+      khimprom: 'QmXzHDbfJG5ygAQbQZGAEpCcGa3Sc7c6Lvx9FxhVMvCR7M',
+      swissKrono: 'QmRC1Sg4kGwbgUSDWbKc41HGHVP49W4vfG4GQLwgac1QV8'
     },
     token: {
       offsetting: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
