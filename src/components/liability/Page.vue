@@ -1,22 +1,24 @@
 <template>
   <fragment>
     <section class="section-light section-centered">
-      <h2>Пилотная выдача зеленых сертификатов в Сколково</h2>
+      <h2>{{$t('issuing.title')}}</h2>
       <section>
         <Passport :data="passport" />
         <div v-if="status">
-          Balance: {{sert.balance | fromWei(sert.decimals, sert.symbol)}}
+          {{$t('issuing.available')}}: {{sert.available | fromWei(sert.decimals, sert.symbol)}}
+          <br />
+          {{$t('issuing.balance')}}: {{sert.balance | fromWei(sert.decimals, sert.symbol)}}
           <button
             class="container-full btn-big"
             :disabled="sert.available<=0 || watchMint"
             @click="mint"
-          >get sertificate</button>
+          >{{$t('issuing.get_sertificate')}}</button>
         </div>
         <div v-else class="form-item d-table">
           <div class="d-table--cell align-vertical">
             <div class="m-r-15 loader-ring"></div>
           </div>
-          <div class="d-table--cell align-vertical">Smart contract is executed!</div>
+          <div class="d-table--cell align-vertical">{{$t('issuing.executed')}}</div>
         </div>
       </section>
     </section>
