@@ -88,6 +88,7 @@ export default {
     validator: {
       title: 'Passport',
       awaiting: 'Awaiting',
+      load: 'Load',
       status: 'Status',
       awaiting_confirmation: 'Awaiting confirmation',
       rejected: 'Rejected',
@@ -214,6 +215,7 @@ export default {
     validator: {
       title: 'Паспорт',
       awaiting: 'Ожидание',
+      load: 'Загрузка',
       status: 'Статус',
       awaiting_confirmation: 'Ожидает подтверждения',
       rejected: 'Отклонено',

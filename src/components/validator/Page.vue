@@ -8,6 +8,18 @@
           <b class="align-vertical t-style_uppercase">{{$t('validator.awaiting')}}</b>
         </div>
       </section>
+      <section v-else-if="passport.status == 'liability'">
+        <section>
+          <div class="form-item form-line-label">
+            <label>{{$t('validator.passport.liability')}}</label>
+            <LinkExplorer :text="passport.liability" />
+          </div>
+        </section>
+        <div class="loader">
+          <div class="loader-ring align-vertical m-r-15"></div>
+          <b class="align-vertical t-style_uppercase">{{$t('validator.load')}}</b>
+        </div>
+      </section>
       <div v-else>
         <Passport :data="passport" />
         <section v-if="passport.status!='new'">
@@ -68,30 +80,30 @@ export default {
     return {
       account: "",
       actionTx: "",
-      // passport: {
-      //   status: "load",
-      //   liability: null,
-      //   email: null,
-      //   promisee: null,
-      //   log: null,
-      //   mvt: null,
-      //   name: null,
-      //   location: null,
-      //   dateObject: null,
-      //   type: null,
-      //   info: null,
-      //   power: null,
-      //   koef: null,
-      //   id: null,
-      //   gos: null,
-      //   token: null,
-      //   tx: null,
-      //   promisor: null,
-      //   period_start: null,
-      //   period_end: null,
-      //   objective: null,
-      //   result: null
-      // }
+      passport: {
+        status: "load",
+        liability: null,
+        email: null,
+        promisee: null,
+        log: null,
+        mvt: null,
+        name: null,
+        location: null,
+        dateObject: null,
+        type: null,
+        info: null,
+        power: null,
+        koef: null,
+        id: null,
+        gos: null,
+        token: null,
+        tx: null,
+        promisor: null,
+        period_start: null,
+        period_end: null,
+        objective: null,
+        result: null
+      }
       // passport: {
       //   status: "drop",
       //   liability: "0x0",
@@ -116,68 +128,62 @@ export default {
       //   objective: "null",
       //   result: "null"
       // }
-      passport: {
-        status: "new",
-        liability: "0x0",
-        email: "null",
-        promisee: "null",
-        log: "null",
-        mvt: "null",
-        name: "null",
-        location: "null",
-        dateObject: "null",
-        type: "null",
-        info: "null",
-        power: "null",
-        koef: "null",
-        id: "null",
-        gos: "null",
-        token: "null",
-        tx: "null",
-        promisor: "null",
-        period_start: "null",
-        period_end: "null",
-        objective: "null",
-        result: "null"
-      }
+      // passport: {
+      //   status: "new",
+      //   liability: "0x0",
+      //   email: "null",
+      //   promisee: "null",
+      //   log: "null",
+      //   mvt: "null",
+      //   name: "null",
+      //   location: "null",
+      //   dateObject: "null",
+      //   type: "null",
+      //   info: "null",
+      //   power: "null",
+      //   koef: "null",
+      //   id: "null",
+      //   gos: "null",
+      //   token: "null",
+      //   tx: "null",
+      //   promisor: "null",
+      //   period_start: "null",
+      //   period_end: "null",
+      //   objective: "null",
+      //   result: "null"
+      // }
     };
   },
   mounted() {
     this.account = this.$robonomics.account.address;
     this.$robonomics.onResult(msg => {
       console.log("result unverified", msg);
-      if (
-        this.passport.result === null &&
-        this.passport.liability === msg.liability
-      ) {
+      if (this.passport.liability === null) {
         const liability = new Liability(
           this.$robonomics.web3,
           msg.liability,
           "0x0000000000000000000000000000000000000000"
         );
         liability.getInfo().then(info => {
+          console.log("info2", info);
           if (
+            info.model === config.ROBONOMICS.model.issuing &&
             info.validator ===
-            this.$robonomics.web3.toChecksumAddress(
-              config.ROBONOMICS.validator.issuing
-            )
+              this.$robonomics.web3.toChecksumAddress(
+                config.ROBONOMICS.validator.issuing
+              )
           ) {
+            this.passport.liability = this.$robonomics.web3.toChecksumAddress(
+              liability.address
+            );
+            this.passport.promisor = info.promisor;
             this.passport.result = msg.result;
             this.passport.objective = info.objective;
+            this.passport.status = "liability";
             this.rosbag();
           }
         });
       }
-    });
-    this.$robonomics.onLiability((err, liability) => {
-      liability.getInfo().then(info => {
-        if (info.model === config.ROBONOMICS.model.issuing) {
-          this.passport.liability = this.$robonomics.web3.toChecksumAddress(
-            liability.address
-          );
-          this.passport.promisor = info.promisor;
-        }
-      });
     });
   },
   methods: {
