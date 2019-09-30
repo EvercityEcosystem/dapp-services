@@ -7,6 +7,7 @@ import PageKhimprom from '@/components/khimprom/Page';
 import PageSwissKrono from '@/components/swissKrono/Page';
 import PageNudao from '@/components/nudao/Page';
 import PageValidator from '@/components/validator/Page';
+import PageAgrix from '@/components/agrix/Page';
 import Router from 'vue-router';
 import Vue from 'vue';
 
@@ -60,6 +61,11 @@ export default new Router({
       path: '/validator',
       name: 'validator',
       component: PageValidator
+    },
+    {
+      path: '/agrix',
+      name: 'agrix',
+      component: PageAgrix
     },
     { path: '*', redirect: '/' }
   ]

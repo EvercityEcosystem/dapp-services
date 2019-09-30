@@ -78,7 +78,7 @@ export default {
             link: "#",
             label: "DAO IPCI IoT connection"
           },
-          token: null,
+          token: false,
           disabled: false
         },
         {
@@ -99,7 +99,7 @@ export default {
             link: "#",
             label: "Russian Carbon Fund, Aera Group"
           },
-          token: null,
+          token: false,
           disabled: false
         },
         {
@@ -119,7 +119,7 @@ export default {
             link: "#",
             label: "DAO IPCI, Russian Carbon Fund"
           },
-          token: null,
+          token: false,
           disabled: false
         },
         {
@@ -139,7 +139,7 @@ export default {
             link: "#",
             label: "Russian Carbon Fund, Aera Group"
           },
-          token: null,
+          token: false,
           disabled: false
         },
         {
@@ -165,6 +165,24 @@ export default {
           token: null,
           disabled: false
         },
+        {
+          en: {
+            name: "agrix Passport registration",
+            desc: "Global registration service in the Ethereum Blockchain."
+          },
+          ru: {
+            name: "agrix Регистрация паспорта",
+            desc: "Сервис глобальной регистрации в Ethereum Blockchain."
+          },
+          link: "agrix",
+          img: "assets/i/services/ipci-project-agrix.jpg",
+          by: {
+            link: "#",
+            label: "DAO IPCI"
+          },
+          token: false,
+          disabled: false
+        }
       ]
     };
   },
