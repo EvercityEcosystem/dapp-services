@@ -15,7 +15,7 @@
     "filepond": "^4.4.12",
     "filepond-plugin-file-encode": "^2.1.4",
     "iconv-lite": "^0.5.0",
-    "robonomics-js": "^0.5.2",
+    "robonomics-js": "^0.5.5",
     "rosbag": "^2.1.0",
     "rosbag-write": "file:../../my/rosbag-js/rosbag-write",
     "vue": "^2.6.10",
