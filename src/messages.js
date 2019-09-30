@@ -61,7 +61,7 @@ export default {
       burn: 'Burn',
       load_result: 'Load result',
       order: 'Order',
-      request: 'Request',
+      request: 'Request for cost',
       form: {
         location: 'Location',
         energy: 'Energy consumption (in kWh/h)'
@@ -81,6 +81,13 @@ export default {
     },
     swissKrono: {
       title: 'Wood waste to heat energy, Sharya, Russia',
+      form: {
+        energy: 'Volume kg CO2'
+      }
+    },
+    nudao: {
+      title:
+        'Nazarbayev University solar and wind energy powerplant, Kazakhstan',
       form: {
         energy: 'Volume kg CO2'
       }
@@ -187,7 +194,7 @@ export default {
       burn: 'Погашено',
       load_result: 'Загрузка результата',
       order: 'Погасить',
-      request: 'Запросить',
+      request: 'Запросить стоимость',
       form: {
         location: 'Location',
         energy: 'Energy consumption (in kWh/h)'
@@ -208,6 +215,13 @@ export default {
     },
     swissKrono: {
       title: 'Древесные отходы для тепловой энергии, Шарья, Россия',
+      form: {
+        energy: 'Объем kg CO2'
+      }
+    },
+    nudao: {
+      title:
+        'Возобновляемые источники энергии Назарбаев Университета, Казахстан',
       form: {
         energy: 'Объем kg CO2'
       }

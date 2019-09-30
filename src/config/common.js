@@ -32,30 +32,17 @@ export default {
       ]
     }
   },
-  CHAINS: [4451],
+  CHAINS: [1, 4451],
   GATEWAY: 'https://ipfs.ipci.io/ipfs/',
   ROBONOMICS: {
     version: 5,
-    emitter: '0x4b255d6E57409232F7C29759D5699dabE66f8Cd5',
     model: {
       issuing: 'QmfK3LyEPLoYJCKXate1PceGLBNBaodwqcV9XirwHZFbsc',
       offsetting: 'QmW3dTa1QZxnZzpF9TDuHKN7GDKaJDVoQys4u38xmdAGHF',
       mauritius: 'QmQBLYH8T5vmaDQedrV6meKFHniX7jUdAu1GFufBDVJ7YN',
       khimprom: 'QmXzHDbfJG5ygAQbQZGAEpCcGa3Sc7c6Lvx9FxhVMvCR7M',
-      swissKrono: 'QmRC1Sg4kGwbgUSDWbKc41HGHVP49W4vfG4GQLwgac1QV8'
-    },
-    token: {
-      offsetting: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
-      mauritius: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
-      khimprom: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE',
-      swissKrono: '0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE'
-    },
-    validator: {
-      issuing: '0x1Aa0C020C3AD8F35eB2A7bb25087Cb1e77Ad5f94',
-      offsetting: '0x0000000000000000000000000000000000000000',
-      mauritius: '0x0000000000000000000000000000000000000000',
-      khimprom: '0x0000000000000000000000000000000000000000',
-      swissKrono: '0x0000000000000000000000000000000000000000'
+      swissKrono: 'QmRC1Sg4kGwbgUSDWbKc41HGHVP49W4vfG4GQLwgac1QV8',
+      nudao: 'QmQnJdBcMZLcixvSzDrsXzZNNp4vLnAY2u4Fc3pTwXJj4d'
     }
   }
 };

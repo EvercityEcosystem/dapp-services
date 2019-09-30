@@ -1,7 +1,7 @@
 <template>
   <fragment>
     <section class="section-light section-centered">
-      <h2>{{$t('swissKrono.title')}}</h2>
+      <h2>{{$t('nudao.title')}}</h2>
       <Form :isDisabled="objective != null" ref="regForm" />
       <div v-if="error">{{error}}</div>
       <section>
@@ -145,7 +145,7 @@ export default {
     }
   },
   created() {
-    document.title = this.$t("swissKrono.title") + " | " + this.$t("title");
+    document.title = this.$t("nudao.title") + " | " + this.$t("title");
 
     this.$robonomics.factory.call
       .nonceOf(this.$robonomics.account.address)
@@ -163,7 +163,8 @@ export default {
       }
     });
 
-    this.$robonomics.onOffer(config.ROBONOMICS.model.swissKrono, msg => {
+    this.$robonomics.onOffer(config.ROBONOMICS.model.nudao, msg => {
+      console.log(msg);
       if (msg.objective === this.objective) {
         this.error = null;
         this.offer = msg;
@@ -261,12 +262,12 @@ export default {
           const cf = config.chain(Web3Check.store.state.networkId);
           this.getObjective().then(objective => {
             const demand = {
-              model: config.ROBONOMICS.model.swissKrono,
+              model: config.ROBONOMICS.model.nudao,
               objective,
-              token: cf.token.swissKrono,
+              token: cf.token.nudao,
               cost: 0,
               lighthouse: this.$robonomics.lighthouse.address,
-              validator: cf.validator.swissKrono,
+              validator: cf.validator.nudao,
               validatorFee: 0,
               deadline: r.number + 1000,
               nonce: this.nonce

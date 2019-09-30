@@ -35,31 +35,12 @@
 <script>
 import { Token } from "robonomics-js";
 import Web3Check from "vue-web3-check";
+import config from "../../config";
 
 export default {
   data() {
     return {
       services: [
-        {
-          en: {
-            name: "Smart building offsetting",
-            desc:
-              "Carbon footprint clearance for smart buildings based on geolocation and energy consumption information."
-          },
-          ru: {
-            name: "Погашение углеродного следа для умного здания",
-            desc:
-              "Сервис погашения углеродного следа умных зданий на основе информации о геолокации и потреблении электроэнергии."
-          },
-          link: "offsetting",
-          img: "assets/i/services/smart-buildings.png",
-          by: {
-            link: "#",
-            label: "DAO IPCI IoT connection"
-          },
-          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
-          disabled: false
-        },
         {
           en: {
             name: "Environmental assets tokenization",
@@ -77,7 +58,27 @@ export default {
             link: "#",
             label: "DAO IPCI IoT connection"
           },
-          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          token: false,
+          disabled: false
+        },
+        {
+          en: {
+            name: "Smart building offsetting",
+            desc:
+              "Carbon footprint clearance for smart buildings based on geolocation and energy consumption information."
+          },
+          ru: {
+            name: "Погашение углеродного следа для умного здания",
+            desc:
+              "Сервис погашения углеродного следа умных зданий на основе информации о геолокации и потреблении электроэнергии."
+          },
+          link: "offsetting",
+          img: "assets/i/services/smart-buildings.png",
+          by: {
+            link: "#",
+            label: "DAO IPCI IoT connection"
+          },
+          token: null,
           disabled: false
         },
         {
@@ -98,7 +99,7 @@ export default {
             link: "#",
             label: "Russian Carbon Fund, Aera Group"
           },
-          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          token: null,
           disabled: false
         },
         {
@@ -118,7 +119,7 @@ export default {
             link: "#",
             label: "DAO IPCI, Russian Carbon Fund"
           },
-          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          token: null,
           disabled: false
         },
         {
@@ -138,9 +139,32 @@ export default {
             link: "#",
             label: "Russian Carbon Fund, Aera Group"
           },
-          token: "0x7dE91B204C1C737bcEe6F000AAA6569Cf7061cb7",
+          token: null,
           disabled: false
-        }
+        },
+        {
+          en: {
+            name:
+              "NAZARBAYEV UNIVERSITY SOLAR AND WIND ENERGY POWERPLANT, KAZAKHSTAN",
+            desc:
+              "Nazarbayev University is a modern and rapidly developing research and higher education schools in Republic of Kazakhstan. It's Technopark operates 49 kW powerplant inclues diverse photovoltaic pannels and wind generators."
+          },
+          ru: {
+            name:
+              "ВОЗОБНОВЛЯЕМЫЕ ИСТОЧНИКИ ЭНЕРГИИ НАЗАРБАЕВ УНИВЕРСИТЕТА, КАЗАХСТАН",
+            desc:
+              "Назарбаев Университет - современная и быстро развивающаяся научно-исследовательская и высшая школа в Республике Казахстан. В его Технопарке работает электрогенерирующая мощностью 49 кВт, в которую входят различные типы фотогальванических панелей и ветрогенераторов."
+          },
+          link: "nudao",
+          img: "assets/i/services/nudao.jpg",
+          by: {
+            link: "#",
+            label:
+              "Nazarbayev University office of Green Campus and Environment Developent"
+          },
+          token: null,
+          disabled: false
+        },
       ]
     };
   },
@@ -152,22 +176,22 @@ export default {
   },
   methods: {
     loadTokens() {
-      if (Web3Check.store.state.networkId === 1) {
-        this.services.forEach(async (service, i) => {
-          if (service.token) {
-            const token = new Token(
-              this.$robonomics.web3,
-              this.services[i].token
-            );
-            const name = await token.call.name();
-            const symbol = await token.call.symbol();
-            this.services[i].token = {
-              address: this.services[i].token,
-              name: `${name} (${symbol})`
-            };
-          }
-        });
-      }
+      const tokens = config.chain(Web3Check.store.state.networkId).token;
+      this.services.forEach(async (service, i) => {
+        if (
+          service.token === null &&
+          tokens.hasOwnProperty(service.link) &&
+          tokens[service.link] !== "0x0000000000000000000000000000000000000000"
+        ) {
+          const token = new Token(this.$robonomics.web3, tokens[service.link]);
+          const name = await token.call.name();
+          const symbol = await token.call.symbol();
+          this.services[i].token = {
+            address: tokens[service.link],
+            name: `${name} (${symbol})`
+          };
+        }
+      });
     }
   }
 };

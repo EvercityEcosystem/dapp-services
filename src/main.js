@@ -1,18 +1,16 @@
-import * as filters from './utils/filters';
-
-import Web3Check, { ACTIONS } from 'vue-web3-check';
-
-import App from './App.vue';
-import LinkExplorer from './components/common/LinkExplorer';
-import { Plugin } from 'vue-fragment';
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueI18n from 'vue-i18n';
 import VueWait from 'vue-wait';
-import Vuex from 'vuex';
+import { Plugin } from 'vue-fragment';
+import Web3Check, { ACTIONS } from 'vue-web3-check';
+import App from './App.vue';
 import config from './config';
 import messages from './messages';
 import router from './router';
 import store from './store';
+import LinkExplorer from './components/common/LinkExplorer';
+import * as filters from './utils/filters';
 
 Vue.config.productionTip = false;
 Vue.use(Vuex);

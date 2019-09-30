@@ -27,10 +27,11 @@
 
 <script>
 import { Liability } from "robonomics-js";
-import { watchTx } from "robonomics-js/lib/contract/utils/tools";
+import Web3Check from "vue-web3-check";
+// import { watchTx } from "robonomics-js/lib/contract/utils/tools";
 import iconv from "iconv-lite";
 import Passport from "./Passport";
-import { readRosbagIpfs } from "../../utils/utils";
+import { readRosbagIpfs, watchTx } from "../../utils/utils";
 import config from "../../config";
 import ABI_EMITER from "../../abi/emitter.json";
 import ABI_TOKEN from "../../abi/token.json";
@@ -78,7 +79,7 @@ export default {
 
     this.emitter = this.$robonomics.web3.eth
       .contract(ABI_EMITER)
-      .at(config.ROBONOMICS.emitter);
+      .at(config.chain(Web3Check.store.state.networkId).emitter);
 
     this.passport.liability = this.liability;
     const liability = new Liability(

@@ -96,6 +96,7 @@
 <script>
 import { mapState } from "vuex";
 import { Token } from "robonomics-js";
+import Web3Check from "vue-web3-check";
 import Form from "./Form";
 import config from "../../config";
 import { genRosbagIpfs, readRosbagIpfs } from "../../utils/utils";
@@ -257,14 +258,15 @@ export default {
           if (e) {
             return;
           }
+          const cf = config.chain(Web3Check.store.state.networkId);
           this.getObjective().then(objective => {
             const demand = {
               model: config.ROBONOMICS.model.khimprom,
               objective,
-              token: config.ROBONOMICS.token.khimprom,
+              token: cf.token.khimprom,
               cost: 0,
               lighthouse: this.$robonomics.lighthouse.address,
-              validator: config.ROBONOMICS.validator.khimprom,
+              validator: cf.validator.khimprom,
               validatorFee: 0,
               deadline: r.number + 1000,
               nonce: this.nonce

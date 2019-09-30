@@ -69,6 +69,7 @@
 
 <script>
 import { Liability } from "robonomics-js";
+import Web3Check from "vue-web3-check";
 import config from "../../config";
 import Passport from "./Passport";
 import { cat as ipfsCat } from "../../utils/ipfs";
@@ -155,7 +156,9 @@ export default {
     };
   },
   mounted() {
+    document.title = this.$t("title");
     this.account = this.$robonomics.account.address;
+    const cf = config.chain(Web3Check.store.state.networkId);
     this.$robonomics.onResult(msg => {
       console.log("result unverified", msg);
       if (this.passport.liability === null) {
@@ -169,9 +172,7 @@ export default {
           if (
             info.model === config.ROBONOMICS.model.issuing &&
             info.validator ===
-              this.$robonomics.web3.toChecksumAddress(
-                config.ROBONOMICS.validator.issuing
-              )
+              this.$robonomics.web3.toChecksumAddress(cf.validator.issuing)
           ) {
             this.passport.liability = this.$robonomics.web3.toChecksumAddress(
               liability.address

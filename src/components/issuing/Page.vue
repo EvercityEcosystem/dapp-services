@@ -78,10 +78,11 @@
 
 <script>
 import { mapState } from "vuex";
-import { watchTx } from "robonomics-js/lib/contract/utils/tools";
+import Web3Check from "vue-web3-check";
+// import { watchTx } from "robonomics-js/lib/contract/utils/tools";
 import Form from "./Form";
 import config from "../../config";
-import { genRosbagIpfs } from "../../utils/utils";
+import { genRosbagIpfs, watchTx } from "../../utils/utils";
 import ABI_EMITER from "../../abi/emitter.json";
 import ABI_TOKEN from "../../abi/token.json";
 
@@ -127,7 +128,7 @@ export default {
     document.title = this.$t("issuing.title") + " | " + this.$t("title");
     this.emitter = this.$robonomics.web3.eth
       .contract(ABI_EMITER)
-      .at(config.ROBONOMICS.emitter);
+      .at(config.chain(Web3Check.store.state.networkId).emitter);
     this.$robonomics.factory.call
       .nonceOf(this.$robonomics.account.address)
       .then(r => {
@@ -148,14 +149,15 @@ export default {
           if (e) {
             return;
           }
+          const cf = config.chain(Web3Check.store.state.networkId);
           this.getObjective().then(objective => {
             const demand = {
               model: config.ROBONOMICS.model.issuing,
               objective,
-              token: this.$robonomics.xrt.address,
+              token: cf.token.issuing,
               cost: 0,
               lighthouse: this.$robonomics.lighthouse.address,
-              validator: config.ROBONOMICS.validator.issuing,
+              validator: cf.validator.issuing,
               validatorFee: 0,
               deadline: r.number + 1000,
               nonce: this.nonce

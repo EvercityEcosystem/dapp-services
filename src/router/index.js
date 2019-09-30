@@ -5,6 +5,7 @@ import PageOffsetting from '@/components/offsetting/Page';
 import PageMauritius from '@/components/mauritius/Page';
 import PageKhimprom from '@/components/khimprom/Page';
 import PageSwissKrono from '@/components/swissKrono/Page';
+import PageNudao from '@/components/nudao/Page';
 import PageValidator from '@/components/validator/Page';
 import Router from 'vue-router';
 import Vue from 'vue';
@@ -38,6 +39,11 @@ export default new Router({
       path: '/swiss-krono',
       name: 'swissKrono',
       component: PageSwissKrono
+    },
+    {
+      path: '/nudao',
+      name: 'nudao',
+      component: PageNudao
     },
     {
       path: '/issuing',
