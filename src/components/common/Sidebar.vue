@@ -32,7 +32,11 @@
         </section>
       </div>
     </div>
-    <div class="sidebar-col sidebar-col-padding js-sidebar-content" id="sidebar-nav1">
+    <div
+      class="sidebar-col sidebar-col-padding js-sidebar-content"
+      id="sidebar-nav1"
+      style="display:none;"
+    >
       <div class="sidebar-col-in">
         <section>
           <nav class="nav-vertical">
@@ -44,17 +48,29 @@
         </section>
       </div>
     </div>
-    <div class="sidebar-col sidebar-col-padding js-sidebar-content" id="sidebar-lang">
+    <div
+      class="sidebar-col sidebar-col-padding js-sidebar-content"
+      id="sidebar-lang"
+      style="display:none;"
+    >
       <div class="sidebar-col-in">
         <section>
           <LangSwitcher :loadContent="loadContent" />
         </section>
       </div>
     </div>
-    <div class="sidebar-col sidebar-col-padding js-sidebar-content" id="sidebar-user">
+    <div
+      class="sidebar-col sidebar-col-padding js-sidebar-content"
+      id="sidebar-user"
+      style="display:none;"
+    >
       <Wallet />
     </div>
-    <div class="sidebar-col sidebar-col-padding js-sidebar-content" id="sidebar-info">
+    <div
+      class="sidebar-col sidebar-col-padding js-sidebar-content"
+      id="sidebar-info"
+      style="display:none;"
+    >
       <div class="sidebar-col-in">
         <section>
           <p>
