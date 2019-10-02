@@ -94,18 +94,7 @@ export default {
       form: {
         fields: {
           addresses: {
-            value: `DJ McCartin Farm
-FarmID  RT-4794-0064
-222.8 Hectares, Pastoral
-440 Gorge Road, Omatane, RD 4, Taihape 4794, 117.8 Ha, Pastoral, B001
-123 Hibberds Road, Taihape, 105.0 Ha, Pastoral. B002
-
-Andrew Totman
-FarmID RT-4794-0071
-414 Omatane South Road, Omatane, RD 4, Taihape 5457, (414 Omatane Road, RD4, Taihape, B001)
-751.6 Hectares, Pastoral, Omatane Road, RD4, Taihape
-168.4 Ha, Pastoral, B002, Potaka Road, RD4, Taihape
-1.6 Ha, Lifestyle, B003`,
+            value: '',
             rules: ["require"],
             error: false
           },

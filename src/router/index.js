@@ -63,8 +63,8 @@ export default new Router({
       component: PageValidator
     },
     {
-      path: '/agrix',
-      name: 'agrix',
+      path: '/agridatax',
+      name: 'agridatax',
       component: PageAgrix
     },
     { path: '*', redirect: '/' }

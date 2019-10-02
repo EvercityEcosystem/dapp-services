@@ -167,14 +167,14 @@ export default {
         },
         {
           en: {
-            name: "agrix Passport registration",
+            name: "AgriDataX Passport registration",
             desc: "Global registration service in the Ethereum Blockchain."
           },
           ru: {
-            name: "agrix Регистрация паспорта",
+            name: "AgriDataX Регистрация паспорта",
             desc: "Сервис глобальной регистрации в Ethereum Blockchain."
           },
-          link: "agrix",
+          link: "agridatax",
           img: "assets/i/services/ipci-project-agrix.jpg",
           by: {
             link: "#",
