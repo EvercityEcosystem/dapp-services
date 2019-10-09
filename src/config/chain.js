@@ -3,7 +3,7 @@ const chains = {
     ROBONOMICS: {
       ens: '',
       ensSuffix: 'eth',
-      lighthouse: 'stable.lighthouse.5.robonomics.eth'
+      lighthouse: 'chainm.lighthouse.5.robonomics.eth'
     },
     emitter: '0x1Ee7a0aCbA1AE78F5E51c7338BB983A091da3A8E',
     token: {
