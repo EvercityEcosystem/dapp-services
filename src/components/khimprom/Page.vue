@@ -209,7 +209,7 @@ export default {
             this.burn.value = bag.message.data;
           } else if (bag.topic === `/liability/eth_${liability}/offset_token`) {
             this.burn.token = new Token(
-              this.$$robonomics.web3,
+              this.$robonomics.web3,
               bag.message.data
             );
           }
