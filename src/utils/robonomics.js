@@ -1,28 +1,18 @@
-import Robonomics, { MessageProviderIpfs } from 'robonomics-js';
-import config from '../config';
+import Robonomics, { MessageProviderIpfs } from "robonomics-js";
 
 let robonomics = null;
-export const initRobonomics = (ipfs, network) => {
+export function init(config, web3, ipfs) {
   robonomics = new Robonomics({
     web3,
-    account: {
-      address: web3.eth.accounts[0]
-    },
-    ens: {
-      address: config.chain(network).ROBONOMICS.ens,
-      suffix: config.chain(network).ROBONOMICS.ensSuffix,
-      version: config.ROBONOMICS.version
-    },
     messageProvider: new MessageProviderIpfs(ipfs),
-    lighthouse: config.chain(network).ROBONOMICS.lighthouse
+    ...config
   });
   return robonomics;
-};
-const getRobonomics = () => {
+}
+
+export default function() {
   if (robonomics === null) {
-    throw new Error('Robonomics not init');
+    throw new Error("Robonomics not init");
   }
   return robonomics;
-};
-
-export default getRobonomics;
+}
