@@ -5,10 +5,9 @@
       <div class="form-item form-line-label">
         <label for="inputdata-addresses">
           Farm address *
-          <span
-            v-if="form.fields.addresses.error"
-            class="input-msg"
-          >Check if data correct, please.</span>
+          <span v-if="form.fields.addresses.error" class="input-msg"
+            >Check if data correct, please.</span
+          >
         </label>
         <textarea
           v-model="form.fields.addresses.value"
@@ -21,10 +20,9 @@
       <div class="form-item form-line-label">
         <label for="inputdata-meta">
           Attach farm meta data *
-          <span
-            v-if="form.fields.meta.error"
-            class="input-msg"
-          >Check if data correct, please.</span>
+          <span v-if="form.fields.meta.error" class="input-msg"
+            >Check if data correct, please.</span
+          >
         </label>
         <file-pond
           name="meta"
@@ -37,10 +35,9 @@
       <div class="form-item form-line-label">
         <label for="inputdata-images">
           Attach satellite map images *
-          <span
-            v-if="form.fields.images.error"
-            class="input-msg"
-          >Check if data correct, please.</span>
+          <span v-if="form.fields.images.error" class="input-msg"
+            >Check if data correct, please.</span
+          >
         </label>
         <div>
           <file-pond
@@ -83,8 +80,11 @@ export default {
       upload: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
           if (
-            this.form.fields.hasOwnProperty(fieldName) &&
-            this.form.fields[fieldName].hasOwnProperty("value")
+            Object.prototype.hasOwnProperty.call(this.form.fields, fieldName) &&
+            Object.prototype.hasOwnProperty.call(
+              this.form.fields[fieldName],
+              "value"
+            )
           ) {
             this.form.fields[fieldName].value = file;
           } else {

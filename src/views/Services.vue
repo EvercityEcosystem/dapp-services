@@ -207,7 +207,7 @@ export default {
       this.services.forEach(async (service, i) => {
         if (
           service.token === null &&
-          tokens.hasOwnProperty(service.link) &&
+          Object.prototype.hasOwnProperty.call(tokens, service.link) &&
           tokens[service.link] !== "0x0000000000000000000000000000000000000000"
         ) {
           const token = new Token(this.$robonomics.web3, tokens[service.link]);
