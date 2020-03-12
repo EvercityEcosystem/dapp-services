@@ -1,3 +1,5 @@
+import carbonfootprintitaly from "../services/carbonfootprintitaly/messages";
+
 export default {
   en: {
     title: "Services of IPCI program",
@@ -135,7 +137,8 @@ export default {
         promisor: "The official who performed the transaction in the registry",
         date: "Certificate Issue Date"
       }
-    }
+    },
+    carbonfootprintitaly: carbonfootprintitaly.en
   },
   ru: {
     title: "Сервисы программы IPCI",
@@ -275,6 +278,7 @@ export default {
         promisor: "Должностное лицо осуществившее операцию в реестре",
         date: "Дата выдачи сертификата"
       }
-    }
+    },
+    carbonfootprintitaly: carbonfootprintitaly.ru
   }
 };

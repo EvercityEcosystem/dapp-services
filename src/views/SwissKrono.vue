@@ -21,13 +21,13 @@
         <Approve
           v-if="response.cost > 0"
           :address="response.token"
-          :cost="response.cost"
-          :onFetch="onAllowance"
+          :from="$robonomics.account.address"
+          :to="$robonomics.factory.address"
+          :initAmountWei="cost"
         />
         <Order
           v-if="
-            allowance >= response.cost &&
-              (!demand || demand.status < statuses.RESULT)
+            myAllowance >= cost && (!demand || demand.status < statuses.RESULT)
           "
           :offer="response"
           :onDemand="onDemand"
@@ -57,13 +57,15 @@ import Request from "@/components/offsetting/Request";
 import Response from "@/components/offsetting/Response";
 import Order from "@/components/offsetting/Order";
 import BurnResult from "@/components/offsetting/BurnResult";
+import { number } from "../utils/tools";
+import token from "@/mixins/token";
 import config from "~config";
 
 export default {
+  mixins: [token],
   data() {
     return {
       response: null,
-      allowance: 0,
       demandId: 0,
       model: config.ROBONOMICS.model.swissKrono
     };
@@ -82,6 +84,19 @@ export default {
     ...mapState("sender", ["statuses"]),
     demand() {
       return this.$store.getters["sender/demandById"](this.demandId);
+    },
+    cost() {
+      return number.numToString(this.response.cost);
+    },
+    myAllowance: function() {
+      if (this.response) {
+        return this.allowance(
+          this.response.token,
+          this.$robonomics.account.address,
+          this.$robonomics.factory.address
+        );
+      }
+      return 0;
     }
   },
   created() {
@@ -100,9 +115,6 @@ export default {
     },
     onResponse(msg) {
       this.response = msg;
-    },
-    onAllowance({ allowance }) {
-      this.allowance = allowance;
     },
     onDemand(demandId) {
       this.demandId = demandId;

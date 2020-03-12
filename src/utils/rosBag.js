@@ -8,14 +8,22 @@ export default (data, cb, options = {}) => {
     });
   });
 };
+
 export const getRosbag = async data => {
   const bag = new Bag();
   await messages.init();
   const Message = await messages.getMessage("std_msgs/String");
   const time = Time.fromSecs(1.1);
   Object.keys(data).forEach(topic => {
-    bag.write("/" + topic, new Message({ data: data[topic] }), time);
-    time.nsec += 100000000;
+    if (typeof data[topic] === "number" || typeof data[topic] === "string") {
+      bag.write("/" + topic, new Message({ data: data[topic] }), time);
+      time.nsec += 100000000;
+    } else {
+      data[topic].forEach(item => {
+        bag.write("/" + topic, new Message({ data: item }), time);
+        time.nsec += 100000000;
+      });
+    }
   });
   bag.close();
   return bag.file.getBuffer();

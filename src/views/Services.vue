@@ -43,6 +43,7 @@
 <script>
 import { Token } from "robonomics-js";
 import Page from "../components/layout/Page";
+import carbonfootprintitaly from "../services/carbonfootprintitaly/meta";
 import config from "~config";
 
 export default {
@@ -50,6 +51,7 @@ export default {
   data() {
     return {
       services: [
+        carbonfootprintitaly,
         {
           en: {
             name: "Environmental assets tokenization",

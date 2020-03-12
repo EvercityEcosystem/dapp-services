@@ -1,55 +1,35 @@
 <template>
   <fragment>
-    <section>
-      <Info
-        v-if="cost > 0"
-        style="margin-bottom:10px"
-        :cost="cost"
-        :balance="balance"
-        :allowance="allowance"
-        :decimals="decimals"
-        :symbol="symbol"
-      />
-    </section>
-    <Button
-      v-if="allowance < cost"
-      :address="address"
-      :cost="cost"
-      :onInit="init"
-      :onFetch="fetch"
-    />
+    <Info :address="address" :from="from" :to="to" />
+    <Form :address="address" :from="from" :to="to" :initAmountWei="initAmountWei" />
   </fragment>
 </template>
 
 <script>
-import Button from "./Button";
+import token from "@/mixins/token";
 import Info from "./Info";
+import Form from "./Form";
 
 export default {
-  props: ["address", "cost", "onFetch"],
+  mixins: [token],
+  props: {
+    address: {},
+    from: {},
+    to: {},
+    initAmountWei: {
+      default: "0"
+    }
+  },
   components: {
-    Button,
-    Info
+    Info,
+    Form
   },
-  data() {
-    return {
-      symbol: "",
-      decimals: 0,
-      balance: 0,
-      allowance: 0
-    };
+  created() {
+    this.watchToken(this.address, this.from, this.to);
   },
-  methods: {
-    init(data) {
-      this.decimals = data.decimals;
-      this.symbol = data.symbol;
-    },
-    fetch(data) {
-      this.balance = data.balance;
-      this.allowance = data.allowance;
-      if (this.onFetch) {
-        this.onFetch(data);
-      }
+  watch: {
+    address: function(newAddressl) {
+      this.watchToken(newAddressl, this.from, this.to);
     }
   }
 };

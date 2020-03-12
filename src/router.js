@@ -8,6 +8,7 @@ import Nudao from "@/views/Nudao";
 import Agridatax from "@/views/Agridatax";
 import Validator from "@/views/Validator";
 import Liability from "@/views/Liability";
+import carbonfootprintitaly from "@/services/carbonfootprintitaly/router";
 import Router from "vue-router";
 import Vue from "vue";
 
@@ -67,6 +68,7 @@ export default new Router({
       component: Liability,
       props: true
     },
+    carbonfootprintitaly,
     { path: "*", redirect: "/" }
   ]
 });
