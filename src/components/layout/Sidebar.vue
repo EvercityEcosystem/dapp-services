@@ -57,7 +57,7 @@ import {
   Navigation,
   NavigationLink,
   Wallet
-} from "./sidebar";
+} from "./sidebar/index.js";
 
 export default {
   components: {

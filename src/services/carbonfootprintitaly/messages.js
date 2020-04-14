@@ -1,7 +1,10 @@
 export default {
   en: {
-    title: 'Digital blockchain passports for products "CARBON FOOTPRINT ITALY"',
-    subtitle: "Information",
+    title: 'Carbon Footprint of Products',
+    subtitle: "General Information",
+    subtitleProduct: "Information about product",
+    subtitleCompany: "Information about Company",
+    subtitleGHG: "GHG values included in the CFP (kg CO2e)",
     subtitle3: "Order blockchain passport",
     priceTitle: "Cost of a blockchain passport",
     details: "Show more details",
@@ -20,11 +23,23 @@ export default {
     dragImages: "Drag & Drop your image files or Browse",
     loading: "Loading",
     reqApprove:
-      "You need to approve an additional amount to purchase a blockchain passport"
+      "You need to approve an additional amount to purchase a blockchain passport",
+
+    companyImageField: "Logo of the company",
+    companyPhotoField: "Photo of the product",
+
+    ghgFossil: "Net fossil GHG emissions and removals",
+    ghgEmissions: "Biogenic GHG emissions",
+    ghgRemovals: "Biogenic GHG removals",
+    ghgResulting: "GHG emissions and removals resulting from dLUC",
+    ghgAircraft: "Aircraft GHG emessions",
   },
   ru: {
-    title: 'Цифровые блокчейн паспорта для продукции "CARBON FOOTPRINT ITALY"',
-    subtitle: "Информация",
+    title: 'Цифровые блокчейн паспорта для продукции',
+    subtitle: "Основная информация",
+    subtitleProduct: "Information about product",
+    subtitleCompany: "Information about Company",
+    subtitleGHG: "GHG values included in the CFP (kg CO2e)",
     subtitle3: "Заказ блокчейн пасспорта",
     priceTitle: "Стоимость блокчейн паспорта составит",
     details: "Показать больше деталей",
@@ -43,6 +58,12 @@ export default {
     dragImages: "Drag & Drop your image files or Browse",
     loading: "Загрузка",
     reqApprove:
-      "Вам нужно одобрить дополнительную сумму для покупки блокчейн паспорта"
+      "Вам нужно одобрить дополнительную сумму для покупки блокчейн паспорта",
+
+    ghgFossil: "Net fossil GHG emissions and removals",
+    ghgEmissions: "Biogenic GHG emissions",
+    ghgRemovals: "Biogenic GHG removals",
+    ghgResulting: "GHG emissions and removals resulting from dLUC",
+    ghgAircraft: "Aircraft GHG emessions",
   }
 };
