@@ -290,7 +290,7 @@
     <RFormSection :title="$t('carbonfootprintitaly.subtitleGHG')" v-if="isProduct">
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'ghg'">
-          <RFieldLabel :isError="field.error">{{ field.label }}</RFieldLabel>
+          <RFieldLabel :isError="field.error" v-html="field.label"></RFieldLabel>
           <input
                   v-if="field.type == 'text'"
                   type="text"
@@ -352,7 +352,6 @@ export default {
     return {
       isProduct: true,
       fields: {
-
         company_name: {
           label: this.$t("carbonfootprintitaly.companyName"),
           value: "",
@@ -387,7 +386,7 @@ export default {
           label: this.$t("carbonfootprintitaly.companyPhone"),
           value: "",
           type: "text",
-          rules: ["require"],
+          rules: [],
           error: false,
           group: 'general',
           showOnProduct: true,
@@ -397,7 +396,7 @@ export default {
           label: this.$t("carbonfootprintitaly.companyHeadquarters"),
           value: "",
           type: "text",
-          rules: ["require"],
+          rules: [],
           error: false,
           group: 'general',
           showOnProduct: true,
@@ -413,8 +412,6 @@ export default {
           showOnProduct: true,
           showOnOrganization: true
         },
-
-
 
         company_reg_number: {
           label: this.$t("carbonfootprintitaly.companyRegNumber"),
@@ -476,7 +473,6 @@ export default {
         },
 
 
-
         product_registration_n: {
           label: this.$t("carbonfootprintitaly.productRegNumber"),
           value: "",
@@ -509,13 +505,6 @@ export default {
           error: false,
           group: 'product'
         },
-
-
-
-
-
-
-
 
         // footprint
         cfp_registration_date: {
@@ -610,6 +599,14 @@ export default {
           error: false,
           group: 'cfp',
         },
+        cfp_verified_by: {
+          label: this.$t("carbonfootprintitaly.cfpVeriedBy"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'cfp',
+        },
         cfp_verification_statement: {
           label: this.$t("carbonfootprintitaly.cfpVerificationStatement"),
           items: {},
@@ -618,7 +615,6 @@ export default {
           error: false,
           group: 'cfp'
         },
-
 
 
         cfo_registration_date: {
@@ -768,38 +764,38 @@ export default {
 
 
         // Offset
-        offset_year: {
-          label: this.$t("carbonfootprintitaly.offsetYear"),
-          value: "",
-          type: "number",
-          rules: [],
-          error: false,
-          group: 'offset',
-        },
-        offset_co2: {
-          label: this.$t("carbonfootprintitaly.offsetCO2"),
-          value: "",
-          type: "number",
-          rules: [],
-          error: false,
-          group: 'offset',
-        },
-        offset_registry: {
-          label: this.$t("carbonfootprintitaly.offsetRegistry"),
-          value: "",
-          type: "text",
-          rules: [],
-          error: false,
-          group: 'offset',
-        },
-        offset_project: {
-          label: this.$t("carbonfootprintitaly.offsetProject"),
-          value: "",
-          type: "text",
-          rules: [],
-          error: false,
-          group: 'offset',
-        },
+        // offset_year: {
+        //   label: this.$t("carbonfootprintitaly.offsetYear"),
+        //   value: "",
+        //   type: "number",
+        //   rules: [],
+        //   error: false,
+        //   group: 'offset',
+        // },
+        // offset_co2: {
+        //   label: this.$t("carbonfootprintitaly.offsetCO2"),
+        //   value: "",
+        //   type: "number",
+        //   rules: [],
+        //   error: false,
+        //   group: 'offset',
+        // },
+        // offset_registry: {
+        //   label: this.$t("carbonfootprintitaly.offsetRegistry"),
+        //   value: "",
+        //   type: "text",
+        //   rules: [],
+        //   error: false,
+        //   group: 'offset',
+        // },
+        // offset_project: {
+        //   label: this.$t("carbonfootprintitaly.offsetProject"),
+        //   value: "",
+        //   type: "text",
+        //   rules: [],
+        //   error: false,
+        //   group: 'offset',
+        // },
         offset_reference: {
           label: this.$t("carbonfootprintitaly.offsetReference"),
           value: "",
@@ -809,54 +805,53 @@ export default {
           group: 'offset',
         },
 
-
-
         // ghg
-        ghg_fossil: {
-          label: this.$t("carbonfootprintitaly.ghgFossil"),
-          value: "",
-          type: "number",
-          rules: ["require"],
-          error: false,
-          group: 'ghg'
-        },
-        ghg_emissions: {
-          label: this.$t("carbonfootprintitaly.ghgEmissions"),
-          value: "",
-          type: "number",
-          rules: ["require"],
-          error: false,
-          group: 'ghg'
-        },
+        // ghg_fossil: {
+        //   label: this.$t("carbonfootprintitaly.ghgFossil"),
+        //   value: "",
+        //   type: "number",
+        //   rules: [],
+        //   error: false,
+        //   group: 'ghg'
+        // },
+        // ghg_emissions: {
+        //   label: this.$t("carbonfootprintitaly.ghgEmissions"),
+        //   value: "",
+        //   type: "number",
+        //   rules: [],
+        //   error: false,
+        //   group: 'ghg'
+        // },
         ghg_removals: {
           label: this.$t("carbonfootprintitaly.ghgRemovals"),
           value: "",
           type: "number",
-          rules: ["require"],
+          rules: [],
           error: false,
           group: 'ghg'
         },
-        ghg_resulting: {
-          label: this.$t("carbonfootprintitaly.ghgResulting"),
-          value: "",
-          type: "number",
-          rules: ["require"],
-          error: false,
-          group: 'ghg'
-        },
-        ghg_aircraft: {
-          label: this.$t("carbonfootprintitaly.ghgAircraft"),
-          value: "",
-          type: "number",
-          rules: ["require"],
-          error: false,
-          group: 'ghg'
-        },
+        // ghg_res: {
+        //   label: this.$t("carbonfootprintitaly.ghgResulting"),
+        //   value: "",
+        //   type: "text",
+        //   rules: [],
+        //   error: false,
+        //   group: 'ghg'
+        // },
+        // ghg_aircraft: {
+        //   label: this.$t("carbonfootprintitaly.ghgAircraft"),
+        //   value: "",
+        //   type: "text",
+        //   rules: [],
+        //   error: false,
+        //   group: 'ghg'
+        // },
       },
 
 
       upload: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
+          console.log('this.fields[fieldName]', this.fields, fieldName);
           if (
             Object.prototype.hasOwnProperty.call(this.fields, fieldName) &&
             Object.prototype.hasOwnProperty.call(

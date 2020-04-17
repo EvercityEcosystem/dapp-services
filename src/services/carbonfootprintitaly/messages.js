@@ -59,6 +59,8 @@ export default {
     cfpStudyReport: "Study report",
     cfpVersion: "Version",
     cfpVerificationStatement: "Verification statement",
+    cfpVeriedBy: "Verified by",
+    cfpPlantsIncluded: "Production plants included",
 
     cfoRegDate: "Registtartion of",
     cfoReportingYear: "Reporting year",
