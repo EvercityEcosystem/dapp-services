@@ -350,6 +350,7 @@ export default {
   mixins: [robonomicsVC.mixins.form],
   data() {
     return {
+      model: null,
       isProduct: true,
       fields: {
         company_name: {
@@ -402,75 +403,75 @@ export default {
           showOnProduct: true,
           showOnOrganization: true
         },
-        // company_logo: {
-        //   label: this.$t("carbonfootprintitaly.companyLogoField"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'general',
-        //   showOnProduct: true,
-        //   showOnOrganization: true
-        // },
+        company_logo: {
+          label: this.$t("carbonfootprintitaly.companyLogoField"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'general',
+          showOnProduct: true,
+          showOnOrganization: true
+        },
 
-        // company_reg_number: {
-        //   label: this.$t("carbonfootprintitaly.companyRegNumber"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company',
-        //   showOnProduct: false,
-        //   showOnOrganization: true
-        // },
-        // company_activity: {
-        //   label: this.$t("carbonfootprintitaly.companyActivity"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company',
-        //   showOnProduct: false,
-        //   showOnOrganization: true
-        // },
-        // company_base_year: {
-        //   label: this.$t("carbonfootprintitaly.companyBaseYear"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company',
-        //   showOnProduct: false,
-        //   showOnOrganization: true
-        // },
-        // company_base_total_footprint: {
-        //   label: this.$t("carbonfootprintitaly.companyBaseTotalFootprint"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company',
-        //   showOnProduct: false,
-        //   showOnOrganization: true
-        // },
-        // company_note: {
-        //   label: this.$t("carbonfootprintitaly.companyNote"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company',
-        //   showOnProduct: false,
-        //   showOnOrganization: true
-        // },
-        // company_photo: {
-        //   label: this.$t("carbonfootprintitaly.companyPhotoField"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'company'
-        // },
+        company_reg_number: {
+          label: this.$t("carbonfootprintitaly.companyRegNumber"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'company',
+          showOnProduct: false,
+          showOnOrganization: true
+        },
+        company_activity: {
+          label: this.$t("carbonfootprintitaly.companyActivity"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'company',
+          showOnProduct: false,
+          showOnOrganization: true
+        },
+        company_base_year: {
+          label: this.$t("carbonfootprintitaly.companyBaseYear"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'company',
+          showOnProduct: false,
+          showOnOrganization: true
+        },
+        company_base_total_footprint: {
+          label: this.$t("carbonfootprintitaly.companyBaseTotalFootprint"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'company',
+          showOnProduct: false,
+          showOnOrganization: true
+        },
+        company_note: {
+          label: this.$t("carbonfootprintitaly.companyNote"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'company',
+          showOnProduct: false,
+          showOnOrganization: true
+        },
+        company_photo: {
+          label: this.$t("carbonfootprintitaly.companyPhotoField"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'company'
+        },
 
 
         product_registration_n: {
@@ -497,14 +498,14 @@ export default {
           error: false,
           group: 'product'
         },
-        // product_photo: {
-        //   label: this.$t("carbonfootprintitaly.productPhotoField"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'product'
-        // },
+        product_photo: {
+          label: this.$t("carbonfootprintitaly.productPhotoField"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'product'
+        },
 
         // footprint
         cfp_registration_date: {
@@ -535,14 +536,14 @@ export default {
           error: false,
           group: 'cfp',
         },
-        // cfp_chart: {
-        //   label: this.$t("carbonfootprintitaly.cfpChart"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfp'
-        // },
+        cfp_chart: {
+          label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'cfp'
+        },
         cfp_reference_year: {
           label: this.$t("carbonfootprintitaly.cfpReferenceYear"),
           value: "",
@@ -607,83 +608,91 @@ export default {
           error: false,
           group: 'cfp',
         },
-        // cfp_verification_statement: {
-        //   label: this.$t("carbonfootprintitaly.cfpVerificationStatement"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfp'
-        // },
+        cfp_notes: {
+          label: this.$t("carbonfootprintitaly.cfpNotes"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'cfp',
+        },
+        cfp_verification_statement: {
+          label: this.$t("carbonfootprintitaly.cfpVerificationStatement"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'cfp'
+        },
 
 
-        // cfo_registration_date: {
-        //   label: this.$t("carbonfootprintitaly.cfoRegDate"),
-        //   value: "",
-        //   type: "date",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        //   config: {
-        //     dateFormat: "d/m/Y"
-        //   },
-        // },
-        // cfo_reporting_year: {
-        //   label: this.$t("carbonfootprintitaly.cfoReportingYear"),
-        //   value: "",
-        //   type: "number",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        // },
-        // cfo_total_ghg: {
-        //   label: this.$t("carbonfootprintitaly.cfoTotalGHG"),
-        //   value: "",
-        //   type: "number",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        // },
-        // cfo_ghg_inventory: {
-        //   label: this.$t("carbonfootprintitaly.cfoGHGInventory"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        // },
-        // cfo_verified_by: {
-        //   label: this.$t("carbonfootprintitaly.cfoVerifiedBy"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        // },
-        // cfo_boundaries: {
-        //   label: this.$t("carbonfootprintitaly.cfoBoundaries"),
-        //   value: "",
-        //   type: "text",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo',
-        // },
-        // cfo_graph: {
-        //   label: this.$t("carbonfootprintitaly.cfoGraph"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo'
-        // },
-        // cfo_verification_statement: {
-        //   label: this.$t("carbonfootprintitaly.cfoVerificationStatement"),
-        //   items: {},
-        //   type: "files",
-        //   rules: [],
-        //   error: false,
-        //   group: 'cfo'
-        // },
+        cfo_registration_date: {
+          label: this.$t("carbonfootprintitaly.cfoRegDate"),
+          value: "",
+          type: "date",
+          rules: [],
+          error: false,
+          group: 'cfo',
+          config: {
+            dateFormat: "d/m/Y"
+          },
+        },
+        cfo_reporting_year: {
+          label: this.$t("carbonfootprintitaly.cfoReportingYear"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: 'cfo',
+        },
+        cfo_total_ghg: {
+          label: this.$t("carbonfootprintitaly.cfoTotalGHG"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: 'cfo',
+        },
+        cfo_ghg_inventory: {
+          label: this.$t("carbonfootprintitaly.cfoGHGInventory"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'cfo',
+        },
+        cfo_verified_by: {
+          label: this.$t("carbonfootprintitaly.cfoVerifiedBy"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'cfo',
+        },
+        cfo_boundaries: {
+          label: this.$t("carbonfootprintitaly.cfoBoundaries"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: 'cfo',
+        },
+        cfo_graph: {
+          label: this.$t("carbonfootprintitaly.cfoGraph"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'cfo'
+        },
+        cfo_verification_statement: {
+          label: this.$t("carbonfootprintitaly.cfoVerificationStatement"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: 'cfo'
+        },
 
 
         // Emissions
@@ -873,6 +882,25 @@ export default {
         revert: null
       }
     };
+  },
+  beforeMount () {
+    const model = Object.keys(this.fields).map((key) => {
+      if (this.fields[key].type === 'files') {
+        return {
+          "suffix": "/" + key,
+          "rosbag_type": "std_msgs/String",
+          "data_type": "IPFSBin"
+        };
+      }
+
+      return {
+        "suffix": "/" + key,
+        "rosbag_type": "std_msgs/String",
+        "data_type": "String"
+      };
+
+    })
+    console.log('Mount', JSON.stringify(model));
   },
   components: {
     FilePond,

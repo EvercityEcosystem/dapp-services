@@ -70,6 +70,7 @@ export default {
     cfoBoundaries: "Organizational boundaries",
     cfoGraph: "GHG Inventory graph",
     cfoVerificationStatement: "Verification statement",
+    cfpNotes: "Notes",
 
     controlProduct: "Product",
     controlOrganization: "Organization",
