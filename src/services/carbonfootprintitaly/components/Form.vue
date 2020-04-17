@@ -884,23 +884,23 @@ export default {
     };
   },
   beforeMount () {
-    const model = Object.keys(this.fields).map((key) => {
-      if (this.fields[key].type === 'files') {
-        return {
-          "suffix": "/" + key,
-          "rosbag_type": "std_msgs/String",
-          "data_type": "IPFSBin"
-        };
-      }
-
-      return {
-        "suffix": "/" + key,
-        "rosbag_type": "std_msgs/String",
-        "data_type": "String"
-      };
-
-    })
-    console.log('Mount', JSON.stringify(model));
+    // const model = Object.keys(this.fields).map((key) => {
+    //   if (this.fields[key].type === 'files') {
+    //     return {
+    //       "suffix": "/" + key,
+    //       "rosbag_type": "std_msgs/String",
+    //       "data_type": "IPFSBin"
+    //     };
+    //   }
+    //
+    //   return {
+    //     "suffix": "/" + key,
+    //     "rosbag_type": "std_msgs/String",
+    //     "data_type": "String"
+    //   };
+    //
+    // })
+    // console.log('Mount', JSON.stringify(model));
   },
   components: {
     FilePond,
