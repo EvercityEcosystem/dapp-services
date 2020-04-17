@@ -4,6 +4,95 @@
   "author": "sas@aira.life",
   "license": "BSD3",
   "rosbag_scheme": [
-
+    {
+      "suffix": "/email",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/registration_n",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/name",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/registration_of",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/du",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/reference_year",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/system_boundaries",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/modules_excluded",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/production_plants",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/reference_pcr",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_study_report",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/version",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/notes",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_contact",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_website",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/verified",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/images",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    }
   ]
 }
