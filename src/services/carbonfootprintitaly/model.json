@@ -5,72 +5,7 @@
   "license": "BSD3",
   "rosbag_scheme": [
     {
-      "suffix": "/email",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/registration_n",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/name",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/registration_of",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/du",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/cfp",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/reference_year",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/system_boundaries",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/modules_excluded",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/production_plants",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/reference_pcr",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/cfp_study_report",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/version",
-      "rosbag_type": "std_msgs/String",
-      "data_type": "String"
-    },
-    {
-      "suffix": "/notes",
+      "suffix": "/company_name",
       "rosbag_type": "std_msgs/String",
       "data_type": "String"
     },
@@ -85,14 +20,274 @@
       "data_type": "String"
     },
     {
-      "suffix": "/verified",
+      "suffix": "/company_phone",
       "rosbag_type": "std_msgs/String",
       "data_type": "String"
     },
     {
-      "suffix": "/images",
+      "suffix": "/company_headquarters",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_logo",
       "rosbag_type": "std_msgs/String",
       "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/company_reg_number",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_activity",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_base_year",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_base_total_footprint",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_note",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/company_photo",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/product_registration_n",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/product_name",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/product_description",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/product_photo",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/cfp_registration_date",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_du",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_value",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_chart",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/cfp_reference_year",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_system_boundaries",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_stages_excluded",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_plants_included",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_reference_pcr",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_study_report",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_version",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_verified_by",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_notes",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfp_verification_statement",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/cfo_registration_date",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_reporting_year",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_total_ghg",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_ghg_inventory",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_verified_by",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_boundaries",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/cfo_graph",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/cfo_verification_statement",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/emission_direct_category_1",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_direct_scope_1",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_category_2",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_category_3",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_category_4",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_category_5",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_category_6",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_scope_2",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/emission_indirect_scope_3",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/offset_year",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/offset_co2",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/offset_registry",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/offset_project",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/offset_reference",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/ghg_fossil",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/ghg_emissions",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/ghg_removals",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/ghg_res",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
+      "suffix": "/ghg_aircraft",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
     }
   ]
 }
