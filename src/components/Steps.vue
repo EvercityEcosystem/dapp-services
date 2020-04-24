@@ -11,7 +11,7 @@
         {{$t('steps.contract')}}
         <a
           v-if="status >= 6"
-          :href="liability | urlExplorer"
+          :href="liability | urlChainExplorer"
           target="_blank"
         >{{$t('steps.view_contract')}}</a>
       </div>
