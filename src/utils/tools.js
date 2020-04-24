@@ -109,7 +109,7 @@ function findPeers(ipfs, lighthouse, lookPeers) {
     });
   });
 }
-async function getStatusPeers(ipfs, robonomics, lookPeers) {
+export async function getStatusPeers(ipfs, robonomics, lookPeers) {
   if (robonomics.lighthouse) {
     try {
       return await findPeers(ipfs, robonomics.lighthouse.name, lookPeers);
