@@ -9,16 +9,11 @@
         :class="{ disabled: service.disabled }"
       >
         <router-link :to="{ name: service.link }" class="item-avatar">
-          <span
-            class="item-avatar--image"
-            :style="`background-image: url('${service.img}');`"
-          ></span>
+          <span class="item-avatar--image" :style="`background-image: url('${service.img}');`"></span>
         </router-link>
         <div class="item-content">
           <RCardTitle>
-            <router-link :to="{ name: service.link }">{{
-              service[$i18n.locale].name
-            }}</router-link>
+            <router-link :to="{ name: service.link }">{{ service[$i18n.locale].name }}</router-link>
           </RCardTitle>
           <div class="t-hyphen">{{ service[$i18n.locale].desc }}</div>
           <div class="item-bottom">
@@ -26,10 +21,7 @@
               <span>{{ $t("services.provider") }}:</span>
               <span class="item-bottom--info">{{ service.by.label }}</span>
             </div>
-            <div
-              v-if="service.token && service.token.name"
-              class="item-bottom--line"
-            >
+            <div v-if="service.token && service.token.name" class="item-bottom--line">
               <span>{{ $t("services.token") }}:</span>
               <span class="item-bottom--info">{{ service.token.name }}</span>
             </div>
