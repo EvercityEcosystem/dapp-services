@@ -152,7 +152,7 @@
     {
       "suffix": "/cfp_verification_statement",
       "rosbag_type": "std_msgs/String",
-      "data_type": "IPFSBin"
+      "data_type": "String"
     },
     {
       "suffix": "/cfo_registration_date",
@@ -192,7 +192,7 @@
     {
       "suffix": "/cfo_verification_statement",
       "rosbag_type": "std_msgs/String",
-      "data_type": "IPFSBin"
+      "data_type": "String"
     },
     {
       "suffix": "/emission_direct_category_1",
