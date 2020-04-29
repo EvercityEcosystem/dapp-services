@@ -857,7 +857,6 @@ export default {
       },
       upload: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
-          console.log('this.fields[fieldName]', this.fields, fieldName);
           if (
             Object.prototype.hasOwnProperty.call(this.fields, fieldName) &&
             Object.prototype.hasOwnProperty.call(
