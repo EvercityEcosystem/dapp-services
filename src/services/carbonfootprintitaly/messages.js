@@ -1,12 +1,13 @@
 export default {
   en: {
-    title: 'Carbon Footprint of Products',
+    title: 'Carbon Footprint Italy',
     subtitle: "General Information",
     subtitleProduct: "Information about product",
     subtitleCompany: "Information about Company",
     subtitleGHG: "GHG values included in the CFP (kg CO2e)",
     subtitle3: "Order blockchain passport",
     subtitleCFP: "Carbon footprint product",
+    subtitleCFO: "Carbon Footprint of Organization (CFO)",
     subtitleOffset: "Carbon offset",
     subtitleEmission: "Emissions",
     priceTitle: "Cost of a blockchain passport",
@@ -62,7 +63,7 @@ export default {
     cfpVeriedBy: "Verified by",
     cfpPlantsIncluded: "Production plants included",
 
-    cfoRegDate: "Registtartion of",
+    cfoRegDate: "Registration of",
     cfoReportingYear: "Reporting year",
     cfoTotalGHG: "Total GHG emissions (t CO<sub>2</sub>e)",
     cfoGHGInventory: "GHG inventory report and version",

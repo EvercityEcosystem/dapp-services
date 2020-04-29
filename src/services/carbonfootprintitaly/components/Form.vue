@@ -30,7 +30,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -81,7 +81,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -121,7 +121,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -160,7 +160,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png, application/pdf"
+                  accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -199,7 +199,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png, application/pdf"
+                  accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -238,7 +238,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -262,7 +262,6 @@
           <input
                   v-if="field.type == 'number'"
                   type="number"
-                  v-model="field.value"
                   class="container-full"
                   :class="{ error: field.error }"
           />
@@ -277,7 +276,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -316,7 +315,7 @@
                   v-if="field.type == 'files'"
                   :name="name"
                   allow-multiple="true"
-                  accepted-file-types="image/jpeg, image/png"
+                  accepted-file-types="image/jpeg, image/png, image/tiff"
                   :label-idle="$t('carbonfootprintitaly.dragImages')"
                   v-bind:server="upload"
                   v-on:removefile="removefile"
@@ -699,7 +698,7 @@ export default {
         emission_direct_category_1: {
           label: this.$t("carbonfootprintitaly.emissionDirectCategory1"),
           value: "",
-          type: "text",
+          type: "number",
           rules: [],
           error: false,
           group: 'emission',
@@ -707,7 +706,7 @@ export default {
         emission_direct_scope_1: {
           label: this.$t("carbonfootprintitaly.emissionDirectScope1"),
           value: "",
-          type: "text",
+          type: "number",
           rules: [],
           error: false,
           group: 'emission',
@@ -856,8 +855,6 @@ export default {
           group: 'ghg'
         },
       },
-
-
       upload: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
           console.log('this.fields[fieldName]', this.fields, fieldName);
@@ -882,25 +879,6 @@ export default {
         revert: null
       }
     };
-  },
-  beforeMount () {
-    // const model = Object.keys(this.fields).map((key) => {
-    //   if (this.fields[key].type === 'files') {
-    //     return {
-    //       "suffix": "/" + key,
-    //       "rosbag_type": "std_msgs/String",
-    //       "data_type": "IPFSBin"
-    //     };
-    //   }
-    //
-    //   return {
-    //     "suffix": "/" + key,
-    //     "rosbag_type": "std_msgs/String",
-    //     "data_type": "String"
-    //   };
-    //
-    // })
-    // console.log('Mount', JSON.stringify(model));
   },
   components: {
     FilePond,
