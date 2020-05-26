@@ -639,7 +639,7 @@ export default {
         cfo_reporting_year: {
           label: this.$t("carbonfootprintitaly.cfoReportingYear"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'cfo',
@@ -647,7 +647,7 @@ export default {
         cfo_total_ghg: {
           label: this.$t("carbonfootprintitaly.cfoTotalGHG"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'cfo',
@@ -698,7 +698,7 @@ export default {
         emission_direct_category_1: {
           label: this.$t("carbonfootprintitaly.emissionDirectCategory1"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -706,7 +706,7 @@ export default {
         emission_direct_scope_1: {
           label: this.$t("carbonfootprintitaly.emissionDirectScope1"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -716,7 +716,7 @@ export default {
         emission_indirect_category_2: {
           label: this.$t("carbonfootprintitaly.emissionInDirectCategory2"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -724,7 +724,7 @@ export default {
         emission_indirect_category_3: {
           label: this.$t("carbonfootprintitaly.emissionInDirectCategory3"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -732,7 +732,7 @@ export default {
         emission_indirect_category_4: {
           label: this.$t("carbonfootprintitaly.emissionInDirectCategory4"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -740,7 +740,7 @@ export default {
         emission_indirect_category_5: {
           label: this.$t("carbonfootprintitaly.emissionInDirectCategory5"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -748,7 +748,7 @@ export default {
         emission_indirect_category_6: {
           label: this.$t("carbonfootprintitaly.emissionInDirectCategory6"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -756,7 +756,7 @@ export default {
         emission_indirect_scope_2: {
           label: this.$t("carbonfootprintitaly.emissionInDirectScope2"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -764,7 +764,7 @@ export default {
         emission_indirect_scope_3: {
           label: this.$t("carbonfootprintitaly.emissionInDirectScope3"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'emission',
@@ -775,7 +775,7 @@ export default {
         offset_year: {
           label: this.$t("carbonfootprintitaly.offsetYear"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'offset',
@@ -783,7 +783,7 @@ export default {
         offset_co2: {
           label: this.$t("carbonfootprintitaly.offsetCO2"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'offset',
@@ -807,7 +807,7 @@ export default {
         offset_reference: {
           label: this.$t("carbonfootprintitaly.offsetReference"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'offset',
@@ -817,7 +817,7 @@ export default {
         ghg_fossil: {
           label: this.$t("carbonfootprintitaly.ghgFossil"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'ghg'
@@ -825,7 +825,7 @@ export default {
         ghg_emissions: {
           label: this.$t("carbonfootprintitaly.ghgEmissions"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'ghg'
@@ -833,7 +833,7 @@ export default {
         ghg_removals: {
           label: this.$t("carbonfootprintitaly.ghgRemovals"),
           value: "",
-          type: "number",
+          type: "text",
           rules: [],
           error: false,
           group: 'ghg'
