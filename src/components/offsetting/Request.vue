@@ -20,13 +20,13 @@ export default {
       responseError: null,
       objective: null,
       onResult: null,
-      onOffer: null
+      onOffer: null,
     };
   },
   methods: {
     getObjective(fields) {
       const payload = {};
-      Object.keys(fields).forEach(field => {
+      Object.keys(fields).forEach((field) => {
         payload[field] = fields[field].value;
       });
       return genRosbagIpfs(payload);
@@ -35,7 +35,7 @@ export default {
       if (this.onResult) {
         return;
       }
-      this.onResult = this.$robonomics.onResult(msg => {
+      this.onResult = this.$robonomics.onResult((msg) => {
         if (
           msg.liability === this.$robonomics.account.address &&
           msg.result === this.objective
@@ -44,7 +44,7 @@ export default {
           this.responseError = "Energy consumption very small.";
         }
       });
-      this.onOffer = this.$robonomics.onOffer(this.model, msg => {
+      this.onOffer = this.$robonomics.onOffer(this.model, (msg) => {
         if (msg.objective === this.objective) {
           this.responseError = null;
           this.response = msg;
@@ -65,7 +65,7 @@ export default {
           if (e) {
             return;
           }
-          this.getObjective(fields).then(objective => {
+          this.getObjective(fields).then((objective) => {
             this.listenResult();
             const demand = {
               model: this.model,
@@ -75,15 +75,15 @@ export default {
               lighthouse: this.$robonomics.lighthouse.address,
               validator: this.validator,
               validatorFee: 0,
-              deadline: r.number + 1000
+              deadline: r.number + 1000,
             };
-            this.$robonomics.sendDemand(demand, false, msg => {
+            this.$robonomics.sendDemand(demand, false, (msg) => {
               this.objective = msg.objective;
             });
           });
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>

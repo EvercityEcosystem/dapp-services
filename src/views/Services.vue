@@ -48,145 +48,145 @@ export default {
           en: {
             name: "Environmental assets tokenization",
             desc:
-              "Emission of carbon units and green certificates based on data from renewable energy sources."
+              "Emission of carbon units and green certificates based on data from renewable energy sources.",
           },
           ru: {
             name: "Токенизация экологических активов",
             desc:
-              "Сервис эмиссии углеродных единиц и зеленых сертификатов на основе данных от возобновляемого источника электроэнергии."
+              "Сервис эмиссии углеродных единиц и зеленых сертификатов на основе данных от возобновляемого источника электроэнергии.",
           },
           link: "issuing",
           img: "assets/i/services/smart-assets.png",
           by: {
             link: "#",
-            label: "DAO IPCI IoT connection"
+            label: "DAO IPCI IoT connection",
           },
           token: false,
-          disabled: false
+          disabled: false,
         },
         {
           en: {
             name: "Smart building offsetting",
             desc:
-              "Carbon footprint clearance for smart buildings based on geolocation and energy consumption information."
+              "Carbon footprint clearance for smart buildings based on geolocation and energy consumption information.",
           },
           ru: {
             name: "Погашение углеродного следа для умного здания",
             desc:
-              "Сервис погашения углеродного следа умных зданий на основе информации о геолокации и потреблении электроэнергии."
+              "Сервис погашения углеродного следа умных зданий на основе информации о геолокации и потреблении электроэнергии.",
           },
           link: "offsetting",
           img: "assets/i/services/smart-buildings.png",
           by: {
             link: "#",
-            label: "DAO IPCI IoT connection"
+            label: "DAO IPCI IoT connection",
           },
           token: false,
-          disabled: false
+          disabled: false,
         },
         {
           en: {
             name: "Supporting First Solar Energy Project in Mauritius",
             desc:
-              "15.2 MW solar photovoltaic power plant located in Mauritius, a country part of the Small Island Developing States (SIDS). It is the island first ever solar power plant."
+              "15.2 MW solar photovoltaic power plant located in Mauritius, a country part of the Small Island Developing States (SIDS). It is the island first ever solar power plant.",
           },
           ru: {
             name:
               "Погашение углеродного следа с помощью солнечной энергии на острове Маврикий",
             desc:
-              "Солнечная фотоэлектрическая электростанция мощностью 15,2 МВт расположена на Маврикии, в стране, являющейся частью малых островных развивающихся государств (МОРАГ). Это первая в мире солнечная электростанция на острове."
+              "Солнечная фотоэлектрическая электростанция мощностью 15,2 МВт расположена на Маврикии, в стране, являющейся частью малых островных развивающихся государств (МОРАГ). Это первая в мире солнечная электростанция на острове.",
           },
           link: "mauritius",
           img: "assets/i/services/ipci-project-bambous-01.jpg",
           by: {
             link: "#",
-            label: "Russian Carbon Fund, Aera Group"
+            label: "Russian Carbon Fund, Aera Group",
           },
           token: false,
-          disabled: false
+          disabled: false,
         },
         {
           en: {
             name: "Waste Coke Oven Gas Utilization, Kemerovo, Russia",
             desc:
-              "Khimprom LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing Waste Coke Oven Gas Utilization Project to substitute natural gas heat generation in the amount of 201,085 tCO2. Assurance has been performed by KPMG (Russia)"
+              "Khimprom LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing Waste Coke Oven Gas Utilization Project to substitute natural gas heat generation in the amount of 201,085 tCO2. Assurance has been performed by KPMG (Russia)",
           },
           ru: {
             name: "Утилизация отработанного коксового газа, Кемерово, Россия",
             desc:
-              "ООО «Химпром» завершило процедуру независимого заверения в соответствии с требованиями DAO IPCI в отношении сокращения выбросов ПГ, достигнутого в 2013–2016 годах, путем реализации проекта утилизации отработанного коксового газа с целью замещения выработки тепла природным газом в объеме 201 085 т CO2. Подтверждение выполнено KPMG (Россия)"
+              "ООО «Химпром» завершило процедуру независимого заверения в соответствии с требованиями DAO IPCI в отношении сокращения выбросов ПГ, достигнутого в 2013–2016 годах, путем реализации проекта утилизации отработанного коксового газа с целью замещения выработки тепла природным газом в объеме 201 085 т CO2. Подтверждение выполнено KPMG (Россия)",
           },
           link: "khimprom",
           img: "assets/i/services/ipci-project-himprom-02.jpg",
           by: {
             link: "#",
-            label: "DAO IPCI, Russian Carbon Fund"
+            label: "DAO IPCI, Russian Carbon Fund",
           },
           token: false,
-          disabled: false
+          disabled: false,
         },
         {
           en: {
             name: "Wood waste to heat energy, Sharya, Russia",
             desc:
-              "SWISS KRONO LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing “Wood waste to heat energy” from 1 January 2013 to 30 June 2017 in amount of 1,419,861 tons of CO2-equivalent. Assurance has been performed by KPMG (Russia)"
+              "SWISS KRONO LLC has completed independent assurance procedure under the DAO IPCI requirements for GHG emission reductions achieved in 2013-2016 by performing “Wood waste to heat energy” from 1 January 2013 to 30 June 2017 in amount of 1,419,861 tons of CO2-equivalent. Assurance has been performed by KPMG (Russia)",
           },
           ru: {
             name: "Древесные отходы для тепловой энергии, Шарья, Россия",
             desc:
-              "Компания SWISS KRONO LLC завершила процедуру независимой гарантии в соответствии с требованиями DAO IPCI в отношении сокращения выбросов парниковых газов, достигнутого в 2013–2016 годах, выполнив «Древесные отходы для выработки тепловой энергии» с 1 января 2013 года по 30 июня 2017 года в объеме 1 419 861 тонн в эквиваленте CO2. Был выполнен KPMG (Россия)"
+              "Компания SWISS KRONO LLC завершила процедуру независимой гарантии в соответствии с требованиями DAO IPCI в отношении сокращения выбросов парниковых газов, достигнутого в 2013–2016 годах, выполнив «Древесные отходы для выработки тепловой энергии» с 1 января 2013 года по 30 июня 2017 года в объеме 1 419 861 тонн в эквиваленте CO2. Был выполнен KPMG (Россия)",
           },
           link: "swissKrono",
           img: "assets/i/services/ipci-project-swisskrono-03.jpg",
           by: {
             link: "#",
-            label: "Russian Carbon Fund, Aera Group"
+            label: "Russian Carbon Fund, Aera Group",
           },
           token: false,
-          disabled: false
+          disabled: false,
         },
         {
           en: {
             name:
               "NAZARBAYEV UNIVERSITY SOLAR AND WIND ENERGY POWERPLANT, KAZAKHSTAN",
             desc:
-              "Nazarbayev University is a modern and rapidly developing research and higher education schools in Republic of Kazakhstan. It's Technopark operates 49 kW powerplant inclues diverse photovoltaic pannels and wind generators."
+              "Nazarbayev University is a modern and rapidly developing research and higher education schools in Republic of Kazakhstan. It's Technopark operates 49 kW powerplant inclues diverse photovoltaic pannels and wind generators.",
           },
           ru: {
             name:
               "ВОЗОБНОВЛЯЕМЫЕ ИСТОЧНИКИ ЭНЕРГИИ НАЗАРБАЕВ УНИВЕРСИТЕТА, КАЗАХСТАН",
             desc:
-              "Назарбаев Университет - современная и быстро развивающаяся научно-исследовательская и высшая школа в Республике Казахстан. В его Технопарке работает электрогенерирующая мощностью 49 кВт, в которую входят различные типы фотогальванических панелей и ветрогенераторов."
+              "Назарбаев Университет - современная и быстро развивающаяся научно-исследовательская и высшая школа в Республике Казахстан. В его Технопарке работает электрогенерирующая мощностью 49 кВт, в которую входят различные типы фотогальванических панелей и ветрогенераторов.",
           },
           link: "nudao",
           img: "assets/i/services/nudao.jpg",
           by: {
             link: "#",
             label:
-              "Nazarbayev University office of Green Campus and Environment Developent"
+              "Nazarbayev University office of Green Campus and Environment Developent",
           },
           token: null,
-          disabled: false
+          disabled: true,
         },
         {
           en: {
             name: "AgriDataX Passport registration",
-            desc: "Global registration service in the Ethereum Blockchain."
+            desc: "Global registration service in the Ethereum Blockchain.",
           },
           ru: {
             name: "AgriDataX Регистрация паспорта",
-            desc: "Сервис глобальной регистрации в Ethereum Blockchain."
+            desc: "Сервис глобальной регистрации в Ethereum Blockchain.",
           },
           link: "agridatax",
           img: "assets/i/services/ipci-project-agrix.jpg",
           by: {
             link: "#",
-            label: "DAO IPCI"
+            label: "DAO IPCI",
           },
           token: false,
-          disabled: false
-        }
-      ]
+          disabled: true,
+        },
+      ],
     };
   },
   created() {
@@ -209,11 +209,11 @@ export default {
           const symbol = await token.methods.symbol().call();
           this.services[i].token = {
             address: tokens[service.link],
-            name: `${name} (${symbol})`
+            name: `${name} (${symbol})`,
           };
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

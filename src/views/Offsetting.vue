@@ -7,7 +7,7 @@
         v-if="!response"
         ref="request"
         :model="model"
-        :token="token"
+        :token="tokenAddress"
         :validator="validator"
         :submit="submit"
         :onResponse="onResponse"
@@ -66,9 +66,8 @@ export default {
   data() {
     return {
       response: null,
-      allowance: 0,
       demandId: 0,
-      model: config.ROBONOMICS.model.offsetting
+      model: config.ROBONOMICS.model.offsetting,
     };
   },
   components: {
@@ -79,7 +78,7 @@ export default {
     Approve,
     Order,
     Steps,
-    BurnResult
+    BurnResult,
   },
   computed: {
     ...mapState("sender", ["statuses"]),
@@ -98,13 +97,13 @@ export default {
         );
       }
       return 0;
-    }
+    },
   },
   created() {
     document.title = this.$t("offsetting.title") + " | " + this.$t("title");
 
     const configChain = config.chain.get();
-    this.token = configChain.token.offsetting;
+    this.tokenAddress = configChain.token.offsetting;
     this.validator = configChain.validator.offsetting;
 
     this.$robonomics.onDemand(null, console.log);
@@ -122,7 +121,7 @@ export default {
     },
     onDemand(demandId) {
       this.demandId = demandId;
-    }
-  }
+    },
+  },
 };
 </script>

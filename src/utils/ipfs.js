@@ -10,24 +10,13 @@ function getIpfs() {
   return ipfs;
 }
 
-function initFallback(config) {
-  return new Promise(function(resolve, reject) {
-    const node = new Ipfs(config);
-    node.on("error", function(error) {
-      console.log(error.message);
-    });
-    node.once("ready", () =>
-      node.id(function(err, info) {
-        if (err) {
-          return reject(err);
-        }
-        console.log("ipfs id " + info.id);
-        ipfs = node;
-        window.ipfs = ipfs;
-        resolve(ipfs);
-      })
-    );
-  });
+async function initFallback(config) {
+  const node = await window.Ipfs.create(config);
+  const info = await node.id();
+  console.log("ipfs id " + info.id);
+  window.ipfs = node;
+  ipfs = node;
+  return node;
 }
 
 function loadScript(src) {
@@ -44,7 +33,7 @@ export async function init(config) {
   if (window.ipfs && window.ipfs.enable) {
     try {
       const node = await window.ipfs.enable({
-        commands: config.permission
+        commands: config.permission,
       });
       await node.id();
       ipfs = node;
@@ -63,11 +52,35 @@ export function cat(hash) {
   return Promise.race([
     node.cat(hash),
     axios
-      .get(`${config.IPFS_GATEWAY}${hash}`, { responseType: "blob" })
-      .then(result => {
+      .get(`${config.GATEWAY}${hash}`, { responseType: "blob" })
+      .then((result) => {
         return result.data;
-      })
+      }),
   ]);
 }
+
+export const tools = {
+  async cat(hash) {
+    return axios
+      .get(`${config.IPFS_GATEWAY}${hash}`, { responseType: "blob" })
+      .then((result) => {
+        return result.data;
+      });
+    // const node = getIpfs();
+    // let bufs = [];
+    // for await (const buf of node.cat(hash)) {
+    //   bufs.push(buf);
+    // }
+    // return Buffer.concat(bufs);
+  },
+  async add(data) {
+    const node = getIpfs();
+    const { cid } = await node.add(data);
+    return cid;
+    // for await (const { cid } of node.add(data)) {
+    //   return cid.toString()
+    // }
+  },
+};
 
 export default getIpfs;

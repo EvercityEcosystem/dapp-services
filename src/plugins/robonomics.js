@@ -14,9 +14,11 @@ Vue.filter("labelAddress", filters.labelAddress);
 
 setConfig({
   ipfs: {
-    cdn: "ipfs.min.js"
+    cdn: "ipfs.min.js",
+    fallback: config.ipfs
   },
-  robonomics: networkId => {
+  statusPeers: config.statusPeers,
+  robonomics: (networkId) => {
     config.chain.set(networkId);
     return {
       version: 5,

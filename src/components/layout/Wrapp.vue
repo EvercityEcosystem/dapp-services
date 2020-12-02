@@ -9,7 +9,7 @@
           </p>
         </section>
       </ROverlay>
-      <ROverlay logo="assets/i/logo-dapp-2.svg" v-else-if="props.error.type === 'account'">
+      <ROverlay logo="assets/i/logo-dapp-2.svg" v-else-if="props.error.type === 'access'">
         <section class="msg-error msg-icon">
           <div class="msg-title">No access to account</div>
           <p v-if="isRequest">
@@ -83,11 +83,10 @@ export default {
       const robonomics = config.robonomics(state.networkId);
 
       Vue.prototype.$ipfs = await initIpfs(config.ipfs);
-      this.$ipfs.id((e, r) => {
-        if (/go/i.test(r.agentVersion)) {
-          this.$ipfs.swarm.connect("/dnsaddr/bootstrap.aira.life", console.log);
-        }
-      });
+      const info = await this.$ipfs.id();
+      if (/go/i.test(info.agentVersion)) {
+        this.$ipfs.swarm.connect("/dnsaddr/bootstrap.aira.life", console.log);
+      }
 
       Vue.prototype.$robonomics = initRobonomics(
         {

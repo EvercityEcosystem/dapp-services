@@ -7,7 +7,7 @@
         v-if="!response"
         ref="request"
         :model="model"
-        :token="token"
+        :token="tokenRequest"
         :validator="validator"
         :submit="submit"
         :onResponse="onResponse"
@@ -32,11 +32,7 @@
           :offer="response"
           :onDemand="onDemand"
         />
-        <Steps
-          v-if="demand"
-          :status="demand.status"
-          :liability="demand.liability"
-        />
+        <Steps v-if="demand" :status="demand.status" :liability="demand.liability" />
         <BurnResult
           v-if="demand && demand.status == statuses.RESULT"
           :liability="demand.liability"
@@ -66,9 +62,10 @@ export default {
   data() {
     return {
       response: null,
-      allowance: 0,
+      // allowance: 0,
+      tokenRequest: null,
       demandId: 0,
-      model: config.ROBONOMICS.model.mauritius
+      model: config.ROBONOMICS.model.mauritius,
     };
   },
   components: {
@@ -79,7 +76,7 @@ export default {
     Approve,
     Order,
     Steps,
-    BurnResult
+    BurnResult,
   },
   computed: {
     ...mapState("sender", ["statuses"]),
@@ -89,7 +86,7 @@ export default {
     cost() {
       return number.numToString(this.response.cost);
     },
-    myAllowance: function() {
+    myAllowance: function () {
       if (this.response) {
         return this.allowance(
           this.response.token,
@@ -98,13 +95,13 @@ export default {
         );
       }
       return 0;
-    }
+    },
   },
   created() {
     document.title = this.$t("mauritius.title") + " | " + this.$t("title");
 
     const configChain = config.chain.get();
-    this.token = configChain.token.mauritius;
+    this.tokenRequest = configChain.token.mauritius;
     this.validator = configChain.validator.mauritius;
   },
   methods: {
@@ -119,7 +116,7 @@ export default {
     },
     onDemand(demandId) {
       this.demandId = demandId;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -83,7 +83,7 @@
 import { Liability } from "robonomics-js";
 import Page from "../components/layout/Page";
 import Passport from "../components/validator/Passport";
-import { cat as ipfsCat } from "../utils/ipfs";
+import { tools } from "../utils/ipfs";
 import rosBag from "../utils/rosBag";
 import config from "~config";
 
@@ -200,8 +200,8 @@ export default {
     });
   },
   methods: {
-    rosbagObjective() {
-      ipfsCat(this.passport.objective).then(r => {
+    async rosbagObjective() {
+    const r = await tools.cat(this.passport.objective);
         rosBag(
           new Blob([r]),
           bag => {
@@ -211,11 +211,10 @@ export default {
         ).then(() => {
           this.passport.status = "new";
         });
-      });
     },
-    rosbag() {
+    async rosbag() {
       const li = this.passport.liability;
-      ipfsCat(this.passport.result).then(r => {
+      const r = await tools.cat(this.passport.result);
         rosBag(new Blob([r]), bag => {
           if (bag.topic === "/liability/eth_" + li + "/total_production") {
             this.passport.mvt = bag.message.data;
@@ -235,7 +234,6 @@ export default {
         }).then(() => {
           this.rosbagObjective();
         });
-      });
     },
     confirm(address, status) {
       if (!status) {
