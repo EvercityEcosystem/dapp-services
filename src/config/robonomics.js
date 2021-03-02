@@ -5,8 +5,8 @@ let config = {
       relay: {
         enabled: true,
         hop: {
-          enabled: true,
-        },
+          enabled: true
+        }
       },
       // EXPERIMENTAL: {
       //   pubsub: true,
@@ -16,8 +16,8 @@ let config = {
           Swarm: [
             "/dns4/1.webrtcstar.aira.life/tcp/443/wss/p2p-webrtc-star/",
             "/dns4/2.webrtcstar.aira.life/tcp/443/wss/p2p-webrtc-star/",
-            "/dns4/3.webrtcstar.aira.life/tcp/443/wss/p2p-webrtc-star/",
-          ],
+            "/dns4/3.webrtcstar.aira.life/tcp/443/wss/p2p-webrtc-star/"
+          ]
         },
         Bootstrap: [
           "/dns4/ams-1.bootstrap.libp2p.io/tcp/443/wss/ipfs/QmSoLer265NRgSp2LA3dPaeykiS1J6DifTC88f5uVQKNAd",
@@ -28,10 +28,10 @@ let config = {
           "/dns4/node1.preload.ipfs.io/tcp/443/wss/ipfs/Qmbut9Ywz9YEDrz8ySBSgWyJk41Uvm2QJPhwDJzJyGFsD6",
           "/dns4/1.pubsub.aira.life/tcp/443/wss/ipfs/QmdfQmbmXt6sqjZyowxPUsmvBsgSGQjm4VXrV7WGy62dv8",
           "/dns4/2.pubsub.aira.life/tcp/443/wss/ipfs/QmPTFt7GJ2MfDuVYwJJTULr6EnsQtGVp8ahYn9NSyoxmd9",
-          "/dns4/3.pubsub.aira.life/tcp/443/wss/ipfs/QmWZSKTEQQ985mnNzMqhGCrwQ1aTA6sxVsorsycQz9cQrw",
-          // "/ip4/127.0.0.1/tcp/4002/ws/ipfs/QmZ7rFH5NodLFJCg18Ji6ur3wC3o5roFEeoQMffo3poXo6"
-        ],
-      },
+          "/dns4/3.pubsub.aira.life/tcp/443/wss/ipfs/QmWZSKTEQQ985mnNzMqhGCrwQ1aTA6sxVsorsycQz9cQrw"
+          // "/ip4/127.0.0.1/tcp/4002/ws/p2p/12D3KooWSpsRPrE5M33mqzR4ZfSPGLiiNYe4YgMi991yLavcsD84"
+        ]
+      }
     },
     // cdn: "https://unpkg.com/ipfs@0.34.0/dist/index.min.js",
     // cdn: "https://unpkg.com/ipfs@0.46.0/dist/index.min.js",
@@ -44,15 +44,15 @@ let config = {
       "pubsub.publish",
       "pubsub.subscribe",
       "swarm.peers",
-      "swarm.connect",
-    ],
+      "swarm.connect"
+    ]
   },
   statusPeers: [
     "QmdfQmbmXt6sqjZyowxPUsmvBsgSGQjm4VXrV7WGy62dv8",
     "QmPTFt7GJ2MfDuVYwJJTULr6EnsQtGVp8ahYn9NSyoxmd9",
-    "QmWZSKTEQQ985mnNzMqhGCrwQ1aTA6sxVsorsycQz9cQrw",
-    // "QmZ7rFH5NodLFJCg18Ji6ur3wC3o5roFEeoQMffo3poXo6"
-  ],
+    "QmWZSKTEQQ985mnNzMqhGCrwQ1aTA6sxVsorsycQz9cQrw"
+    // "12D3KooWSpsRPrE5M33mqzR4ZfSPGLiiNYe4YgMi991yLavcsD84"
+  ]
 };
 
 export function setConfig({ ipfs, robonomics, statusPeers }) {
@@ -60,14 +60,14 @@ export function setConfig({ ipfs, robonomics, statusPeers }) {
     ipfs: {
       ...config.ipfs,
       fallback: ipfs.fallback || config.ipfs.fallback,
-      permission: ipfs.permission || config.ipfs.permission,
+      permission: ipfs.permission || config.ipfs.permission
     },
     statusPeers: statusPeers || config.statusPeers,
     robonomics:
       robonomics ||
       function() {
         throw new Error("bad config");
-      },
+      }
   };
 }
 

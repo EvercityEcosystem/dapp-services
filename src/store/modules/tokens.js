@@ -86,8 +86,8 @@ const actions = {
     const token = getContract(address);
     watchToken(
       token,
-      result => {
-        console.log(result.transactionHash);
+      () => {
+        // console.log(result.transactionHash);
       },
       (_, account, value) => {
         dispatch("setBalance", { token: token.address, account, value });

@@ -1,16 +1,16 @@
 <template>
   <div>
     <p>
-      {{$t('offsettingcommon.agent')}}:
-      <RLinkExplorer :text="sender" />
+      {{ $t("offsettingcommon.agent") }}:
+      <RChainExplorer :address="sender" />
     </p>
     <p>
-      {{$t('offsettingcommon.objective')}}:
-      <RLinkExplorer :text="objective" type="ipfs" />
+      {{ $t("offsettingcommon.objective") }}:
+      <RIpfsExplorer :hash="objective" />
     </p>
     <p>
-      {{$t('offsettingcommon.token')}}:
-      <RLinkExplorer :text="token" category="token" />
+      {{ $t("offsettingcommon.token") }}:
+      <RChainExplorer :address="token" category="token" />
     </p>
   </div>
 </template>

@@ -52,8 +52,10 @@ export default {
           ]
         }
       ).then(async () => {
-        this.decimals = await this.token.methods.decimals().call();
-        this.symbol = await this.token.methods.symbol().call();
+        if (this.token) {
+          this.decimals = await this.token.methods.decimals().call();
+          this.symbol = await this.token.methods.symbol().call();
+        }
       });
     }
   }

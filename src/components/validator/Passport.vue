@@ -3,7 +3,7 @@
     <section>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.liability") }}</label>
-        <RLinkExplorer :text="data.liability" />
+        <RChainExplorer :address="data.liability" />
       </div>
     </section>
     <section>
@@ -25,7 +25,7 @@
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.log") }}</label>
-        <RLinkExplorer type="ipfs" :text="data.log" />
+        <RIpfsExplorer :hash="data.log" />
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.mvt") }}</label>
@@ -83,15 +83,15 @@
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.promisor") }}</label>
-        <RLinkExplorer :text="data.promisor" />
+        <RChainExplorer :address="data.promisor" />
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.token") }}</label>
-        <RLinkExplorer category="token" :text="data.token" />
+        <RChainExplorer category="token" :address="data.token" />
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.tx") }}</label>
-        <RLinkExplorer category="tx" :text="data.tx" />
+        <RChainExplorer category="tx" :address="data.tx" />
       </div>
       <!-- <div class="form-item form-line-label">
         <label>{{$t('validator.passport.date')}}</label>

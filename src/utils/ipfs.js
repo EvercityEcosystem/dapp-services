@@ -33,7 +33,7 @@ export async function init(config) {
   if (window.ipfs && window.ipfs.enable) {
     try {
       const node = await window.ipfs.enable({
-        commands: config.permission,
+        commands: config.permission
       });
       await node.id();
       ipfs = node;
@@ -53,17 +53,17 @@ export function cat(hash) {
     node.cat(hash),
     axios
       .get(`${config.GATEWAY}${hash}`, { responseType: "blob" })
-      .then((result) => {
+      .then(result => {
         return result.data;
-      }),
+      })
   ]);
 }
 
 export const tools = {
   async cat(hash) {
     return axios
-      .get(`${config.IPFS_GATEWAY}${hash}`, { responseType: "blob" })
-      .then((result) => {
+      .get(`${config.GATEWAY}${hash}`, { responseType: "blob" })
+      .then(result => {
         return result.data;
       });
     // const node = getIpfs();
@@ -80,7 +80,7 @@ export const tools = {
     // for await (const { cid } of node.add(data)) {
     //   return cid.toString()
     // }
-  },
+  }
 };
 
 export default getIpfs;

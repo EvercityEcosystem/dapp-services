@@ -27,7 +27,8 @@
         />
         <Order
           v-if="
-            myAllowance >= cost && (!demand || demand.status < statuses.RESULT)
+            Number(myAllowance) >= Number(cost) &&
+              (!demand || demand.status < statuses.RESULT)
           "
           :offer="response"
           :onDemand="onDemand"
@@ -67,7 +68,7 @@ export default {
     return {
       response: null,
       demandId: 0,
-      model: config.ROBONOMICS.model.offsetting,
+      model: config.ROBONOMICS.model.offsetting
     };
   },
   components: {
@@ -78,7 +79,7 @@ export default {
     Approve,
     Order,
     Steps,
-    BurnResult,
+    BurnResult
   },
   computed: {
     ...mapState("sender", ["statuses"]),
@@ -97,7 +98,7 @@ export default {
         );
       }
       return 0;
-    },
+    }
   },
   created() {
     document.title = this.$t("offsetting.title") + " | " + this.$t("title");
@@ -121,7 +122,7 @@ export default {
     },
     onDemand(demandId) {
       this.demandId = demandId;
-    },
-  },
+    }
+  }
 };
 </script>

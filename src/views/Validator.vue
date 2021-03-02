@@ -15,7 +15,7 @@
           <section>
             <div class="form-item form-line-label">
               <label>{{ $t("validator.passport.liability") }}</label>
-              <RLinkExplorer :text="passport.liability" />
+              <RChainExplorer :address="passport.liability" />
             </div>
           </section>
           <div class="loader">
@@ -201,39 +201,39 @@ export default {
   },
   methods: {
     async rosbagObjective() {
-    const r = await tools.cat(this.passport.objective);
-        rosBag(
-          new Blob([r]),
-          bag => {
-            this.passport[bag.topic.replace(/\//, "")] = bag.message.data;
-          },
-          {}
-        ).then(() => {
-          this.passport.status = "new";
-        });
+      const r = await tools.cat(this.passport.objective);
+      rosBag(
+        new Blob([r]),
+        bag => {
+          this.passport[bag.topic.replace(/\//, "")] = bag.message.data;
+        },
+        {}
+      ).then(() => {
+        this.passport.status = "new";
+      });
     },
     async rosbag() {
       const li = this.passport.liability;
       const r = await tools.cat(this.passport.result);
-        rosBag(new Blob([r]), bag => {
-          if (bag.topic === "/liability/eth_" + li + "/total_production") {
-            this.passport.mvt = bag.message.data;
-          } else if (bag.topic === "/liability/eth_" + li + "/token") {
-            this.passport.token = bag.message.data;
-          } else if (bag.topic === "/liability/eth_" + li + "/txhash") {
-            this.passport.tx = bag.message.data;
-          } else if (bag.topic === "/liability/eth_" + li + "/period_start") {
-            this.passport.period_start = new Date(
-              Number(bag.message.data) * 1000
-            ).toDateString();
-          } else if (bag.topic === "/liability/eth_" + li + "/period_end") {
-            this.passport.period_end = new Date(
-              Number(bag.message.data) * 1000
-            ).toDateString();
-          }
-        }).then(() => {
-          this.rosbagObjective();
-        });
+      rosBag(new Blob([r]), bag => {
+        if (bag.topic === "/liability/eth_" + li + "/total_production") {
+          this.passport.mvt = bag.message.data;
+        } else if (bag.topic === "/liability/eth_" + li + "/token") {
+          this.passport.token = bag.message.data;
+        } else if (bag.topic === "/liability/eth_" + li + "/txhash") {
+          this.passport.tx = bag.message.data;
+        } else if (bag.topic === "/liability/eth_" + li + "/period_start") {
+          this.passport.period_start = new Date(
+            Number(bag.message.data) * 1000
+          ).toDateString();
+        } else if (bag.topic === "/liability/eth_" + li + "/period_end") {
+          this.passport.period_end = new Date(
+            Number(bag.message.data) * 1000
+          ).toDateString();
+        }
+      }).then(() => {
+        this.rosbagObjective();
+      });
     },
     confirm(address, status) {
       if (!status) {

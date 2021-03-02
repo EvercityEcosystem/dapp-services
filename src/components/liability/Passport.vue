@@ -3,7 +3,7 @@
     <section>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.liability") }}</label>
-        <RLinkExplorer v-if="data.liability" :text="data.liability" />
+        <RChainExplorer v-if="data.liability" :address="data.liability" />
         <div v-else>-</div>
       </div>
       <div class="form-section-title">{{ $t("issuing.form.group1") }}</div>
@@ -22,7 +22,7 @@
       <div class="form-section-title">{{ $t("issuing.form.group2") }}</div>
       <div class="form-item form-line-label">
         <label>{{ $t("issuing.form.log") }}</label>
-        <RLinkExplorer v-if="data.log" type="ipfs" :text="data.log" />
+        <RIpfsExplorer v-if="data.log" :hash="data.log" />
         <div v-else>-</div>
       </div>
       <div class="form-item form-line-label">
@@ -88,17 +88,21 @@
 
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.token") }}</label>
-        <RLinkExplorer v-if="data.token" category="token" :text="data.token" />
+        <RChainExplorer
+          v-if="data.token"
+          category="token"
+          :address="data.token"
+        />
         <div v-else>-</div>
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.tx") }}</label>
-        <RLinkExplorer v-if="data.tx" category="tx" :text="data.tx" />
+        <RChainExplorer v-if="data.tx" category="tx" :address="data.tx" />
         <div v-else>-</div>
       </div>
       <div class="form-item form-line-label">
         <label>{{ $t("validator.passport.promisor") }}</label>
-        <RLinkExplorer v-if="data.promisor" :text="data.promisor" />
+        <RChainExplorer v-if="data.promisor" :address="data.promisor" />
         <div v-else>-</div>
       </div>
     </section>
