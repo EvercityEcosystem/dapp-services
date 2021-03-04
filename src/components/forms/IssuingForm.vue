@@ -190,6 +190,7 @@ import FilePondPluginFileEncode from "filepond-plugin-file-encode";
 import flatPickr from "vue-flatpickr-component";
 import { Russian } from "flatpickr/dist/l10n/ru.js";
 import config from "~config";
+import { tools } from "../../utils/ipfs";
 import "filepond/dist/filepond.min.css";
 
 const FilePond = vueFilePond(FilePondPluginFileEncode);
@@ -210,23 +211,25 @@ export default {
               fr.result.substr(fr.result.indexOf(",") + 1),
               "base64"
             );
-            this.$ipfs.add(fileBuffer, (e, r) => {
-              if (e) {
+            tools
+              .add(fileBuffer)
+              .then(r => {
+                const hash = r.toString();
+                axios
+                  .get(`${config.GATEWAY}${hash}`)
+                  .then(() => {
+                    this.form.fields.log.value = hash;
+                    load(hash);
+                  })
+                  .catch(e => {
+                    console.log(e);
+                    error(e);
+                  });
+              })
+              .catch(e => {
+                console.log(e);
                 error(e);
-                return;
-              }
-              const hash = r[0].hash;
-              axios
-                .get(`${config.GATEWAY}${hash}`)
-                .then(() => {
-                  this.form.fields.log.value = hash;
-                  load(hash);
-                })
-                .catch(e => {
-                  console.log(e);
-                  error(e);
-                });
-            });
+              });
           };
           return {
             abort: () => {
