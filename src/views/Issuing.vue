@@ -1,13 +1,16 @@
 <template>
   <Page>
     <h1>{{ $t("issuing.title") }}</h1>
-    <section class="section-light section-centered">
+    <section v-if="ready" class="section-light section-centered">
       <Form ref="regForm" />
       <section>
         <div>
           <div v-if="demand">
             <section v-if="demand.status >= 2">
-              <div class="form-item d-table" :class="{ disabled: demand.status < 2 }">
+              <div
+                class="form-item d-table"
+                :class="{ disabled: demand.status < 2 }"
+              >
                 <div class="d-table--cell align-vertical">
                   <div
                     class="m-r-15"
@@ -19,9 +22,14 @@
                     }"
                   ></div>
                 </div>
-                <div class="d-table--cell align-vertical">{{ $t("issuing.broadcast") }}</div>
+                <div class="d-table--cell align-vertical">
+                  {{ $t("issuing.broadcast") }}
+                </div>
               </div>
-              <div class="form-item d-table" :class="{ disabled: demand.status < 4 }">
+              <div
+                class="form-item d-table"
+                :class="{ disabled: demand.status < 4 }"
+              >
                 <div class="d-table--cell align-vertical">
                   <div
                     class="m-r-15"
@@ -32,9 +40,14 @@
                     }"
                   ></div>
                 </div>
-                <div class="d-table--cell align-vertical">{{ $t("issuing.responded") }}</div>
+                <div class="d-table--cell align-vertical">
+                  {{ $t("issuing.responded") }}
+                </div>
               </div>
-              <div class="form-item d-table" :class="{ disabled: demand.status < 4 }">
+              <div
+                class="form-item d-table"
+                :class="{ disabled: demand.status < 4 }"
+              >
                 <div class="d-table--cell align-vertical">
                   <div
                     class="m-r-15"
@@ -52,10 +65,14 @@
                     v-if="demand.status >= 6"
                     :href="demand.liability | urlChainExplorer"
                     target="_blank"
-                  >{{ $t("issuing.view_contract") }}</a>
+                    >{{ $t("issuing.view_contract") }}</a
+                  >
                 </div>
               </div>
-              <div class="form-item d-table" :class="{ disabled: demand.status < 6 }">
+              <div
+                class="form-item d-table"
+                :class="{ disabled: demand.status < 6 }"
+              >
                 <div class="d-table--cell align-vertical">
                   <div
                     class="m-r-15"
@@ -67,7 +84,9 @@
                     }"
                   ></div>
                 </div>
-                <div class="d-table--cell align-vertical">{{ $t("issuing.executed") }}</div>
+                <div class="d-table--cell align-vertical">
+                  {{ $t("issuing.executed") }}
+                </div>
               </div>
             </section>
           </div>
@@ -81,7 +100,9 @@
                 demand.status != statuses.RESULT
             "
             @click="order"
-          >{{ $t("issuing.order") }}</button>
+          >
+            {{ $t("issuing.order") }}
+          </button>
           <div v-if="demand && demand.status === statuses.RESULT">
             {{ $t("issuing.available") }}:
             {{ sert.available | fromWei(sert.decimals, sert.symbol) }}
@@ -93,7 +114,9 @@
               class="container-full btn-big"
               :disabled="sert.available <= 0 || watchMint"
               @click="mint"
-            >{{ $t("issuing.get_sertificate") }}</button>
+            >
+              {{ $t("issuing.get_sertificate") }}
+            </button>
           </div>
         </div>
       </section>
@@ -118,6 +141,7 @@ export default {
   },
   data() {
     return {
+      ready: false,
       liability: null,
       sert: {
         available: 0,
@@ -152,16 +176,21 @@ export default {
   },
   created() {
     document.title = this.$t("issuing.title") + " | " + this.$t("title");
-    this.emitter = new this.$robonomics.web3.eth.Contract(
-      ABI_EMITER,
-      config.chain.get().emitter
-    );
-    this.$robonomics.factory.methods
-      .nonceOf(this.$robonomics.account.address)
-      .call()
-      .then(r => {
-        this.nonce = Number(r);
-      });
+    if (this.$robonomics.account) {
+      this.emitter = new this.$robonomics.web3.eth.Contract(
+        ABI_EMITER,
+        config.chain.get().emitter
+      );
+      this.$robonomics.factory.methods
+        .nonceOf(this.$robonomics.account.address)
+        .call()
+        .then(r => {
+          this.nonce = Number(r);
+        });
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     getObjective() {

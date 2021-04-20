@@ -1,7 +1,7 @@
 <template>
   <Page>
-    <section class="section-light section-centered">
-      <h2>{{ $t("issuing.title") }}</h2>
+    <h2>{{ $t("issuing.title") }}</h2>
+    <section v-if="ready" class="section-light section-centered">
       <section>
         <Passport :data="passport" />
         <div v-if="status">
@@ -47,6 +47,7 @@ export default {
   components: { Page, Passport },
   data() {
     return {
+      ready: false,
       sert: {
         available: 0,
         balance: 0,
@@ -83,36 +84,41 @@ export default {
   created() {
     document.title = this.$t("liability.title") + " | " + this.$t("title");
 
-    this.emitter = new this.$robonomics.web3.eth.Contract(
-      ABI_EMITER,
-      config.chain.get().emitter
-    );
+    if (this.$robonomics.account) {
+      this.emitter = new this.$robonomics.web3.eth.Contract(
+        ABI_EMITER,
+        config.chain.get().emitter
+      );
 
-    this.passport.liability = this.liability;
-    const liability = new Liability(
-      this.$robonomics.web3,
-      this.liability,
-      this.liability
-    );
-    liability
-      .getInfo()
-      .then(info => {
-        this.passport.promisor = info.promisor;
-        this.passport.result = info.result;
-        this.passport.objective = info.objective;
-        this.rosbagObjective();
-        if (this.passport.result) {
-          this.rosbagResult();
-        } else {
-          liability.onResult().then(result => {
-            this.passport.result = result;
+      this.passport.liability = this.liability;
+      const liability = new Liability(
+        this.$robonomics.web3,
+        this.liability,
+        this.liability
+      );
+      liability
+        .getInfo()
+        .then(info => {
+          this.passport.promisor = info.promisor;
+          this.passport.result = info.result;
+          this.passport.objective = info.objective;
+          this.rosbagObjective();
+          if (this.passport.result) {
             this.rosbagResult();
-          });
-        }
-      })
-      .catch(() => {
-        this.status = 0;
-      });
+          } else {
+            liability.onResult().then(result => {
+              this.passport.result = result;
+              this.rosbagResult();
+            });
+          }
+        })
+        .catch(() => {
+          this.status = 0;
+        });
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     rosbagObjective() {

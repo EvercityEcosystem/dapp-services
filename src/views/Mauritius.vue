@@ -1,7 +1,7 @@
 <template>
   <Page>
-    <section class="section-light section-centered">
-      <h2>{{ $t("mauritius.title") }}</h2>
+    <h2>{{ $t("mauritius.title") }}</h2>
+    <section v-if="ready" class="section-light section-centered">
       <Form ref="form" :onSubmit="onSubmit" />
       <Request
         v-if="!response"
@@ -32,7 +32,11 @@
           :offer="response"
           :onDemand="onDemand"
         />
-        <Steps v-if="demand" :status="demand.status" :liability="demand.liability" />
+        <Steps
+          v-if="demand"
+          :status="demand.status"
+          :liability="demand.liability"
+        />
         <BurnResult
           v-if="demand && demand.status == statuses.RESULT"
           :liability="demand.liability"
@@ -61,11 +65,11 @@ export default {
   mixins: [token],
   data() {
     return {
+      ready: false,
       response: null,
-      // allowance: 0,
       tokenRequest: null,
       demandId: 0,
-      model: config.ROBONOMICS.model.mauritius,
+      model: config.ROBONOMICS.model.mauritius
     };
   },
   components: {
@@ -76,7 +80,7 @@ export default {
     Approve,
     Order,
     Steps,
-    BurnResult,
+    BurnResult
   },
   computed: {
     ...mapState("sender", ["statuses"]),
@@ -86,7 +90,7 @@ export default {
     cost() {
       return number.numToString(this.response.cost);
     },
-    myAllowance: function () {
+    myAllowance: function() {
       if (this.response) {
         return this.allowance(
           this.response.token,
@@ -95,14 +99,19 @@ export default {
         );
       }
       return 0;
-    },
+    }
   },
   created() {
     document.title = this.$t("mauritius.title") + " | " + this.$t("title");
 
-    const configChain = config.chain.get();
-    this.tokenRequest = configChain.token.mauritius;
-    this.validator = configChain.validator.mauritius;
+    if (this.$robonomics.account) {
+      const configChain = config.chain.get();
+      this.tokenRequest = configChain.token.mauritius;
+      this.validator = configChain.validator.mauritius;
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     submit() {
@@ -116,7 +125,7 @@ export default {
     },
     onDemand(demandId) {
       this.demandId = demandId;
-    },
-  },
+    }
+  }
 };
 </script>

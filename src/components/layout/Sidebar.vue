@@ -15,7 +15,11 @@
         }}</NavigationLink>
       </Navigation>
     </Item>
-    <Item bottom icon="i-user">
+    <Item bottom icon="i-user" @click="connect">
+      <button v-if="!$robonomics.account" @click="connect">
+        Connect account
+      </button>
+
       <Wallet
         :account="account"
         :networkId="networkId"
@@ -70,19 +74,25 @@ export default {
   },
   data() {
     return {
-      account: "0x0",
+      account: null,
       networkId: 0,
       tokens: {}
     };
   },
   created() {
-    this.account = this.$robonomics.account.address;
+    if (this.$robonomics.account) {
+      this.account = this.$robonomics.account.address;
+    }
+
     this.networkId = Web3Check.store.state.networkId;
   },
   mounted() {
     // this.init("0x7cfd3337F9e423751C9314f9C80cbA57CA2844FE");
   },
   methods: {
+    async connect() {
+      this.$store.dispatch("chain/accessAccount", false);
+    },
     async init(address) {
       const token = new Token(this.$robonomics.web3, address);
       const info = await token.getInfo();

@@ -1,5 +1,6 @@
 export default {
-  GATEWAY: "https://ipfs.ipci.io/ipfs/",
+  GATEWAY: "https://ipfs.io/ipfs/",
+  INFURA_KEY: "",
   ROBONOMICS: {
     version: 5,
     model: {

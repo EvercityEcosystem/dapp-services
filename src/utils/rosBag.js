@@ -15,7 +15,11 @@ export const getRosbag = async data => {
   const Message = await messages.getMessage("std_msgs/String");
   const time = Time.fromSecs(1.1);
   Object.keys(data).forEach(topic => {
-    if (typeof data[topic] === "number" || typeof data[topic] === "string") {
+    if (
+      typeof data[topic] === "number" ||
+      typeof data[topic] === "string" ||
+      typeof data[topic] === "boolean"
+    ) {
       bag.write("/" + topic, new Message({ data: data[topic] }), time);
       time.nsec += 10000000;
     } else {

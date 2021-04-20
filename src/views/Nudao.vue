@@ -1,7 +1,7 @@
 <template>
   <Page>
-    <section class="section-light section-centered">
-      <h2>{{ $t("nudao.title") }}</h2>
+    <h2>{{ $t("nudao.title") }}</h2>
+    <section v-if="ready" class="section-light section-centered">
       <Form ref="form" :onSubmit="onSubmit" />
       <Request
         v-if="!response"
@@ -65,8 +65,8 @@ export default {
   mixins: [token],
   data() {
     return {
+      ready: false,
       response: null,
-      allowance: 0,
       demandId: 0,
       model: config.ROBONOMICS.model.nudao
     };
@@ -103,9 +103,14 @@ export default {
   created() {
     document.title = this.$t("nudao.title") + " | " + this.$t("title");
 
-    const configChain = config.chain.get();
-    this.token = configChain.token.nudao;
-    this.validator = configChain.validator.nudao;
+    if (this.$robonomics.account) {
+      const configChain = config.chain.get();
+      this.token = configChain.token.nudao;
+      this.validator = configChain.validator.nudao;
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     submit() {

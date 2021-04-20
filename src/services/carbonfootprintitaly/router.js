@@ -10,7 +10,7 @@ export default {
       name: "carbonfootprintitaly"
     },
     {
-      path: ":passport",
+      path: ":block/:ext",
       name: "carbonfootprintitaly-view"
     }
   ]

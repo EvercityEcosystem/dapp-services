@@ -1,7 +1,7 @@
 <template>
   <Page>
-    <section class="section-light section-centered">
-      <h2>{{ $t("swissKrono.title") }}</h2>
+    <h2>{{ $t("swissKrono.title") }}</h2>
+    <section v-if="ready" class="section-light section-centered">
       <Form ref="form" :onSubmit="onSubmit" />
       <Request
         v-if="!response"
@@ -65,6 +65,7 @@ export default {
   mixins: [token],
   data() {
     return {
+      ready: false,
       response: null,
       demandId: 0,
       model: config.ROBONOMICS.model.swissKrono
@@ -102,9 +103,14 @@ export default {
   created() {
     document.title = this.$t("swissKrono.title") + " | " + this.$t("title");
 
-    const configChain = config.chain.get();
-    this.token = configChain.token.swissKrono;
-    this.validator = configChain.validator.swissKrono;
+    if (this.$robonomics.account) {
+      const configChain = config.chain.get();
+      this.token = configChain.token.swissKrono;
+      this.validator = configChain.validator.swissKrono;
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     submit() {

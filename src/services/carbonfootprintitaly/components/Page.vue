@@ -2,162 +2,149 @@
   <Page>
     <section class="section-light section-centered">
       <h2>{{ $t("carbonfootprintitaly.title") }}</h2>
-      <template v-if="passport">
-        <Passport :address="passport" />
+      <template v-if="polkadot === null">...</template>
+      <template v-else-if="block && ext">
+        <Passport :block="block" :ext="ext" />
       </template>
       <template v-else>
         <Form ref="form" @onSubmit="onSubmit" />
-        <Request
-          v-if="!response"
-          ref="request"
-          :model="model"
-          :token="tokenAddress"
-          :validator="validator"
-          :submit="submit"
-          :onResponse="onResponse"
-        />
-        <template v-else>
-          <section>
-            <div class="form-section-title">
-              {{ $t("carbonfootprintitaly.subtitle3") }}
-            </div>
-            <Response
-              :sender="response.sender"
-              :objective="response.objective"
-              :address="response.token"
-              :from="$robonomics.account.address"
-              :to="$robonomics.factory.address"
-              :cost="response.cost"
-              :initDetails="Number(cost) > Number(myAllowance)"
-            />
-            <section
-              v-if="
-                demand === null &&
-                  Number(cost) > 0 &&
-                  Number(myAllowance) < Number(response.cost)
-              "
-              class="section-light"
-            >
-              <div>
-                <b>{{ $t("carbonfootprintitaly.reqApprove") }}</b>
-              </div>
-              <Approve
-                :address="response.token"
-                :from="$robonomics.account.address"
-                :to="$robonomics.factory.address"
-                :initAmountWei="cost"
-              />
-            </section>
-            <Steps
-              v-if="demand"
-              :status="demand.status"
-              :liability="demand.liability"
-            />
-            <section
-              v-if="demand === null || demand.status != statuses.RESULT"
-              :class="{
-                disabled:
-                  (Number(cost) > 0 && Number(myAllowance) < Number(cost)) ||
-                  (demand && demand.status != statuses.EMPTY)
-              }"
-            >
-              <Order :offer="response" :onDemand="onDemand" />
-            </section>
-            <div v-if="demand && demand.status == statuses.RESULT">
-              <router-link
-                class="container-full btn-big btn-green"
-                :to="{
-                  name: 'carbonfootprintitaly-view',
-                  params: { passport: demand.liability }
-                }"
-                >{{ $t("carbonfootprintitaly.link") }}</router-link
-              >
-            </div>
-          </section>
-        </template>
+        <button
+          class="container-full btn-big"
+          :disabled="isWork"
+          @click="submit"
+        >
+          {{ $t("carbonfootprintitaly.order") }}
+        </button>
+        <div
+          v-if="success"
+          class="green"
+          style="margin-top:20px;text-align:center"
+        >
+          <hr />
+          <b>Success</b>&nbsp;
+          <a
+            :href="`https://ui.ipci.io/#/explorer/query/${tx.block}`"
+            target="_blank"
+          >
+            View explorer
+          </a>
+          &nbsp;
+          <router-link
+            :to="{
+              name: 'carbonfootprintitaly-view',
+              params: { block: tx.block, ext: tx.tx }
+            }"
+          >
+            Passport
+          </router-link>
+        </div>
       </template>
     </section>
   </Page>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { stringToHex } from "@polkadot/util";
 import Page from "@/components/layout/Page";
-import Approve from "@/components/approve/Form";
-import Steps from "@/components/Steps";
-import { number } from "@/utils/tools";
 import token from "@/mixins/token";
 import Form from "./Form";
-import Request from "./Request";
-import Response from "./Response";
-import Order from "./Order";
 import Passport from "./Passport";
 import configService from "../config";
+import { genRosbagIpfs } from "@/utils/utils";
+import { addByFile } from "../add";
+import model from "../model";
+import { init } from "../../../utils/polkadot";
+import Modal from "./Modal";
 
 export default {
   mixins: [token],
-  props: ["passport"],
+  props: ["block", "ext"],
   data() {
     return {
-      response: null,
-      demandId: 0,
-      tokenAddress: "0x0000000000000000000000000000000000000000",
-      validator: "0x0000000000000000000000000000000000000000",
-      model: configService.model
+      model: configService.model,
+      polkadot: null,
+      isWork: false,
+      success: false,
+      tx: null
     };
   },
   components: {
     Page,
     Form,
-    Request,
-    Response,
-    Approve,
-    Order,
-    Steps,
     Passport
   },
-  computed: {
-    ...mapState("msg", ["statuses"]),
-    demand() {
-      return this.$store.getters["msg/demandById"](this.demandId);
-    },
-    cost() {
-      return number.numToString(this.response.cost);
-    },
-    myAllowance: function() {
-      if (this.response) {
-        return this.allowance(
-          this.response.token,
-          this.$robonomics.account.address,
-          this.$robonomics.factory.address
-        );
-      }
-      return 0;
-    }
-  },
-  created() {
-    this.tokenAddress = configService.token;
-    this.$robonomics.onDemand(this.model, msg => {
-      console.log(msg);
-    });
+  async created() {
+    this.polkadot = await init(configService.substrate);
   },
   methods: {
     submit() {
       this.$refs.form.submit();
     },
-    onSubmit({ error, fields }) {
-      this.$refs.request.requestPrice(error, fields);
+    async onSubmit({ error, fields }) {
+      if (!error) {
+        this.isWork = true;
+
+        try {
+          const accounts = await this.polkadot.utils.getAccounts();
+
+          this.$modal.show(
+            Modal,
+            {
+              accounts: accounts,
+              onSend: async address => {
+                const objective = await this.getObjective(fields);
+                this.tx = await this.polkadot.utils.send(
+                  address,
+                  stringToHex(objective)
+                );
+                this.success = true;
+                this.$modal.hide("modal-select-account");
+              }
+            },
+            { name: "modal-select-account", height: "auto" },
+            {
+              "before-close": () => {
+                this.isWork = false;
+              }
+            }
+          );
+        } catch (e) {
+          console.log(e);
+          this.isWork = false;
+        }
+      }
     },
-    onResponse(msg) {
-      this.response = msg;
-      this.watchToken(
-        this.response.token,
-        this.$robonomics.account.address,
-        this.$robonomics.factory.address
-      );
-    },
-    onDemand(demandId) {
-      this.demandId = demandId;
+    async getObjective(fields) {
+      const payload = {};
+      for (let field in fields) {
+        const fieldHash = model.rosbag_scheme.find(
+          item => item.suffix === `/${field}_hash`
+        );
+        if (fields[field].type === "file") {
+          payload[field] = await addByFile(fields[field].value);
+          if (fieldHash) {
+            payload[`${field}_hash`] = payload[field];
+          }
+        } else if (fields[field].type === "files") {
+          payload[field] = [];
+          if (fieldHash) {
+            payload[`${field}_hash`] = [];
+          }
+          for (let name in fields[field].items) {
+            const hash = await addByFile(fields[field].items[name]);
+            payload[field].push(hash);
+            if (fieldHash) {
+              payload[`${field}_hash`].push(hash);
+            }
+          }
+        } else {
+          payload[field] = fields[field].value;
+          if (fieldHash) {
+            payload[`${field}_hash`] = fields[field].value;
+          }
+        }
+      }
+      return genRosbagIpfs(payload);
     }
   }
 };

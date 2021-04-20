@@ -4,20 +4,23 @@
     <blockquote>
       <a
         class="t-lg content-overflow"
-        :href="address | urlChainExplorer"
+        :href="`https://ui.ipci.io/#/explorer/query/${block}`"
         target="_blank"
-        >{{ address }}</a
       >
+        {{ block | metaSlice }}/{{ ext | metaSlice }}
+      </a>
     </blockquote>
     <template v-if="passport">
-      <section v-if="passport.email">
+      <section v-if="passport.company_name">
         <div class="form-section-title">
           {{ $t("carbonfootprintitaly.subtitle") }}
         </div>
-        <section v-if="passport.email">
-          <span class="t-sm">{{ $t("carbonfootprintitaly.email") }}:</span>
+        <section v-if="passport.company_name">
+          <span class="t-sm">
+            {{ $t("carbonfootprintitaly.companyName") }}:
+          </span>
           <br />
-          <span>{{ passport.email }}</span>
+          <span>{{ passport.company_name }}</span>
         </section>
       </section>
       <hr class="ptint-hidden" />
@@ -29,27 +32,22 @@
           onclick="window.print();return false;"
         ></a>
         <a class="i-twitter" :href="getLinkTwitter()" title="Tweet"></a>
-        <a
-          class="i-share"
-          href="javascript:;"
-          title="Share the link"
-          v-clipboard:copy="getLink()"
-        ></a>
       </div>
     </template>
     <div v-else class="loader">
       <RLoader />&nbsp;
-      <b class="align-vertical t-style_uppercase">{{
-        $t("carbonfootprintitaly.loading")
-      }}</b>
+      <b class="align-vertical t-style_uppercase">
+        {{ $t("carbonfootprintitaly.loading") }}
+      </b>
     </div>
   </fragment>
 </template>
 
 <script>
-import { Liability } from "robonomics-js";
 import iconv from "iconv-lite";
 import { readRosbagIpfs } from "@/utils/utils";
+import { init } from "../../../utils/polkadot";
+import { hexToString } from "@polkadot/util";
 
 function loadScript(src) {
   return new Promise(function(resolve, reject) {
@@ -62,30 +60,33 @@ function loadScript(src) {
 }
 
 export default {
-  props: ["address"],
+  props: ["block", "ext"],
   data() {
     return {
       passport: null
     };
   },
-  created() {
-    const liability = new Liability(
-      this.$robonomics.web3,
-      this.address,
-      this.address
-    );
-    liability.getInfo().then(info => {
-      this.rosbagObjective(info.objective);
+  async created() {
+    const polkadot = await init();
+    polkadot.api.rpc.chain.getBlock(this.block, block => {
+      block.block.extrinsics.forEach(item => {
+        if (
+          item.method.section === "datalog" &&
+          item.method.method === "record" &&
+          item.hash.toString() === this.ext
+        ) {
+          const objective = hexToString(item.method.args[0].toString());
+          this.rosbagObjective(objective);
+        }
+      });
     });
   },
   mounted() {
     loadScript("https://platform.twitter.com/widgets.js");
   },
-  computed: {
-    metaSlice: function() {
-      return (
-        this.passport.meta.slice(0, 6) + "..." + this.passport.meta.slice(-4)
-      );
+  filters: {
+    metaSlice: function(v) {
+      return v ? v.slice(0, 6) + "..." + v.slice(-4) : "";
     }
   },
   methods: {
@@ -109,7 +110,8 @@ export default {
         this.$router.resolve({
           name: "carbonfootprintitaly-view",
           params: {
-            passport: this.address
+            block: this.block,
+            ext: this.ext
           }
         }).href
       }`;

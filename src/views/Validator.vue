@@ -1,7 +1,7 @@
 <template>
   <Page>
-    <section class="section-light section-centered">
-      <h2>{{ $t("validator.title") }}</h2>
+    <h2>{{ $t("validator.title") }}</h2>
+    <section v-if="ready" class="section-light section-centered">
       <div>
         <section v-if="passport.status == 'load'">
           <div class="loader">
@@ -91,6 +91,7 @@ export default {
   components: { Page, Passport },
   data() {
     return {
+      ready: false,
       account: "",
       actionTx: "",
       passport: {
@@ -169,35 +170,41 @@ export default {
   },
   mounted() {
     document.title = this.$t("title");
-    this.account = this.$robonomics.account.address;
-    const cf = config.chain.get();
-    this.$robonomics.onResult(msg => {
-      console.log("result unverified", msg);
-      if (this.passport.liability === null) {
-        const liability = new Liability(
-          this.$robonomics.web3,
-          msg.liability,
-          "0x0000000000000000000000000000000000000000"
-        );
-        liability.getInfo().then(info => {
-          console.log("info2", info);
-          if (
-            info.model === config.ROBONOMICS.model.issuing &&
-            info.validator ===
-              this.$robonomics.web3.toChecksumAddress(cf.validator.issuing)
-          ) {
-            this.passport.liability = this.$robonomics.web3.toChecksumAddress(
-              liability.address
-            );
-            this.passport.promisor = info.promisor;
-            this.passport.result = msg.result;
-            this.passport.objective = info.objective;
-            this.passport.status = "liability";
-            this.rosbag();
-          }
-        });
-      }
-    });
+
+    if (this.$robonomics.account) {
+      this.account = this.$robonomics.account.address;
+      const cf = config.chain.get();
+      this.$robonomics.onResult(msg => {
+        console.log("result unverified", msg);
+        if (this.passport.liability === null) {
+          const liability = new Liability(
+            this.$robonomics.web3,
+            msg.liability,
+            "0x0000000000000000000000000000000000000000"
+          );
+          liability.getInfo().then(info => {
+            console.log("info2", info);
+            if (
+              info.model === config.ROBONOMICS.model.issuing &&
+              info.validator ===
+                this.$robonomics.web3.toChecksumAddress(cf.validator.issuing)
+            ) {
+              this.passport.liability = this.$robonomics.web3.toChecksumAddress(
+                liability.address
+              );
+              this.passport.promisor = info.promisor;
+              this.passport.result = msg.result;
+              this.passport.objective = info.objective;
+              this.passport.status = "liability";
+              this.rosbag();
+            }
+          });
+        }
+      });
+      this.ready = true;
+    } else {
+      this.$store.dispatch("chain/accessAccount", false);
+    }
   },
   methods: {
     async rosbagObjective() {

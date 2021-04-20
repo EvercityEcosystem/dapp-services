@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { tools } from "../utils/ipfs";
 import rosBag, { getRosbag } from "./rosBag";
 import config from "../config";
@@ -6,7 +6,8 @@ import config from "../config";
 export async function genRosbagIpfs(data) {
   const bag = await getRosbag(data);
   const hash = (await tools.add(bag)).toString();
-  await axios.get(`${config.GATEWAY}${hash}`);
+  console.log(`bag ${config.GATEWAY}${hash}`);
+  // await axios.get(`${config.GATEWAY}${hash}`);
   return hash;
 }
 
