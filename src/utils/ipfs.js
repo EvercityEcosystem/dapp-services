@@ -76,6 +76,11 @@ export const tools = {
   async add(data) {
     const node = getIpfs();
     const { cid } = await node.add(data);
+    axios
+      .post(`https://ipfs.infura.io:5001/api/v0/pin/add?arg=${cid.toString()}`)
+      .then(() => {
+        console.log(`pin ${cid.toString()} to infura`);
+      });
     return cid;
     // for await (const { cid } of node.add(data)) {
     //   return cid.toString()
