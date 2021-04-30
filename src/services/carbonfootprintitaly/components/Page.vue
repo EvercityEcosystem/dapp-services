@@ -55,6 +55,7 @@ import { addByFile } from "../add";
 import model from "../model";
 import { init } from "../../../utils/polkadot";
 import Modal from "./Modal";
+import { tools } from "@/utils/ipfs";
 
 export default {
   mixins: [token],
@@ -92,10 +93,18 @@ export default {
             {
               accounts: accounts,
               onSend: async address => {
-                const objective = await this.getObjective(fields);
+                const objectivePayload = await this.getObjective(fields);
+                const objective = await genRosbagIpfs(objectivePayload);
                 this.tx = await this.polkadot.utils.send(
                   address,
                   stringToHex(objective)
+                );
+                await this.pinPassport(
+                  address,
+                  this.tx,
+                  objective,
+                  objectivePayload,
+                  fields
                 );
                 this.success = true;
                 this.$modal.hide("modal-select-account");
@@ -111,6 +120,27 @@ export default {
         } catch (e) {
           console.log(e);
           this.isWork = false;
+        }
+      }
+    },
+    async pinPassport(sender, tx, passport, objectivePayload, fields) {
+      await tools.pinToPinata(passport, `passport-${sender}-${tx.block}`);
+      let i = 1;
+      for (let field in fields) {
+        if (fields[field].type === "file") {
+          await tools.pinToPinata(
+            objectivePayload[field],
+            `passport-${sender}-${tx.block}-i${i}`
+          );
+          i++;
+        } else if (fields[field].type === "files") {
+          for (let hash of objectivePayload[field]) {
+            await tools.pinToPinata(
+              hash,
+              `passport-${sender}-${tx.block}-i${i}`
+            );
+            i++;
+          }
         }
       }
     },
@@ -144,7 +174,7 @@ export default {
           }
         }
       }
-      return genRosbagIpfs(payload);
+      return payload;
     }
   }
 };

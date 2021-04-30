@@ -76,15 +76,45 @@ export const tools = {
   async add(data) {
     const node = getIpfs();
     const { cid } = await node.add(data);
-    axios
-      .post(`https://ipfs.infura.io:5001/api/v0/pin/add?arg=${cid.toString()}`)
-      .then(() => {
-        console.log(`pin ${cid.toString()} to infura`);
-      });
     return cid;
     // for await (const { cid } of node.add(data)) {
     //   return cid.toString()
     // }
+  },
+  async pinToPinata(hash, name) {
+    if (!config.PINATA_JWT) {
+      return;
+    }
+    const node = getIpfs();
+    const id = await node.id();
+    const hostNodes = [];
+    id.addresses.forEach(element => {
+      hostNodes.push(element.toString());
+    });
+    // const body = {
+    //   hashToPin: hash,
+    //   hostNodes: hostNodes,
+    //   pinataMetadata: {
+    //     name: name
+    //   }
+    // };
+    // return axios.post('https://api.pinata.cloud/pinning/pinByHash', body, {
+    //   headers: {
+    //     pinata_api_key: "",
+    //     pinata_secret_api_key: ""
+    //   }
+    // });
+
+    const body = {
+      cid: hash,
+      origins: hostNodes,
+      name
+    };
+    return axios.post("https://api.pinata.cloud/psa/pins", body, {
+      headers: {
+        Authorization: `Bearer ${config.PINATA_JWT}`
+      }
+    });
   }
 };
 

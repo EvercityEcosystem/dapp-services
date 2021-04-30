@@ -1,6 +1,7 @@
 export default {
   GATEWAY: "https://ipfs.io/ipfs/",
   INFURA_KEY: "",
+  PINATA_JWT: "",
   ROBONOMICS: {
     version: 5,
     model: {
