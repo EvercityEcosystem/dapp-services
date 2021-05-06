@@ -50,7 +50,7 @@ import token from "@/mixins/token";
 import Form from "./Form";
 import Passport from "./Passport";
 import configService from "../config";
-import { genRosbagIpfs } from "@/utils/utils";
+import { genRosbagFile, rosbagToIpfs } from "@/utils/utils";
 import { addByFile } from "../add";
 import model from "../model";
 import { init } from "../../../utils/polkadot";
@@ -94,18 +94,14 @@ export default {
               accounts: accounts,
               onSend: async address => {
                 const objectivePayload = await this.getObjective(fields);
-                const objective = await genRosbagIpfs(objectivePayload);
+                const rosbag = await genRosbagFile(objectivePayload);
+                const objective = await rosbagToIpfs(rosbag);
+
                 this.tx = await this.polkadot.utils.send(
                   address,
                   stringToHex(objective)
                 );
-                await this.pinPassport(
-                  address,
-                  this.tx,
-                  objective,
-                  objectivePayload,
-                  fields
-                );
+                await this.pinPassport(address, this.tx, rosbag, fields);
                 this.success = true;
                 this.$modal.hide("modal-select-account");
               }
@@ -123,20 +119,20 @@ export default {
         }
       }
     },
-    async pinPassport(sender, tx, passport, objectivePayload, fields) {
-      await tools.pinToPinata(passport, `passport-${sender}-${tx.block}`);
+    async pinPassport(sender, tx, passport, fields) {
+      await tools.pinFileToPinata(passport, `passport-${sender}-${tx.block}`);
       let i = 1;
       for (let field in fields) {
         if (fields[field].type === "file") {
-          await tools.pinToPinata(
-            objectivePayload[field],
+          await tools.pinFileToPinata(
+            fields[field].value,
             `passport-${sender}-${tx.block}-i${i}`
           );
           i++;
         } else if (fields[field].type === "files") {
-          for (let hash of objectivePayload[field]) {
-            await tools.pinToPinata(
-              hash,
+          for (let name in fields[field].items) {
+            await tools.pinFileToPinata(
+              fields[field].items[name],
               `passport-${sender}-${tx.block}-i${i}`
             );
             i++;

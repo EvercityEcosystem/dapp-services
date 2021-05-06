@@ -3,12 +3,20 @@ import { tools } from "../utils/ipfs";
 import rosBag, { getRosbag } from "./rosBag";
 import config from "../config";
 
-export async function genRosbagIpfs(data) {
-  const bag = await getRosbag(data);
-  const hash = (await tools.add(bag)).toString();
+export async function genRosbagFile(data) {
+  return await getRosbag(data);
+}
+
+export async function rosbagToIpfs(rosbag) {
+  const hash = (await tools.add(rosbag)).toString();
   console.log(`bag ${config.GATEWAY}${hash}`);
   // await axios.get(`${config.GATEWAY}${hash}`);
   return hash;
+}
+
+export async function genRosbagIpfs(data) {
+  const bag = await genRosbagFile(data);
+  return await rosbagToIpfs(bag);
 }
 
 export async function readRosbagIpfs(hash, cb, topics = {}) {

@@ -81,6 +81,28 @@ export const tools = {
     //   return cid.toString()
     // }
   },
+  async pinFileToPinata(file, name) {
+    if (!config.PINATA_KEY || !config.PINATA_SECRET) {
+      return;
+    }
+
+    let data = new FormData();
+    data.append("file", new Blob([file]));
+
+    const metadata = JSON.stringify({
+      name: name
+    });
+    data.append("pinataMetadata", metadata);
+
+    return axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", data, {
+      maxBodyLength: "Infinity",
+      headers: {
+        "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        pinata_api_key: config.PINATA_KEY,
+        pinata_secret_api_key: config.PINATA_SECRET
+      }
+    });
+  },
   async pinToPinata(hash, name) {
     if (!config.PINATA_JWT) {
       return;
