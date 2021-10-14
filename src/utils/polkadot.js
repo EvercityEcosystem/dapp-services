@@ -4,15 +4,7 @@ import {
   web3Enable,
   web3FromAddress
 } from "@polkadot/extension-dapp";
-// import { encodeAddress } from "@polkadot/keyring";
-import {
-  u8aToString,
-  u8aToU8a,
-  stringToHex,
-  compactFromU8a
-} from "@polkadot/util";
-import { createTypeUnsafe, Bytes } from "@polkadot/types";
-import { expandMetadata } from "@polkadot/metadata";
+import { u8aToString, stringToHex } from "@polkadot/util";
 
 let api;
 let provider;
@@ -75,13 +67,6 @@ export function send(api, address, data) {
             tx: tx.hash.toString()
           });
         }
-        // if (result.status.isFinalized) {
-        //   unsubscribe();
-        //   resolve({
-        //     block: result.status.asFinalized.toString(),
-        //     tx: tx.hash.toString()
-        //   });
-        // }
       })
         .then(r => {
           unsubscribe = r;
@@ -93,88 +78,6 @@ export function send(api, address, data) {
       reject(error);
     }
   });
-}
-
-function parseDataHex(api, value, skip) {
-  const input = u8aToU8a(value);
-  let cursor = 0 + skip.pos;
-  const [offset, length] = compactFromU8a(input);
-  let data = input.subarray(offset + cursor);
-  const result = [];
-  const countChanks = length.toNumber();
-  let chank = 1;
-  for (chank; chank <= countChanks && data.length > 0; chank++) {
-    const timeBytes = data.subarray(0, 8);
-    data = data.subarray(8);
-
-    const timeType = createTypeUnsafe(
-      api.registry,
-      "MomentOf",
-      [timeBytes],
-      true
-    );
-    const value = new Bytes(api.registry, data);
-    const dataBytes = data.subarray(0, value.encodedLength);
-    data = data.subarray(value.encodedLength);
-
-    if (
-      !Object.prototype.hasOwnProperty.call(skip, "time") ||
-      skip.time === 0 ||
-      Number(timeType.toString()) > skip.time
-    ) {
-      const dataType = createTypeUnsafe(
-        api.registry,
-        "Vec<u8>",
-        [dataBytes],
-        true
-      );
-      result.push([timeType, dataType]);
-    }
-    cursor += 8 + value.encodedLength;
-  }
-  return [cursor, result];
-}
-
-export async function subscribeDatalog(
-  api,
-  provider,
-  address,
-  cb,
-  start = { pos: 0, time: Date.now() }
-) {
-  const metadata = await api.rpc.state.getMetadata();
-  const fnMeta = expandMetadata(api.registry, metadata);
-  const params = [fnMeta.query.datalog.datalog, address];
-  const paramsType = createTypeUnsafe(
-    api.registry,
-    "StorageKey",
-    [params],
-    true
-  );
-
-  let skip = start;
-  const unsubscribeId = await provider.subscribe(
-    "state_storage",
-    "state_subscribeStorage",
-    [[paramsType.toHex()]],
-    (_, r) => {
-      if (r) {
-        const res = parseDataHex(api, r.changes[0][1], skip);
-        skip.pos = res[0];
-        skip.time = 0;
-        if (res[1].length > 0) {
-          cb(res[1]);
-        }
-      }
-    }
-  );
-  return async function() {
-    return await provider.unsubscribe(
-      "state_storage",
-      "state_unsubscribeStorage",
-      unsubscribeId
-    );
-  };
 }
 
 export async function init(config = {}) {
@@ -191,7 +94,9 @@ export async function init(config = {}) {
       return initAccount(api, props[0]).then(() => send(api, ...props));
     },
     subscribeDatalog(...props) {
-      return subscribeDatalog(api, provider, ...props);
+      console.log(props);
+      return;
+      // return subscribeDatalog(api, provider, ...props);
     }
   };
 

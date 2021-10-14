@@ -4,7 +4,9 @@
     <blockquote>
       <a
         class="t-lg content-overflow"
-        :href="`https://ui.ipci.io/#/explorer/query/${block}`"
+        :href="
+          `https://parachain.robonomics.network/?rpc=wss%3A%2F%2Fipci.rpc.robonomics.network#/explorer/query/${block}`
+        "
         target="_blank"
       >
         {{ block | metaSlice }}/{{ ext | metaSlice }}

@@ -23,7 +23,9 @@
           <hr />
           <b>Success</b>&nbsp;
           <a
-            :href="`https://ui.ipci.io/#/explorer/query/${tx.block}`"
+            :href="
+              `https://parachain.robonomics.network/?rpc=wss%3A%2F%2Fipci.rpc.robonomics.network#/explorer/query/${tx.block}`
+            "
             target="_blank"
           >
             View explorer
