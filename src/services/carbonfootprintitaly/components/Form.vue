@@ -752,7 +752,7 @@ export default {
         pas_certificate: {
           label: this.$t("carbonfootprintitaly.pasCertificate"),
           items: {},
-          type: "file-pdf",
+          type: "files",
           fileTypes: "",
           rules: [],
           error: false,
@@ -766,7 +766,8 @@ export default {
           rules: [],
           error: false,
           show: ['neutrality'],
-          group: "company"
+          group: "company",
+          value: "",
         },
         company_reg_number: {
           label: this.$t("carbonfootprintitaly.companyRegNumber"),

@@ -86,6 +86,8 @@ export default {
     async onSubmit({ error, fields }) {
       window.console.log(fields);
       window.console.log(await this.getObjective(fields));
+      window.console.log('Error:', error);
+
       if (!error) {
         this.isWork = true;
 
