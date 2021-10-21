@@ -84,6 +84,8 @@ export default {
       this.$refs.form.submit();
     },
     async onSubmit({ error, fields }) {
+      window.console.log(fields);
+      window.console.log(await this.getObjective(fields));
       if (!error) {
         this.isWork = true;
 
@@ -165,6 +167,8 @@ export default {
               payload[`${field}_hash`].push(hash);
             }
           }
+        } else if (fields[field].type === "table") {
+          payload[field] = JSON.stringify(fields[field].items);
         } else {
           payload[field] = fields[field].value;
           if (fieldHash) {
