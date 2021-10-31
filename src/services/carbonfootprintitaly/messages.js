@@ -26,6 +26,8 @@ export default {
     dragFile: "Drag & Drop your file or Browse",
     dragImages: "Drag & Drop your image files or Browse",
     loading: "Loading",
+    addBtn: "Add",
+    removeBtn: "Remove",
     reqApprove:
       "You need to approve an additional amount to purchase a blockchain passport",
 

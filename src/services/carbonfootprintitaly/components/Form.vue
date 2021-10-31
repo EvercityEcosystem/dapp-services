@@ -369,11 +369,11 @@
         <div class="d-flex justify-content-end">
           <button
               v-if="fields.reduction_targets.items.length > 1"
-              v-on:click="removeFormArray('reduction_targets', index)" class="btn btn-outline">Remove</button>
+              v-on:click="removeFormArray('reduction_targets', index)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
         </div>
       </div>
       <div>
-        <button v-on:click="addFormArray('reduction_targets')" class="btn btn-blue">+ Add</button>
+        <button v-on:click="addFormArray('reduction_targets')" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
       </div>
     </RFormSection>
     <!-- Reduction Projects neutrality -->
@@ -1564,7 +1564,10 @@ export default {
         }
       ];
     },
-    addFormArray(code) {
+    addFormArray(code, event) {
+      if (event) {
+        event.stopPropagation();
+      }
       if (this.fields[code]) {
         switch (code) {
           case 'reduction_targets':
@@ -1577,7 +1580,10 @@ export default {
 
       }
     },
-    removeFormArray(code, index) {
+    removeFormArray(code, index, event) {
+      if (event) {
+        event.stopPropagation();
+      }
       if (this.fields[code]) {
         this.fields[code].items.splice(index, 1);
       }
