@@ -455,7 +455,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title">{{ item.title }}</option>
+            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
