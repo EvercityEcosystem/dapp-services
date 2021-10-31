@@ -5,7 +5,7 @@
         <div v-if="field.group === 'general' && checkMode(field)">
           <RFieldLabel :isError="field.error">{{ field.label }}</RFieldLabel>
           <input
-              v-if="field.type === 'text' "
+              v-if="field.type === 'text'"
               type="text"
               v-model="field.value"
               class="container-full"
@@ -35,7 +35,7 @@
               v-on:removefile="removefile"
           />
           <file-pond
-              v-if="field.type === 'file-pdf'"
+              v-if="field.type === 'file'"
               :name="name"
               allow-multiple="true"
               accepted-file-types="application/pdf"
@@ -51,28 +51,28 @@
       <button
           class="btn btn-primary"
           :disabled="mode === 'product'"
-          v-on:click="mode = 'product'"
+          v-on:click="mode = 'product';fields.mode.value = 'product'"
       >
         {{ $t("carbonfootprintitaly.controlProduct") }}
       </button>
       <button
           class="btn btn-primary"
           :disabled="mode === 'organization'"
-          v-on:click="mode = 'organization'"
+          v-on:click="mode = 'organization';fields.mode.value = 'organization'"
       >
         {{ $t("carbonfootprintitaly.controlOrganization") }}
       </button>
       <button
           class="btn btn-primary"
           :disabled="mode === 'neutrality'"
-          v-on:click="mode = 'neutrality'"
+          v-on:click="mode = 'neutrality';fields.mode.value = 'neutrality'"
       >
         {{ $t("carbonfootprintitaly.controlNeutrality") }}
       </button>
       <button
           class="btn btn-primary"
           :disabled="mode === 'reduction'"
-          v-on:click="mode = 'reduction'"
+          v-on:click="mode = 'reduction';fields.mode.value = 'reduction'"
       >
         {{ $t("carbonfootprintitaly.controlReduction") }}
       </button>
@@ -119,9 +119,54 @@
       </RFormField>
     </RFormSection>
 
+    <!-- reduction Detailed information-->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.detailedInformation')"
+        v-if="checkModeInList(['reduction'], mode)"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'r_detailed' &&  checkModeInList(field.show, mode)">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+        </div>
+      </RFormField>
+    </RFormSection>
+
     <RFormSection
         :title="$t('carbonfootprintitaly.subtitleCompany')"
-        v-if="mode === 'organization' || mode === 'neutrality'"
+        v-if="checkModeInList(['organization','neutrality'], mode)"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'company' && checkMode(field)">
@@ -368,50 +413,7 @@
       </div>
     </RFormSection>
 
-    <!-- reduction Detailed information-->
-    <RFormSection
-        :title="$t('carbonfootprintitaly.detailedInformation')"
-        v-if="mode === 'reduction'"
-    >
-      <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'r_detailed'">
-          <RFieldLabel
-              :isError="field.error"
-              v-html="field.label"
-          ></RFieldLabel>
-          <input
-              v-if="field.type == 'text'"
-              type="text"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <input
-              v-if="field.type == 'number'"
-              type="number"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <flat-pickr
-              v-if="field.type == 'date'"
-              v-model="field.value"
-              :config="field.config"
-              class="flatpickr"
-              :class="{ error: field.error }"
-          />
-          <file-pond
-              v-if="field.type === 'files'"
-              :name="name"
-              allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
-              :label-idle="$t('carbonfootprintitaly.dragImages')"
-              v-bind:server="upload"
-              v-on:removefile="removefile"
-          />
-        </div>
-      </RFormField>
-    </RFormSection>
+
     <!-- reduction ExAnteYearInformation -->
     <RFormSection
         :title="$t('carbonfootprintitaly.ExAnteYearInformation')"
@@ -667,6 +669,14 @@ export default {
       model: null,
       mode: 'product',
       fields: {
+        mode: {
+          value: "product",
+          type: "hidden",
+          rules: ["require"],
+          error: false,
+          group: "general",
+          show: ['product', 'organization', 'neutrality', 'reduction'],
+        },
         reduction_targets: {
           type: 'table',
           rules: [],
@@ -729,7 +739,7 @@ export default {
           rules: [],
           error: false,
           group: "general",
-          show: ['product', 'organization'],
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         verification_body: {
           label: this.$t("carbonfootprintitaly.verificationBody"),
@@ -737,7 +747,7 @@ export default {
           type: "text",
           rules: [],
           error: false,
-          group: "general",
+          group: "company",
           show: ['neutrality'],
         },
         verification_certificate: {
@@ -747,7 +757,7 @@ export default {
           rules: [],
           error: false,
           fileTypes: "",
-          group: "general",
+          group: "r_detailed",
           show: ['reduction'],
         },
         pas_certificate: {
@@ -757,7 +767,7 @@ export default {
           fileTypes: "",
           rules: [],
           error: false,
-          group: "general",
+          group: "company",
           show: ['neutrality'],
         },
         cfo_cfp_registration: {
@@ -976,25 +986,25 @@ export default {
           group: "r_ex_ante_year",
           options: [
             {
-              title: 'g CO<sup>2</sup>e/FU',
+              title: 'g CO2e/FU',
             },
             {
-              title: 'g CO<sup>2</sup>e/DU'
+              title: 'g CO2e/DU'
             },
             {
-              title: 'kg CO<sup>2</sup>e/FU'
+              title: 'kg CO2e/FU'
             },
             {
-              title: 'kg CO<sup>2</sup>e/DU'
+              title: 'kg CO2e/DU'
             },
             {
-              title: 't CO<sup>2</sup>e/DU'
+              title: 't CO2e/DU'
             },
             {
-              title: 't CO<sup>2</sup>e/FU'
+              title: 't CO2e/FU'
             },
             {
-              title: 't CO<sup>2</sup>e'
+              title: 't CO2e'
             }
           ]
         },
@@ -1574,6 +1584,13 @@ export default {
     },
     checkMode(field) {
       return field.show.indexOf(this.mode) > -1;
+    },
+    checkModeInList(shows, mode) {
+      if (!(shows instanceof Array)) {
+        return false;
+      }
+
+      return shows.indexOf(mode) > -1;
     },
     removefile(a, file) {
       if (this.fields.images.items[file.filename]) {

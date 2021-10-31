@@ -83,10 +83,8 @@ export default {
     submit() {
       this.$refs.form.submit();
     },
-    async onSubmit({ error, fields }) {
-      window.console.log(fields);
+    async onSubmit({ error, fields}) {
       window.console.log(await this.getObjective(fields));
-      window.console.log('Error:', error);
 
       if (!error) {
         this.isWork = true;
@@ -99,7 +97,9 @@ export default {
             {
               accounts: accounts,
               onSend: async address => {
-                const objectivePayload = await this.getObjective(fields);
+                const objectivePayload = await this.getObjective({
+                  ...fields
+                });
                 const rosbag = await genRosbagFile(objectivePayload);
                 const objective = await rosbagToIpfs(rosbag);
 
