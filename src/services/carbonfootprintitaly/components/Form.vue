@@ -3,7 +3,7 @@
     <RFormSection :title="$t('carbonfootprintitaly.subtitle')">
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'general' && checkMode(field)">
-          <RFieldLabel :isError="field.error">{{ field.label }}</RFieldLabel>
+          <RFieldLabel :isError="field.error" v-if="field.type !== 'hidden'">{{ field.label }}</RFieldLabel>
           <input
               v-if="field.type === 'text'"
               type="text"
@@ -369,11 +369,11 @@
         <div class="d-flex justify-content-end">
           <button
               v-if="fields.reduction_targets.items.length > 1"
-              v-on:click="removeFormArray('reduction_targets', index)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
+              v-on:click="removeFormArray('reduction_targets', index, $event)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
         </div>
       </div>
       <div>
-        <button v-on:click="addFormArray('reduction_targets')" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
+        <button v-on:click="addFormArray('reduction_targets', $event)" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
       </div>
     </RFormSection>
     <!-- Reduction Projects neutrality -->
@@ -405,11 +405,11 @@
         <div class="d-flex justify-content-end">
           <button
               v-if="fields.reduction_projects.items.length > 1"
-              v-on:click="removeFormArray('reduction_projects', index)" class="btn btn-outline">Remove</button>
+              v-on:click="removeFormArray('reduction_projects', index, $event)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
         </div>
       </div>
       <div>
-        <button v-on:click="addFormArray('reduction_projects')" class="btn btn-blue">+ Add</button>
+        <button v-on:click="addFormArray('reduction_projects', $event)" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
       </div>
     </RFormSection>
 
@@ -1566,7 +1566,7 @@ export default {
     },
     addFormArray(code, event) {
       if (event) {
-        event.stopPropagation();
+        event.preventDefault();
       }
       if (this.fields[code]) {
         switch (code) {
@@ -1582,7 +1582,7 @@ export default {
     },
     removeFormArray(code, index, event) {
       if (event) {
-        event.stopPropagation();
+        event.preventDefault();
       }
       if (this.fields[code]) {
         this.fields[code].items.splice(index, 1);
