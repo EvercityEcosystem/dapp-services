@@ -746,6 +746,7 @@ export default {
           type: "text",
           rules: [],
           error: false,
+          fileTypes: "",
           group: "general",
           show: ['reduction'],
         },
