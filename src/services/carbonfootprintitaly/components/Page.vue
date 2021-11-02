@@ -170,7 +170,30 @@ export default {
             }
           }
         } else if (fields[field].type === "table") {
-          payload[field] = JSON.stringify(fields[field].items);
+          switch (field) {
+            case 'reduction_targets':
+              payload[field] = JSON.stringify(fields[field].items.map(item => {
+                return {
+                  [item[0].name]: item[0].value,
+                  [item[1].name]: item[1].value,
+                  [item[2].name]: item[2].value,
+                };
+              }));
+              break;
+            case 'reduction_projects':
+              payload[field] = JSON.stringify(fields[field].items.map(item => {
+                return {
+                  [item[0].name]: item[0].value,
+                  [item[1].name]: item[1].value,
+                  [item[2].name]: item[2].value,
+                  [item[3].name]: item[3].value,
+                  [item[4].name]: item[4].value,
+                };
+              }));
+              break;
+              default:
+                  return null;
+          }
         } else {
           payload[field] = fields[field].value;
           if (fieldHash) {
