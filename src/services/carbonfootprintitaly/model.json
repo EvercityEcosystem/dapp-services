@@ -5,6 +5,11 @@
   "license": "BSD3",
   "rosbag_scheme": [
     {
+      "suffix": "/mode",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "String"
+    },
+    {
       "suffix": "/company_name",
       "rosbag_type": "std_msgs/String",
       "data_type": "String"
@@ -66,6 +71,11 @@
     },
     {
       "suffix": "/company_photo",
+      "rosbag_type": "std_msgs/String",
+      "data_type": "IPFSBin"
+    },
+    {
+      "suffix": "/neutrality_image",
       "rosbag_type": "std_msgs/String",
       "data_type": "IPFSBin"
     },

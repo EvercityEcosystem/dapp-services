@@ -839,7 +839,16 @@ export default {
           type: "files",
           rules: [],
           error: false,
-          show: ['organization', 'neutrality'],
+          show: ['organization'],
+          group: "company"
+        },
+        neutrality_image: {
+          label: this.$t("carbonfootprintitaly.neutralityImageField"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          show: ['neutrality'],
           group: "company"
         },
         product_registration_n: {
