@@ -752,11 +752,10 @@ export default {
         },
         verification_certificate: {
           label: this.$t("carbonfootprintitaly.verificationCertificate"),
-          value: "",
-          type: "text",
+          type: "files",
+          fileTypes: "",
           rules: [],
           error: false,
-          fileTypes: "",
           group: "r_detailed",
           show: ['reduction'],
         },
