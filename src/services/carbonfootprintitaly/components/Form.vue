@@ -125,7 +125,7 @@
         v-if="checkModeInList(['reduction'], mode)"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'r_detailed' &&  checkModeInList(field.show, mode)">
+        <div v-if="field.group === 'r_detailed'">
           <RFieldLabel
               :isError="field.error"
               v-html="field.label"
