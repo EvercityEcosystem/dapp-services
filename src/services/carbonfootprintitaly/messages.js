@@ -69,6 +69,7 @@ export default {
     companyLogoField: "Logo of the company",
     companyPhotoField: "Photo of the company",
     neutralityImageField: "Image",
+    neutralityRegNumber: "Registration Number",
     RTotalEmUnit: "Total emissions (unit)",
     verificationCertificate: "Verification Certificate",
     verificationBody: "Verification Body",

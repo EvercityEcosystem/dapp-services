@@ -790,6 +790,15 @@ export default {
           showOnProduct: false,
           showOnOrganization: true
         },
+        neutrality_reg_number: {
+          label: this.$t("carbonfootprintitaly.neutralityRegNumber"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality']
+        },
         company_activity: {
           label: this.$t("carbonfootprintitaly.companyActivity"),
           value: "",
