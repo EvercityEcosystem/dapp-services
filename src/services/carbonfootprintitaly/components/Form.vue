@@ -2,37 +2,46 @@
   <form v-on:submit.prevent="submit">
     <RFormSection :title="$t('carbonfootprintitaly.subtitle')">
       <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'general'">
-          <RFieldLabel :isError="field.error">{{ field.label }}</RFieldLabel>
+        <div v-if="field.group === 'general' && checkMode(field)">
+          <RFieldLabel :isError="field.error" v-if="field.type !== 'hidden'">{{ field.label }}</RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type === 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type === 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+          <file-pond
+              v-if="field.type === 'file'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragFile')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
@@ -40,320 +49,594 @@
 
     <div class="controls">
       <button
-        class="btn btn-primary"
-        :disabled="isProduct"
-        v-on:click="isProduct = true"
+          class="btn btn-primary"
+          :disabled="mode === 'product'"
+          v-on:click="mode = 'product';fields.mode.value = 'product'"
       >
         {{ $t("carbonfootprintitaly.controlProduct") }}
       </button>
       <button
-        class="btn btn-primary"
-        :disabled="!isProduct"
-        v-on:click="isProduct = false"
+          class="btn btn-primary"
+          :disabled="mode === 'organization'"
+          v-on:click="mode = 'organization';fields.mode.value = 'organization'"
       >
         {{ $t("carbonfootprintitaly.controlOrganization") }}
+      </button>
+      <button
+          class="btn btn-primary"
+          :disabled="mode === 'neutrality'"
+          v-on:click="mode = 'neutrality';fields.mode.value = 'neutrality'"
+      >
+        {{ $t("carbonfootprintitaly.controlNeutrality") }}
+      </button>
+      <button
+          class="btn btn-primary"
+          :disabled="mode === 'reduction'"
+          v-on:click="mode = 'reduction';fields.mode.value = 'reduction'"
+      >
+        {{ $t("carbonfootprintitaly.controlReduction") }}
       </button>
     </div>
 
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleProduct')"
-      v-if="isProduct"
+        :title="$t('carbonfootprintitaly.subtitleProduct')"
+        v-if="mode === 'product'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'product'">
           <RFieldLabel :isError="field.error">{{ field.label }}</RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type === 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type === 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
     </RFormSection>
 
+    <!-- reduction Detailed information-->
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleCompany')"
-      v-if="!isProduct"
+        :title="$t('carbonfootprintitaly.detailedInformation')"
+        v-if="checkModeInList(['reduction'], mode)"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'company'">
+        <div v-if="field.group === 'r_detailed'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
     </RFormSection>
 
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleCFP')"
-      v-if="isProduct"
+        :title="$t('carbonfootprintitaly.subtitleCompany')"
+        v-if="checkModeInList(['organization','neutrality'], mode)"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'company' && checkMode(field)">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type === 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type === 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+        </div>
+      </RFormField>
+    </RFormSection>
+
+    <!-- cfp product -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.subtitleCFP')"
+        v-if="mode === 'product'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'cfp'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
     </RFormSection>
-
+    <!-- cfp organization -->
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleCFO')"
-      v-if="!isProduct"
+        :title="$t('carbonfootprintitaly.subtitleCFO')"
+        v-if="mode === 'organization'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'cfo'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type == 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
+        </div>
+      </RFormField>
+    </RFormSection>
+    <!-- cfp neutrality -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.CFP_CFO')"
+        v-if="mode === 'neutrality'"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'cfpn'">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type === 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type === 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+        </div>
+      </RFormField>
+    </RFormSection>
+    <!-- reduction targets neutrality -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.reduction_targets')"
+        v-if="mode === 'neutrality'"
+    >
+      <div class="mb-3" v-for="(item, index) in fields.reduction_targets.items" :key="index">
+        <RFormField v-for="(field, name) in item" :key="name + '_reduction_targets'">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type === 'text'"
+              type="text"
+              class="container-full"
+              v-model="field.value"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+        </RFormField>
+        <div class="d-flex justify-content-end">
+          <button
+              v-if="fields.reduction_targets.items.length > 1"
+              v-on:click="removeFormArray('reduction_targets', index, $event)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
+        </div>
+      </div>
+      <div>
+        <button v-on:click="addFormArray('reduction_targets', $event)" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
+      </div>
+    </RFormSection>
+    <!-- Reduction Projects neutrality -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.reduction_projects')"
+        v-if="mode === 'neutrality'"
+    >
+      <div v-for="(item, index) in fields.reduction_projects.items" :key="index">
+        <RFormField v-for="(field, name) in item" :key="name + '_reduction_projects'">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type === 'text'"
+              type="text"
+              class="container-full"
+              v-model="field.value"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+        </RFormField>
+        <div class="d-flex justify-content-end">
+          <button
+              v-if="fields.reduction_projects.items.length > 1"
+              v-on:click="removeFormArray('reduction_projects', index, $event)" class="btn btn-outline">{{$t('carbonfootprintitaly.removeBtn')}}</button>
+        </div>
+      </div>
+      <div>
+        <button v-on:click="addFormArray('reduction_projects', $event)" class="btn btn-blue">+ {{$t('carbonfootprintitaly.addBtn')}}</button>
+      </div>
+    </RFormSection>
+
+
+    <!-- reduction ExAnteYearInformation -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.ExAnteYearInformation')"
+        v-if="mode === 'reduction'"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'r_ex_ante_year'">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+          <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
+                  :class="{ error: field.error }">
+            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
+          </select>
+        </div>
+      </RFormField>
+    </RFormSection>
+    <!-- reduction ExAntePostInformation -->
+    <RFormSection
+        :title="$t('carbonfootprintitaly.ExPostYearInformation')"
+        v-if="mode === 'reduction'"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'r_ex_post_year'">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+          <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
+                  :class="{ error: field.error }">
+            <option v-for="item in field.options" :key="item.title">{{ item.title }}</option>
+          </select>
         </div>
       </RFormField>
     </RFormSection>
 
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleEmission')"
-      v-if="!isProduct"
+        :title="$t('carbonfootprintitaly.subtitleEmission')"
+        v-if="mode === 'organization'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'emission'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type == 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
     </RFormSection>
 
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleOffset')"
-      v-if="!isProduct"
+        :title="$t('carbonfootprintitaly.subtitleOffset')"
+        v-if="mode === 'organization'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'offset'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type == 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
     </RFormSection>
 
     <RFormSection
-      :title="$t('carbonfootprintitaly.subtitleGHG')"
-      v-if="isProduct"
+        :title="$t('carbonfootprintitaly.subtitleGHG')"
+        v-if="mode === 'product'"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'ghg'">
           <RFieldLabel
-            :isError="field.error"
-            v-html="field.label"
+              :isError="field.error"
+              v-html="field.label"
           ></RFieldLabel>
           <input
-            v-if="field.type == 'text'"
-            type="text"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <input
-            v-if="field.type == 'number'"
-            type="number"
-            v-model="field.value"
-            class="container-full"
-            :class="{ error: field.error }"
+              v-if="field.type == 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
           />
           <flat-pickr
-            v-if="field.type == 'date'"
-            v-model="field.value"
-            :config="field.config"
-            class="flatpickr"
-            :class="{ error: field.error }"
+              v-if="field.type == 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
           />
           <file-pond
-            v-if="field.type == 'files'"
-            :name="name"
-            allow-multiple="true"
-            accepted-file-types="image/jpeg, image/png, image/tiff"
-            :label-idle="$t('carbonfootprintitaly.dragImages')"
-            v-bind:server="upload"
-            v-on:removefile="removefile"
+              v-if="field.type == 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/tiff"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
           />
         </div>
       </RFormField>
@@ -375,8 +658,8 @@ import flatPickr from "vue-flatpickr-component";
 // import { Russian } from "flatpickr/dist/l10n/ru.js";
 
 const FilePond = vueFilePond(
-  FilePondPluginFileEncode,
-  FilePondPluginFileValidateType
+    FilePondPluginFileEncode,
+    FilePondPluginFileValidateType
 );
 
 export default {
@@ -384,8 +667,26 @@ export default {
   data() {
     return {
       model: null,
-      isProduct: true,
+      mode: 'product',
       fields: {
+        mode: {
+          value: "product",
+          type: "hidden",
+          rules: ["require"],
+          error: false,
+          group: "general",
+          show: ['product', 'organization', 'neutrality', 'reduction'],
+        },
+        reduction_targets: {
+          type: 'table',
+          rules: [],
+          items: []
+        },
+        reduction_projects: {
+          type: 'table',
+          items: [],
+          rules: [],
+        },
         company_name: {
           label: this.$t("carbonfootprintitaly.companyName"),
           value: "",
@@ -393,8 +694,7 @@ export default {
           rules: ["require"],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         company_contact: {
           label: this.$t("carbonfootprintitaly.companyContacts"),
@@ -403,8 +703,7 @@ export default {
           rules: ["require"],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         company_website: {
           label: this.$t("carbonfootprintitaly.companyWebsite"),
@@ -413,8 +712,7 @@ export default {
           rules: ["require"],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         company_phone: {
           label: this.$t("carbonfootprintitaly.companyPhone"),
@@ -423,8 +721,7 @@ export default {
           rules: [],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         company_headquarters: {
           label: this.$t("carbonfootprintitaly.companyHeadquarters"),
@@ -433,8 +730,7 @@ export default {
           rules: [],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
         company_logo: {
           label: this.$t("carbonfootprintitaly.companyLogoField"),
@@ -443,10 +739,46 @@ export default {
           rules: [],
           error: false,
           group: "general",
-          showOnProduct: true,
-          showOnOrganization: true
+          show: ['product', 'organization', 'neutrality', 'reduction'],
         },
-
+        verification_body: {
+          label: this.$t("carbonfootprintitaly.verificationBody"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality'],
+        },
+        verification_certificate: {
+          label: this.$t("carbonfootprintitaly.verificationCertificate"),
+          type: "files",
+          fileTypes: "",
+          rules: [],
+          error: false,
+          group: "r_detailed",
+          show: ['reduction'],
+        },
+        pas_certificate: {
+          label: this.$t("carbonfootprintitaly.pasCertificate"),
+          items: {},
+          type: "files",
+          fileTypes: "",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality'],
+        },
+        cfo_cfp_registration: {
+          label: this.$t("carbonfootprintitaly.cfoCfpRegistration"),
+          items: {},
+          type: "text",
+          rules: [],
+          error: false,
+          show: ['neutrality'],
+          group: "company",
+          value: "",
+        },
         company_reg_number: {
           label: this.$t("carbonfootprintitaly.companyRegNumber"),
           value: "",
@@ -454,8 +786,18 @@ export default {
           rules: [],
           error: false,
           group: "company",
+          show: ['organization'],
           showOnProduct: false,
           showOnOrganization: true
+        },
+        neutrality_reg_number: {
+          label: this.$t("carbonfootprintitaly.neutralityRegNumber"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality']
         },
         company_activity: {
           label: this.$t("carbonfootprintitaly.companyActivity"),
@@ -464,8 +806,7 @@ export default {
           rules: [],
           error: false,
           group: "company",
-          showOnProduct: false,
-          showOnOrganization: true
+          show: ['organization', 'neutrality']
         },
         company_base_year: {
           label: this.$t("carbonfootprintitaly.companyBaseYear"),
@@ -474,6 +815,7 @@ export default {
           rules: [],
           error: false,
           group: "company",
+          show: ['organization'],
           showOnProduct: false,
           showOnOrganization: true
         },
@@ -484,6 +826,7 @@ export default {
           rules: [],
           error: false,
           group: "company",
+          show: ['organization'],
           showOnProduct: false,
           showOnOrganization: true
         },
@@ -494,6 +837,7 @@ export default {
           rules: [],
           error: false,
           group: "company",
+          show: ['organization'],
           showOnProduct: false,
           showOnOrganization: true
         },
@@ -503,9 +847,18 @@ export default {
           type: "files",
           rules: [],
           error: false,
+          show: ['organization'],
           group: "company"
         },
-
+        neutrality_image: {
+          label: this.$t("carbonfootprintitaly.neutralityImageField"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          show: ['neutrality'],
+          group: "company"
+        },
         product_registration_n: {
           label: this.$t("carbonfootprintitaly.productRegNumber"),
           value: "",
@@ -538,7 +891,244 @@ export default {
           error: false,
           group: "product"
         },
-
+        //footprint neutrality
+        cfpn_registration_date: {
+          label: this.$t("carbonfootprintitaly.cfpRegDate"),
+          value: "",
+          type: "date",
+          rules: [],
+          error: false,
+          group: "cfpn",
+          config: {
+            dateFormat: "d/m/Y"
+            // locale: Russian
+          }
+        },
+        cfpn_du: {
+          label: this.$t("carbonfootprintitaly.cfpDU"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        cfpn_value: {
+          label: this.$t("carbonfootprintitaly.cfpnValue"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        cfon_value: {
+          label: this.$t("carbonfootprintitaly.cfonValue"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        ghgn_value: {
+          label: this.$t("carbonfootprintitaly.ghgnValue"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        n_offseting_year: {
+          label: this.$t("carbonfootprintitaly.nOffsetingYear"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        cfpn_chart: {
+          label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: "cfpn"
+        },
+        // reduction about
+        r_detail_info_name: {
+          label: this.$t("carbonfootprintitaly.RDetailInfoName"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_detailed"
+        },
+        r_detail_info_descr: {
+          label: this.$t("carbonfootprintitaly.RDetailInfoDescr"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_detailed"
+        },
+        r_detail_info_plants: {
+          label: this.$t("carbonfootprintitaly.RDetailInfoPlants"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_detailed"
+        },
+        // reduction r_ex_ante_year
+        r_ex_year: {
+          label: this.$t("carbonfootprintitaly.RExYear"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
+        },
+        r_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
+        },
+        r_total_em_unit: {
+          label: this.$t("carbonfootprintitaly.RTotalEmUnit"),
+          value: "",
+          type: "select",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year",
+          options: [
+            {
+              title: 'g CO2e/FU',
+            },
+            {
+              title: 'g CO2e/DU'
+            },
+            {
+              title: 'kg CO2e/FU'
+            },
+            {
+              title: 'kg CO2e/DU'
+            },
+            {
+              title: 't CO2e/DU'
+            },
+            {
+              title: 't CO2e/FU'
+            },
+            {
+              title: 't CO2e'
+            }
+          ]
+        },
+        r_verified_by: {
+          label: this.$t("carbonfootprintitaly.RVerifiedBy"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
+        },
+        r_ex_regnum: {
+          label: this.$t("carbonfootprintitaly.RExRegistration"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
+        },
+        // reduction r_ex_post_year
+        r_post_year: {
+          label: this.$t("carbonfootprintitaly.RExYear"),
+          value: "",
+          type: "number",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_total_unit: {
+          label: this.$t("carbonfootprintitaly.RTotalEmUnit"),
+          value: "",
+          type: "select",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year",
+          options: [
+            {
+              title: 'g CO2e/FU',
+            },
+            {
+              title: 'g CO2e/DU'
+            },
+            {
+              title: 'kg CO2e/FU'
+            },
+            {
+              title: 'kg CO2e/DU'
+            },
+            {
+              title: 't CO2e/DU'
+            },
+            {
+              title: 't CO2e/FU'
+            },
+            {
+              title: 't CO2e'
+            }
+          ]
+        },
+        r_post_verified_by: {
+          label: this.$t("carbonfootprintitaly.RVerifiedBy"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_regnum: {
+          label: this.$t("carbonfootprintitaly.RExRegistration"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_description: {
+          label: this.$t("carbonfootprintitaly.RPostDescription"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_image: {
+          label: this.$t("carbonfootprintitaly.RPostImage"),
+          value: "",
+          type: "files",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
+        r_post_chart: {
+          label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
+          type: "files",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
+        },
         // footprint
         cfp_registration_date: {
           label: this.$t("carbonfootprintitaly.cfpRegDate"),
@@ -888,11 +1478,11 @@ export default {
       upload: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
           if (
-            Object.prototype.hasOwnProperty.call(this.fields, fieldName) &&
-            Object.prototype.hasOwnProperty.call(
-              this.fields[fieldName],
-              "value"
-            )
+              Object.prototype.hasOwnProperty.call(this.fields, fieldName) &&
+              Object.prototype.hasOwnProperty.call(
+                  this.fields[fieldName],
+                  "value"
+              )
           ) {
             this.fields[fieldName].value = file;
           } else {
@@ -913,7 +1503,118 @@ export default {
     FilePond,
     flatPickr
   },
+  created() {
+    this.addFormArray('reduction_targets');
+    this.addFormArray('reduction_projects');
+  },
   methods: {
+    reduction_targets_field() {
+      return [
+        {
+          label: this.$t("carbonfootprintitaly.rt_targets_achieved"),
+          name: 'targets_achieved',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rt_ghu"),
+          name: 'ghu',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rt_date"),
+          value: "",
+          name: 'targets_achieved_date',
+          type: "date",
+          rules: [],
+          config: {
+            dateFormat: "d/m/Y"
+          }
+        }];
+    },
+    reduction_projects_field() {
+      return [
+        {
+          label: this.$t("carbonfootprintitaly.rp_programme"),
+          name: 'programme',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rp_project_name"),
+          name: 'project_name',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rp_project_code"),
+          name: 'project_code',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rp_sector"),
+          name: 'sector',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        },
+        {
+          label: this.$t("carbonfootprintitaly.rp_credits"),
+          name: 'credits',
+          value: "",
+          type: "text",
+          error: false,
+          rules: [],
+        }
+      ];
+    },
+    addFormArray(code, event) {
+      if (event) {
+        event.preventDefault();
+      }
+      if (this.fields[code]) {
+        switch (code) {
+          case 'reduction_targets':
+            this.fields[code].items.push(this.reduction_targets_field());
+            break;
+          case 'reduction_projects':
+            this.fields[code].items.push(this.reduction_projects_field());
+            break;
+        }
+
+      }
+    },
+    removeFormArray(code, index, event) {
+      if (event) {
+        event.preventDefault();
+      }
+      if (this.fields[code]) {
+        this.fields[code].items.splice(index, 1);
+      }
+    },
+    checkMode(field) {
+      return field.show.indexOf(this.mode) > -1;
+    },
+    checkModeInList(shows, mode) {
+      if (!(shows instanceof Array)) {
+        return false;
+      }
+
+      return shows.indexOf(mode) > -1;
+    },
     removefile(a, file) {
       if (this.fields.images.items[file.filename]) {
         delete this.fields.images.items[file.filename];

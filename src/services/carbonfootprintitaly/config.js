@@ -1,5 +1,6 @@
 export default {
-  model: "QmRHLgQVJK9r9ioQHzNXgSFBvYwceWMm5EQeKUJrvR8jUW",
+  // model: "QmRHLgQVJK9r9ioQHzNXgSFBvYwceWMm5EQeKUJrvR8jUW",
+  model: "QmNeCyYuqAsUierfcqnWGEppv9Gw8GPUAPytS3tCNqG2qX",
   token: "0x668B3a6F9b6C4a2759Fa3912D0a59f39d1F0f0B0",
   substrate: {
     endpoint: "wss://ipci.rpc.robonomics.network",

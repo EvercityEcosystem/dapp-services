@@ -83,7 +83,9 @@ export default {
     submit() {
       this.$refs.form.submit();
     },
-    async onSubmit({ error, fields }) {
+    async onSubmit({ error, fields}) {
+      window.console.log(await this.getObjective(fields));
+
       if (!error) {
         this.isWork = true;
 
@@ -95,7 +97,9 @@ export default {
             {
               accounts: accounts,
               onSend: async address => {
-                const objectivePayload = await this.getObjective(fields);
+                const objectivePayload = await this.getObjective({
+                  ...fields
+                });
                 const rosbag = await genRosbagFile(objectivePayload);
                 const objective = await rosbagToIpfs(rosbag);
 
@@ -164,6 +168,31 @@ export default {
             if (fieldHash) {
               payload[`${field}_hash`].push(hash);
             }
+          }
+        } else if (fields[field].type === "table") {
+          switch (field) {
+            case 'reduction_targets':
+              payload[field] = JSON.stringify(fields[field].items.map(item => {
+                return {
+                  [item[0].name]: item[0].value,
+                  [item[1].name]: item[1].value,
+                  [item[2].name]: item[2].value,
+                };
+              }));
+              break;
+            case 'reduction_projects':
+              payload[field] = JSON.stringify(fields[field].items.map(item => {
+                return {
+                  [item[0].name]: item[0].value,
+                  [item[1].name]: item[1].value,
+                  [item[2].name]: item[2].value,
+                  [item[3].name]: item[3].value,
+                  [item[4].name]: item[4].value,
+                };
+              }));
+              break;
+              default:
+                  return null;
           }
         } else {
           payload[field] = fields[field].value;
