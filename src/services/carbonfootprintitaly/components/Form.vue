@@ -882,6 +882,7 @@ export default {
           error: false,
           group: "company",
           show: ['neutrality'],
+          value: "",
           options: [
             {title: 'CFP (g CO&#8322;e/UD)'},
             {title: 'CFP (g CO&#8322;e/UF)'},
