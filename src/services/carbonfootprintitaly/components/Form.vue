@@ -207,7 +207,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title">{{ item.title }}</option>
+            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -468,7 +468,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title">{{ item.title }}</option>
+            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -883,15 +883,15 @@ export default {
           group: "company",
           show: ['neutrality'],
           options: [
-            {title: 'CFP (g CO2e/UD)'},
-            {title: 'CFP (g CO2e/UF)'},
-            {title: 'CFP (kg CO2e/UD)'},
-            {title: 'CFP (kg CO2e/UF)'},
-            {title: 'CFP (t CO2e/UD)'},
-            {title: 'CFP (t CO2e/UF)'},
-            {title: 'CFO (g CO2e)'},
-            {title: 'CFO (kg CO2e)'},
-            {title: 'CFO (t CO2e)'},
+            {title: 'CFP (g CO&#8322;e/UD)'},
+            {title: 'CFP (g CO&#8322;e/UF)'},
+            {title: 'CFP (kg CO&#8322;e/UD)'},
+            {title: 'CFP (kg CO&#8322;e/UF)'},
+            {title: 'CFP (t CO&#8322;e/UD)'},
+            {title: 'CFP (t CO&#8322;e/UF)'},
+            {title: 'CFO (g CO&#8322;e)'},
+            {title: 'CFO (kg CO&#8322;e)'},
+            {title: 'CFO (t CO&#8322;e)'},
           ]
         },
         cfpn_value: {
@@ -967,14 +967,6 @@ export default {
           error: false,
           group: "r_ex_ante_year"
         },
-        r_total_em: {
-          label: this.$t("carbonfootprintitaly.RTotalEm"),
-          value: "",
-          type: "text",
-          rules: [],
-          error: false,
-          group: "r_ex_ante_year"
-        },
         r_total_em_unit: {
           label: this.$t("carbonfootprintitaly.RTotalEmUnit"),
           value: "",
@@ -984,27 +976,35 @@ export default {
           group: "r_ex_ante_year",
           options: [
             {
-              title: 'g CO2e/FU',
+              title: 'g CO&#8322;e/FU',
             },
             {
-              title: 'g CO2e/DU'
+              title: 'g CO&#8322;e/DU'
             },
             {
-              title: 'kg CO2e/FU'
+              title: 'kg CO&#8322;e/FU'
             },
             {
-              title: 'kg CO2e/DU'
+              title: 'kg CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/DU'
+              title: 't CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/FU'
+              title: 't CO&#8322;e/FU'
             },
             {
-              title: 't CO2e'
+              title: 't CO&#8322;e'
             }
           ]
+        },
+        r_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
         },
         r_verified_by: {
           label: this.$t("carbonfootprintitaly.RVerifiedBy"),
@@ -1027,14 +1027,6 @@ export default {
           label: this.$t("carbonfootprintitaly.RPostYear"),
           value: "",
           type: "number",
-          rules: [],
-          error: false,
-          group: "r_ex_post_year"
-        },
-        r_post_total_em: {
-          label: this.$t("carbonfootprintitaly.RTotalEm"),
-          value: "",
-          type: "text",
           rules: [],
           error: false,
           group: "r_ex_post_year"
@@ -1069,6 +1061,14 @@ export default {
               title: 't CO2e'
             }
           ]
+        },
+        r_post_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
         },
         r_post_verified_by: {
           label: this.$t("carbonfootprintitaly.RVerifiedBy"),

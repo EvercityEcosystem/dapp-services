@@ -32,7 +32,7 @@ export default {
     reqApprove:
       "You need to approve an additional amount to purchase a blockchain passport",
 
-    RTotalEm: "Total emissions",
+    RTotalEm: "Total emissions (value)",
     RExYear: "Ex-ante year",
     RPostYear: "Ex-post year",
     RVerifiedBy: "Verified by",
@@ -71,7 +71,7 @@ export default {
     companyPhotoField: "Photo of the company",
     neutralityImageField: "Image",
     neutralityRegNumber: "Registration Number",
-    RTotalEmUnit: "Total emissions (unit)",
+    RTotalEmUnit: "Total emissions (units)",
     verificationCertificate: "Verification Certificate",
     verificationBody: "Verification Body",
     pasCertificate: "PAS 2060 Certificate",
@@ -87,7 +87,7 @@ export default {
     nOffsetingYear: "Offsetting year",
     ghgnValue: "GHG Quantification Baseline Year",
     cfpValue: "CFP (kg CO<sub>2</sub>e)",
-    cfpnValue: "CFP / CFO (values)",
+    cfpnValue: "CFP / CFO (value)",
     cfonValue: "CFP / CFO (units)",
     cfpChart: "CFP pie chart",
     cfpReferenceYear: "Reference year",
