@@ -29,7 +29,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -110,7 +110,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -156,7 +156,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -200,7 +200,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -249,7 +249,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -293,7 +293,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -413,7 +413,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -461,7 +461,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -509,7 +509,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -552,7 +552,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -596,7 +596,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -724,6 +724,7 @@ export default {
         },
         verification_certificate: {
           label: this.$t("carbonfootprintitaly.verificationCertificate"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -732,6 +733,7 @@ export default {
         },
         pas_certificate: {
           label: this.$t("carbonfootprintitaly.pasCertificate"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -802,6 +804,7 @@ export default {
         },
         company_photo: {
           label: this.$t("carbonfootprintitaly.companyPhotoField"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -810,6 +813,7 @@ export default {
         },
         neutrality_image: {
           label: this.$t("carbonfootprintitaly.neutralityImageField"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -842,6 +846,7 @@ export default {
         },
         product_photo: {
           label: this.$t("carbonfootprintitaly.productPhotoField"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -918,6 +923,7 @@ export default {
         },
         cfpn_chart: {
           label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1090,6 +1096,7 @@ export default {
         },
         r_post_image: {
           label: this.$t("carbonfootprintitaly.RPostImage"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1097,6 +1104,7 @@ export default {
         },
         r_post_chart: {
           label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1133,6 +1141,7 @@ export default {
         },
         cfp_chart: {
           label: this.$t("carbonfootprintitaly.cfpChart"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1212,6 +1221,7 @@ export default {
         },
         cfp_verification_statement: {
           label: this.$t("carbonfootprintitaly.cfpVerificationStatement"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1271,6 +1281,7 @@ export default {
         },
         cfo_graph: {
           label: this.$t("carbonfootprintitaly.cfoGraph"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1278,6 +1289,7 @@ export default {
         },
         cfo_verification_statement: {
           label: this.$t("carbonfootprintitaly.cfoVerificationStatement"),
+          items: {},
           type: "files",
           rules: [],
           error: false,
