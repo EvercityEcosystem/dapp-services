@@ -207,7 +207,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
+            <option v-for="item in field.options"  v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -420,7 +420,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
+            <option v-for="item in field.options" v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -468,7 +468,7 @@
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
+            <option v-for="item in field.options" v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -884,15 +884,42 @@ export default {
           show: ['neutrality'],
           value: "",
           options: [
-            {title: 'CFP (g CO&#8322;e/UD)'},
-            {title: 'CFP (g CO&#8322;e/UF)'},
-            {title: 'CFP (kg CO&#8322;e/UD)'},
-            {title: 'CFP (kg CO&#8322;e/UF)'},
-            {title: 'CFP (t CO&#8322;e/UD)'},
-            {title: 'CFP (t CO&#8322;e/UF)'},
-            {title: 'CFO (g CO&#8322;e)'},
-            {title: 'CFO (kg CO&#8322;e)'},
-            {title: 'CFO (t CO&#8322;e)'},
+            {
+              id: 'CFP (g CO<sub>2</sub>e/UD)',
+              title: 'CFP (g CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (g CO<sub>2</sub>e/UF)',
+              title: 'CFP (g CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFP (kg CO<sub>2</sub>e/UD)',
+              title: 'CFP (kg CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (kg CO<sub>2</sub>e/UF)',
+              title: 'CFP (kg CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFP (t CO<sub>2</sub>e/UD)',
+              title: 'CFP (t CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (t CO<sub>2</sub>e/UF)',
+              title: 'CFP (t CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFO (g CO<sub>2</sub>e)',
+              title: 'CFO (g CO&#8322;e)'
+            },
+            {
+              id: 'CFO (kg CO<sub>2</sub>e)',
+              title: 'CFO (kg CO&#8322;e)'
+            },
+            {
+              id: 'CFO (t CO<sub>2</sub>e)',
+              title: 'CFO (t CO&#8322;e)'
+            },
           ]
         },
         cfpn_value: {
@@ -977,24 +1004,31 @@ export default {
           group: "r_ex_ante_year",
           options: [
             {
+              id: 'g CO<sub>2</sub>e/FU',
               title: 'g CO&#8322;e/FU',
             },
             {
+              id: 'g CO<sub>2</sub>e/DU',
               title: 'g CO&#8322;e/DU'
             },
             {
+              id: 'kg CO<sub>2</sub>e/FU',
               title: 'kg CO&#8322;e/FU'
             },
             {
+              id: 'kg CO<sub>2</sub>e/DU',
               title: 'kg CO&#8322;e/DU'
             },
             {
+              id: 't CO<sub>2</sub>e/DU',
               title: 't CO&#8322;e/DU'
             },
             {
+              id: 't CO<sub>2</sub>e/FU',
               title: 't CO&#8322;e/FU'
             },
             {
+              id: 't CO<sub>2</sub>e',
               title: 't CO&#8322;e'
             }
           ]
@@ -1041,24 +1075,31 @@ export default {
           group: "r_ex_post_year",
           options: [
             {
+              id: 'g CO<sub>2</sub>e/FU',
               title: 'g CO&#8322;e/FU',
             },
             {
+              id: 'g CO<sub>2</sub>e/DU',
               title: 'g CO&#8322;e/DU'
             },
             {
+              id: 'kg CO<sub>2</sub>e/FU',
               title: 'kg CO&#8322;e/FU'
             },
             {
+              id: 'kg CO<sub>2</sub>e/DU',
               title: 'kg CO&#8322;e/DU'
             },
             {
+              id: 't CO<sub>2</sub>e/DU',
               title: 't CO&#8322;e/DU'
             },
             {
+              id: 't CO<sub>2</sub>e/FU',
               title: 't CO&#8322;e/FU'
             },
             {
+              id: 't CO<sub>2</sub>e',
               title: 't CO&#8322;e'
             }
           ]
