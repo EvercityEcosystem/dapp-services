@@ -1041,25 +1041,25 @@ export default {
           group: "r_ex_post_year",
           options: [
             {
-              title: 'g CO2e/FU',
+              title: 'g CO&#8322;e/FU',
             },
             {
-              title: 'g CO2e/DU'
+              title: 'g CO&#8322;e/DU'
             },
             {
-              title: 'kg CO2e/FU'
+              title: 'kg CO&#8322;e/FU'
             },
             {
-              title: 'kg CO2e/DU'
+              title: 'kg CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/DU'
+              title: 't CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/FU'
+              title: 't CO&#8322;e/FU'
             },
             {
-              title: 't CO2e'
+              title: 't CO&#8322;e'
             }
           ]
         },
