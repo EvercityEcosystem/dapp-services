@@ -86,6 +86,10 @@ export default {
     async onSubmit({ error, fields}) {
       window.console.log(await this.getObjective(fields));
 
+      if (error) {
+        console.log('Form has error', error);
+      }
+
       if (!error) {
         this.isWork = true;
 
@@ -101,7 +105,10 @@ export default {
                   ...fields
                 });
                 const rosbag = await genRosbagFile(objectivePayload);
-                const objective = await rosbagToIpfs(rosbag);
+                const objective = await rosbagToIpfs(rosbag).catch((data) => {
+                  console.log('Error generate rosbag file', data);
+                  throw new Error('Error generate rosbag file')
+                })
 
                 this.tx = await this.polkadot.utils.send(
                   address,

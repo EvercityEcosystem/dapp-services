@@ -29,7 +29,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -110,7 +110,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -119,54 +119,11 @@
       </RFormField>
     </RFormSection>
 
-    <!-- reduction Detailed information-->
-    <RFormSection
-        :title="$t('carbonfootprintitaly.detailedInformation')"
-        v-if="checkModeInList(['reduction'], mode)"
-    >
-      <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'r_detailed'">
-          <RFieldLabel
-              :isError="field.error"
-              v-html="field.label"
-          ></RFieldLabel>
-          <input
-              v-if="field.type == 'text'"
-              type="text"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <input
-              v-if="field.type == 'number'"
-              type="number"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <flat-pickr
-              v-if="field.type == 'date'"
-              v-model="field.value"
-              :config="field.config"
-              class="flatpickr"
-              :class="{ error: field.error }"
-          />
-          <file-pond
-              v-if="field.type === 'files'"
-              :name="name"
-              allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
-              :label-idle="$t('carbonfootprintitaly.dragImages')"
-              v-bind:server="upload"
-              v-on:removefile="removefile"
-          />
-        </div>
-      </RFormField>
-    </RFormSection>
+
 
     <RFormSection
         :title="$t('carbonfootprintitaly.subtitleCompany')"
-        v-if="checkModeInList(['organization','neutrality'], mode)"
+        v-if="checkModeInList(['organization'], mode)"
     >
       <RFormField v-for="(field, name) in fields" :key="name">
         <div v-if="field.group === 'company' && checkMode(field)">
@@ -199,11 +156,59 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
           />
+        </div>
+      </RFormField>
+    </RFormSection>
+
+    <RFormSection
+        :title="$t('carbonfootprintitaly.subtitleNeutralityCompany')"
+        v-if="checkModeInList(['neutrality', 'reduction'], mode)"
+    >
+      <RFormField v-for="(field, name) in fields" :key="name">
+        <div v-if="field.group === 'company' && checkMode(field)">
+          <RFieldLabel
+              :isError="field.error"
+              v-html="field.label"
+          ></RFieldLabel>
+          <input
+              v-if="field.type === 'text'"
+              type="text"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <input
+              v-if="field.type === 'number'"
+              type="number"
+              v-model="field.value"
+              class="container-full"
+              :class="{ error: field.error }"
+          />
+          <flat-pickr
+              v-if="field.type === 'date'"
+              v-model="field.value"
+              :config="field.config"
+              class="flatpickr"
+              :class="{ error: field.error }"
+          />
+          <file-pond
+              v-if="field.type === 'files'"
+              :name="name"
+              allow-multiple="true"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
+              :label-idle="$t('carbonfootprintitaly.dragImages')"
+              v-bind:server="upload"
+              v-on:removefile="removefile"
+          />
+          <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
+                  :class="{ error: field.error }">
+            <option v-for="item in field.options"  v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
+          </select>
         </div>
       </RFormField>
     </RFormSection>
@@ -244,7 +249,7 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -288,7 +293,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -296,50 +301,8 @@
         </div>
       </RFormField>
     </RFormSection>
-    <!-- cfp neutrality -->
-    <RFormSection
-        :title="$t('carbonfootprintitaly.CFP_CFO')"
-        v-if="mode === 'neutrality'"
-    >
-      <RFormField v-for="(field, name) in fields" :key="name">
-        <div v-if="field.group === 'cfpn'">
-          <RFieldLabel
-              :isError="field.error"
-              v-html="field.label"
-          ></RFieldLabel>
-          <input
-              v-if="field.type === 'text'"
-              type="text"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <input
-              v-if="field.type === 'number'"
-              type="number"
-              v-model="field.value"
-              class="container-full"
-              :class="{ error: field.error }"
-          />
-          <flat-pickr
-              v-if="field.type === 'date'"
-              v-model="field.value"
-              :config="field.config"
-              class="flatpickr"
-              :class="{ error: field.error }"
-          />
-          <file-pond
-              v-if="field.type === 'files'"
-              :name="name"
-              allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
-              :label-idle="$t('carbonfootprintitaly.dragImages')"
-              v-bind:server="upload"
-              v-on:removefile="removefile"
-          />
-        </div>
-      </RFormField>
-    </RFormSection>
+
+
     <!-- reduction targets neutrality -->
     <RFormSection
         :title="$t('carbonfootprintitaly.reduction_targets')"
@@ -450,14 +413,14 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title" v-html="item.title"></option>
+            <option v-for="item in field.options" v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -498,14 +461,14 @@
               v-if="field.type === 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff, application/pdf"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
           />
           <select v-model="field.value" v-if="field.type == 'select'" class="container-full"
                   :class="{ error: field.error }">
-            <option v-for="item in field.options" :key="item.title">{{ item.title }}</option>
+            <option v-for="item in field.options" v-bind:value="item.id" :key="item.id" v-html="item.title"></option>
           </select>
         </div>
       </RFormField>
@@ -546,7 +509,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -589,7 +552,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -633,7 +596,7 @@
               v-if="field.type == 'files'"
               :name="name"
               allow-multiple="true"
-              accepted-file-types="image/jpeg, image/png, image/tiff"
+              accepted-file-types="image/jpeg, image/png, image/svg+xml, image/tiff, application/pdf"
               :label-idle="$t('carbonfootprintitaly.dragImages')"
               v-bind:server="upload"
               v-on:removefile="removefile"
@@ -741,6 +704,15 @@ export default {
           group: "general",
           show: ['product', 'organization', 'neutrality', 'reduction'],
         },
+        neutrality_reg_number: {
+          label: this.$t("carbonfootprintitaly.neutralityRegNumber"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality', 'reduction']
+        },
         verification_body: {
           label: this.$t("carbonfootprintitaly.verificationBody"),
           value: "",
@@ -752,18 +724,17 @@ export default {
         },
         verification_certificate: {
           label: this.$t("carbonfootprintitaly.verificationCertificate"),
+          items: {},
           type: "files",
-          fileTypes: "",
           rules: [],
           error: false,
-          group: "r_detailed",
+          group: "company",
           show: ['reduction'],
         },
         pas_certificate: {
           label: this.$t("carbonfootprintitaly.pasCertificate"),
           items: {},
           type: "files",
-          fileTypes: "",
           rules: [],
           error: false,
           group: "company",
@@ -771,7 +742,6 @@ export default {
         },
         cfo_cfp_registration: {
           label: this.$t("carbonfootprintitaly.cfoCfpRegistration"),
-          items: {},
           type: "text",
           rules: [],
           error: false,
@@ -789,15 +759,6 @@ export default {
           show: ['organization'],
           showOnProduct: false,
           showOnOrganization: true
-        },
-        neutrality_reg_number: {
-          label: this.$t("carbonfootprintitaly.neutralityRegNumber"),
-          value: "",
-          type: "text",
-          rules: [],
-          error: false,
-          group: "company",
-          show: ['neutrality']
         },
         company_activity: {
           label: this.$t("carbonfootprintitaly.companyActivity"),
@@ -898,7 +859,8 @@ export default {
           type: "date",
           rules: [],
           error: false,
-          group: "cfpn",
+          group: "company",
+          show: ['neutrality'],
           config: {
             dateFormat: "d/m/Y"
             // locale: Russian
@@ -910,7 +872,55 @@ export default {
           type: "text",
           rules: [],
           error: false,
-          group: "cfpn"
+          group: "company",
+          show: ['neutrality'],
+        },
+        cfon_value: {
+          label: this.$t("carbonfootprintitaly.cfonValue"),
+          type: "select",
+          rules: [],
+          error: false,
+          group: "company",
+          show: ['neutrality'],
+          value: "",
+          options: [
+            {
+              id: 'CFP (g CO<sub>2</sub>e/UD)',
+              title: 'CFP (g CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (g CO<sub>2</sub>e/UF)',
+              title: 'CFP (g CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFP (kg CO<sub>2</sub>e/UD)',
+              title: 'CFP (kg CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (kg CO<sub>2</sub>e/UF)',
+              title: 'CFP (kg CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFP (t CO<sub>2</sub>e/UD)',
+              title: 'CFP (t CO&#8322;e/UD)'
+            },
+            {
+              id: 'CFP (t CO<sub>2</sub>e/UF)',
+              title: 'CFP (t CO&#8322;e/UF)'
+            },
+            {
+              id: 'CFO (g CO<sub>2</sub>e)',
+              title: 'CFO (g CO&#8322;e)'
+            },
+            {
+              id: 'CFO (kg CO<sub>2</sub>e)',
+              title: 'CFO (kg CO&#8322;e)'
+            },
+            {
+              id: 'CFO (t CO<sub>2</sub>e)',
+              title: 'CFO (t CO&#8322;e)'
+            },
+          ]
         },
         cfpn_value: {
           label: this.$t("carbonfootprintitaly.cfpnValue"),
@@ -918,15 +928,8 @@ export default {
           type: "number",
           rules: [],
           error: false,
-          group: "cfpn"
-        },
-        cfon_value: {
-          label: this.$t("carbonfootprintitaly.cfonValue"),
-          value: "",
-          type: "number",
-          rules: [],
-          error: false,
-          group: "cfpn"
+          group: "company",
+          show: ['neutrality'],
         },
         ghgn_value: {
           label: this.$t("carbonfootprintitaly.ghgnValue"),
@@ -934,7 +937,8 @@ export default {
           type: "number",
           rules: [],
           error: false,
-          group: "cfpn"
+          group: "company",
+          show: ['neutrality'],
         },
         n_offseting_year: {
           label: this.$t("carbonfootprintitaly.nOffsetingYear"),
@@ -942,7 +946,8 @@ export default {
           type: "number",
           rules: [],
           error: false,
-          group: "cfpn"
+          group: "company",
+          show: ['neutrality'],
         },
         cfpn_chart: {
           label: this.$t("carbonfootprintitaly.cfpChart"),
@@ -950,7 +955,8 @@ export default {
           type: "files",
           rules: [],
           error: false,
-          group: "cfpn"
+          group: "company",
+          show: ['neutrality'],
         },
         // reduction about
         r_detail_info_name: {
@@ -959,7 +965,8 @@ export default {
           type: "text",
           rules: [],
           error: false,
-          group: "r_detailed"
+          group: "company",
+          show: ['reduction'],
         },
         r_detail_info_descr: {
           label: this.$t("carbonfootprintitaly.RDetailInfoDescr"),
@@ -967,7 +974,8 @@ export default {
           type: "text",
           rules: [],
           error: false,
-          group: "r_detailed"
+          group: "company",
+          show: ['reduction'],
         },
         r_detail_info_plants: {
           label: this.$t("carbonfootprintitaly.RDetailInfoPlants"),
@@ -975,21 +983,14 @@ export default {
           type: "text",
           rules: [],
           error: false,
-          group: "r_detailed"
+          group: "company",
+          show: ['reduction'],
         },
         // reduction r_ex_ante_year
         r_ex_year: {
           label: this.$t("carbonfootprintitaly.RExYear"),
           value: "",
           type: "number",
-          rules: [],
-          error: false,
-          group: "r_ex_ante_year"
-        },
-        r_total_em: {
-          label: this.$t("carbonfootprintitaly.RTotalEm"),
-          value: "",
-          type: "text",
           rules: [],
           error: false,
           group: "r_ex_ante_year"
@@ -1003,27 +1004,42 @@ export default {
           group: "r_ex_ante_year",
           options: [
             {
-              title: 'g CO2e/FU',
+              id: 'g CO<sub>2</sub>e/FU',
+              title: 'g CO&#8322;e/FU',
             },
             {
-              title: 'g CO2e/DU'
+              id: 'g CO<sub>2</sub>e/DU',
+              title: 'g CO&#8322;e/DU'
             },
             {
-              title: 'kg CO2e/FU'
+              id: 'kg CO<sub>2</sub>e/FU',
+              title: 'kg CO&#8322;e/FU'
             },
             {
-              title: 'kg CO2e/DU'
+              id: 'kg CO<sub>2</sub>e/DU',
+              title: 'kg CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/DU'
+              id: 't CO<sub>2</sub>e/DU',
+              title: 't CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/FU'
+              id: 't CO<sub>2</sub>e/FU',
+              title: 't CO&#8322;e/FU'
             },
             {
-              title: 't CO2e'
+              id: 't CO<sub>2</sub>e',
+              title: 't CO&#8322;e'
             }
           ]
+        },
+        r_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_ante_year"
         },
         r_verified_by: {
           label: this.$t("carbonfootprintitaly.RVerifiedBy"),
@@ -1043,17 +1059,9 @@ export default {
         },
         // reduction r_ex_post_year
         r_post_year: {
-          label: this.$t("carbonfootprintitaly.RExYear"),
+          label: this.$t("carbonfootprintitaly.RPostYear"),
           value: "",
           type: "number",
-          rules: [],
-          error: false,
-          group: "r_ex_post_year"
-        },
-        r_post_total_em: {
-          label: this.$t("carbonfootprintitaly.RTotalEm"),
-          value: "",
-          type: "text",
           rules: [],
           error: false,
           group: "r_ex_post_year"
@@ -1067,27 +1075,42 @@ export default {
           group: "r_ex_post_year",
           options: [
             {
-              title: 'g CO2e/FU',
+              id: 'g CO<sub>2</sub>e/FU',
+              title: 'g CO&#8322;e/FU',
             },
             {
-              title: 'g CO2e/DU'
+              id: 'g CO<sub>2</sub>e/DU',
+              title: 'g CO&#8322;e/DU'
             },
             {
-              title: 'kg CO2e/FU'
+              id: 'kg CO<sub>2</sub>e/FU',
+              title: 'kg CO&#8322;e/FU'
             },
             {
-              title: 'kg CO2e/DU'
+              id: 'kg CO<sub>2</sub>e/DU',
+              title: 'kg CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/DU'
+              id: 't CO<sub>2</sub>e/DU',
+              title: 't CO&#8322;e/DU'
             },
             {
-              title: 't CO2e/FU'
+              id: 't CO<sub>2</sub>e/FU',
+              title: 't CO&#8322;e/FU'
             },
             {
-              title: 't CO2e'
+              id: 't CO<sub>2</sub>e',
+              title: 't CO&#8322;e'
             }
           ]
+        },
+        r_post_total_em: {
+          label: this.$t("carbonfootprintitaly.RTotalEm"),
+          value: "",
+          type: "text",
+          rules: [],
+          error: false,
+          group: "r_ex_post_year"
         },
         r_post_verified_by: {
           label: this.$t("carbonfootprintitaly.RVerifiedBy"),
@@ -1115,7 +1138,7 @@ export default {
         },
         r_post_image: {
           label: this.$t("carbonfootprintitaly.RPostImage"),
-          value: "",
+          items: {},
           type: "files",
           rules: [],
           error: false,
@@ -1606,7 +1629,7 @@ export default {
       }
     },
     checkMode(field) {
-      return field.show.indexOf(this.mode) > -1;
+      return field.show && field.show.indexOf(this.mode) > -1;
     },
     checkModeInList(shows, mode) {
       if (!(shows instanceof Array)) {
