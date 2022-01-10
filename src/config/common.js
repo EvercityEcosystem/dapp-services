@@ -1,9 +1,9 @@
 export default {
   GATEWAY: "https://ipfs.io/ipfs/",
-  INFURA_KEY: "",
-  PINATA_JWT: "",
-  PINATA_KEY: "",
-  PINATA_SECRET: "",
+  INFURA_KEY: process.env.VUE_APP_INFURA_KEY || "",
+  PINATA_JWT: process.env.VUE_APP_PINATA_JWT || "",
+  PINATA_KEY: process.env.VUE_APP_PINATA_KEY || "",
+  PINATA_SECRET: process.env.VUE_APP_PINATA_SECRET || "",
   ROBONOMICS: {
     version: 5,
     model: {
