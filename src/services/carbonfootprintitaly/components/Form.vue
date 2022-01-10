@@ -1164,7 +1164,7 @@ export default {
           error: false,
           group: "r_ex_post_year"
         },
-        r_reference_year: {
+        r_post_chart: {
           label: this.$t("carbonfootprintitaly.cfpChart"),
           items: {},
           type: "files",
